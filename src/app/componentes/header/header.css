@@ -21,7 +21,7 @@ h1 span { display: block; color: var(--yellow); font-size: clamp(88px, 16vw, 240
 .card.warm { background: #302a20; border-color: #40392c; }
 .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .reverse .track { animation-direction: reverse; animation-duration: 56s; }
-.paused .track, .gallery:hover .track { animation-play-state: paused; }
+.paused .track { animation-play-state: paused; }
 @keyframes slide { to { transform: translateX(-50%); } }
 .gallery-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 35px 4% 0; color: #9c9f92; font-size: 9px; }
 button { cursor: pointer; color: #c9cbbf; background: transparent; border: 1px solid #45483b; border-radius: 30px; padding: 10px 14px; font: inherit; letter-spacing: .3px; }
