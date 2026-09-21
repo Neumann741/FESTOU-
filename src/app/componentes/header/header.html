@@ -1,17 +1,45 @@
-<header class="site-header">
-    <nav class="navbar">
-      <a href="/" class="logo">Festou</a>
-      <div class="nav-links">
-        <a href="#sobre">Sobre</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#contato">Contato</a>
-      </div>
-    </nav>
-  </header>
-
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
+<header id="inicio">
+  <nav aria-label="Navegação principal">
+    <a class="brand" href="#inicio">festou!</a>
+    <span class="nav-caption">PESSOAS. FESTAS. CONEXÕES.</span>
+    <a class="nav-link" href="#universo">Encontre sua vibe ↗</a>
+  </nav>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="eyebrow">● &nbsp; A SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</div>
+    <h1 id="hero-title">A VIDA PEDE<span>FESTOU!</span></h1>
+    <div class="intro">
+      <p>Onde tem festa? Quem vai?<br>Descubra o que combina com você.</p>
+      <span>SAIA DO FEED.<br>ENTRE NA FESTA. ↘</span>
+    </div>
+    <div class="gallery" [class.paused]="paused()" role="img" aria-label="Duas fileiras de cards reservados para futuras imagens de festas">
+      @for (row of rows; track $index; let index = $index) {
+        <div class="marquee" [class.reverse]="index === 1">
+          <div class="track">
+            @for (copy of copies; track copy) {
+              <div class="group" aria-hidden="true">
+                @for (card of row; track card.id) {
+                  <div class="card" [class.olive]="card.tone === 'olive'" [class.warm]="card.tone === 'warm'">
+                    @if (card.image) {
+                      <img [src]="card.image" alt="" loading="lazy" draggable="false">
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
-    </section>
+      }
+    </div>
+    <div class="gallery-footer">
+      <span>SEU PRÓXIMO “EU FUI” ESTÁ CHEGANDO.</span>
+      <button type="button" (click)="paused.set(!paused())" [attr.aria-pressed]="paused()">
+        {{ paused() ? '▶ Retomar movimento' : 'Ⅱ Pausar movimento' }}
+      </button>
+    </div>
+    <div class="manifesto" id="universo">
+      <span>O UNIVERSO FESTOU!</span>
+      <p>Pessoas, festas e lugares.<br><em>Tudo na mesma sintonia.</em></p>
+      <b aria-hidden="true">✳</b>
+    </div>
+  </section>
+</header>
