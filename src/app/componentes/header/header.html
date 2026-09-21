@@ -1,17 +1,39 @@
-<header class="site-header">
-    <nav class="navbar">
-      <a  class="logo">festou</a>
-      <div class="nav-links">
-        <a href="#sobre">Sobre</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#contato">Contato</a>
-      </div>
-    </nav>
-  </header>
+<header id="inicio">
+  <nav aria-label="Navegação principal">
+    <a class="brand" href="#inicio">festou!</a>
+    <span class="nav-caption"></span>
+    <div class="auth-actions">
+      <button class="auth-button register-button" type="button">Registrar</button>
+      <button class="auth-button login-button" type="button">Entrar</button>
+    </div>
+  </nav>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="eyebrow"></div>
+    <h1 id="hero-title">A VIDA PEDE<span>FESTOU!</span></h1>
+    <div class="intro">
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
+    </div>
+    <div class="gallery" [class.paused]="paused()" role="img" aria-label="Duas fileiras de cards reservados para futuras imagens de festas">
+      @for (row of rows; track $index; let index = $index) {
+        <div class="marquee" [class.reverse]="index === 1">
+          <div class="track">
+            @for (copy of copies; track copy) {
+              <div class="group" aria-hidden="true">
+                @for (card of row; track card.id) {
+                  <div class="card" [class.olive]="card.tone === 'olive'" [class.warm]="card.tone === 'warm'">
+                    @if (card.image) {
+                      <img [src]="card.image" alt="" loading="lazy" draggable="false">
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
-    </section>
+      }
+    </div>
+    <div class="gallery-footer">
+
+    </div>
+  </section>
+</header>
