@@ -12,11 +12,9 @@ interface PartyCard {
   templateUrl: './header.html',
 })
 export class Header {
-  readonly paused = signal(false);
   readonly copies = [0, 1];
 
-  // Salve as fotos em public/assets e preencha image: 'assets/nome.jpg'.
-  // As cópias da animação recebem a mesma imagem automaticamente.
+
   readonly rows: PartyCard[][] = [
     [
       { id: 1, image: 'assets/img1.jpg', tone: 'olive' },
