@@ -1,51 +1,339 @@
-:host { display: block; }
-header { --yellow: #fed405; background: #10110e; color: #f5f5ec; overflow: hidden; font-family: Arial, Helvetica, sans-serif; }
-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 0 4%; padding: 25px 0; border-bottom: 1px solid #34352b; }
-.brand { color: var(--yellow); font-size: 36px; font-weight: 900; letter-spacing: -2px; text-decoration: none; }
-.nav-caption, .nav-link, .eyebrow, .intro > span, .gallery-footer, .manifesto > span { font-size: 11px; letter-spacing: 1.6px; font-weight: 600; }
-.nav-caption { color: #93968a; }
-.auth-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-.auth-actions .auth-button { min-height: 44px; padding: 11px 24px; font-size: 13px; font-weight: 700; transition: background-color .2s, border-color .2s; }
-.auth-actions .register-button { color: var(--yellow); border-color: var(--yellow); }
-.auth-actions .register-button:hover { background: #fed40514; }
-.auth-actions .login-button { color: #10110e; background: var(--yellow); border-color: var(--yellow); }
-.auth-actions .login-button:hover { background: #ffe454; border-color: #ffe454; }
-.hero { padding-top: 46px; background: radial-gradient(ellipse at 95% 40%, #cdb4000d, transparent 45%); }
-.eyebrow { text-align: center; color: #b3b6a8; font-size: 10px; }
-h1 { text-align: center; margin: 28px 0 20px; font-size: clamp(38px, 6.5vw, 104px); font-weight: 900; line-height: .88; letter-spacing: -.065em; }
-h1 span { display: block; color: var(--yellow); font-size: clamp(88px, 16vw, 240px); letter-spacing: -.075em; margin-top: 10px; }
-.intro { display: flex; align-items: center; justify-content: space-between; margin: 24px 6% 32px; gap: 20px; }
-.intro p { margin: 0; font-size: 14px; line-height: 1.6; color: #b7baae; }
-.intro > span { line-height: 1.8; color: #c7cabd; font-size: 10px; }
-.gallery { display: grid; gap: 15px; transform: rotate(-3deg) scale(1.04); margin: 40px 0; }
-.marquee { overflow: hidden; }
-.track { display: flex; width: max-content; animation: slide 48s linear infinite; }
-.group { display: flex; flex-shrink: 0; gap: 15px; padding-right: 15px; }
-.card { width: clamp(180px, 23vw, 360px); aspect-ratio: 1.65; flex-shrink: 0; overflow: hidden; border: 1px solid #36392e; border-radius: 5px; background: #1d2019; }
-.card.olive { background: #333521; border-color: #444630; }
-.card.warm { background: #302a20; border-color: #40392c; }
-.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.reverse .track { animation-direction: reverse; animation-duration: 56s; }
-.paused .track { animation-play-state: paused; }
-@keyframes slide { to { transform: translateX(-50%); } }
-.gallery-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 35px 4% 0; color: #9c9f92; font-size: 9px; }
-button { cursor: pointer; color: #c9cbbf; background: transparent; border: 1px solid #45483b; border-radius: 30px; padding: 10px 14px; font: inherit; letter-spacing: .3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--yellow); outline-offset: 6px; }
-.manifesto { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 32px 4% 0; padding: 30px 0; border-top: 1px solid #34352b; }
-.manifesto > span { color: #959988; font-size: 9px; }
-.manifesto p { font-size: clamp(18px, 2.2vw, 32px); line-height: 1.2; margin: 0; letter-spacing: -1px; }
-.manifesto em { color: #959b89; font-style: normal; }
-.manifesto b { font-size: 60px; color: var(--yellow); }
-@media (min-width: 1800px) { .card { width: 25vw; } }
-@media (max-width: 600px) {
-  nav { padding: 20px 0; } .brand { font-size: 30px; } .nav-caption { display: none; }
-  .auth-actions { gap: 8px; }
-  .auth-actions .auth-button { padding: 10px 14px; font-size: 12px; }
-  .hero { padding-top: 38px; } .eyebrow { font-size: 8px; letter-spacing: 1px; }
-  .intro p { font-size: 12px; } .intro > span { font-size: 8px; letter-spacing: 1px; }
-  .gallery { gap: 10px; margin: 28px 0; } .group { gap: 10px; padding-right: 10px; }
-  .gallery-footer { font-size: 8px; letter-spacing: .5px; } button { padding: 10px; }
-  .manifesto { flex-wrap: wrap; gap: 18px; } .manifesto > span { width: 100%; } .manifesto b { font-size: 44px; }
+:host {
+  display: block;
 }
-@media (prefers-reduced-motion: reduce) { .track { animation: none; } }
-  
+
+header {
+  --yellow: rgb(228, 192, 73);
+  background: #10110e;
+  color: #f5f5ec;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 4%;
+  padding: 25px 0;
+  border-bottom: 1px solid #34352b;
+}
+
+.brand {
+  color: var(--yellow);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-decoration: none;
+}
+
+.nav-caption,
+.nav-link,
+.eyebrow,
+.intro>span,
+.gallery-footer,
+.manifesto>span {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  font-weight: 600;
+}
+
+.nav-caption {
+  color: #93968a;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.auth-actions .auth-button {
+  min-height: 44px;
+  padding: 11px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color .2s, border-color .2s;
+}
+
+.auth-actions .register-button {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.auth-actions .register-button:hover {
+  background: #fed40514;
+}
+
+.auth-actions .login-button {
+  color: #10110e;
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.auth-actions .login-button:hover {
+  background: #ffee0000;
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.hero {
+  padding-top: 46px;
+  background: radial-gradient(ellipse at 95% 40%, #cdb4000d, transparent 45%);
+}
+
+.eyebrow {
+  text-align: center;
+  color: #b3b6a8;
+  font-size: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin: 28px 0 20px;
+  font-size: clamp(38px, 6.5vw, 104px);
+  font-weight: 900;
+  line-height: .88;
+  letter-spacing: -.065em;
+}
+
+h1 span {
+  display: block;
+  color: rgb(228, 192, 73);
+  font-size: clamp(88px, 16vw, 240px);
+  letter-spacing: -.075em;
+  margin-top: 10px;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 6% 32px;
+  gap: 20px;
+}
+
+.intro p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #b7baae;
+}
+
+.intro>span {
+  line-height: 1.8;
+  color: #c7cabd;
+  font-size: 10px;
+}
+
+.gallery {
+  display: grid;
+  gap: 15px;
+  transform: rotate(-3deg) scale(1.04);
+  margin: 40px 0;
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: slide 48s linear infinite;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 15px;
+  padding-right: 15px;
+}
+
+.card {
+  width: clamp(180px, 23vw, 360px);
+  aspect-ratio: 1.65;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid #36392e;
+  border-radius: 5px;
+  background: #1d2019;
+}
+
+.card.olive {
+  background: #333521;
+  border-color: #444630;
+}
+
+.card.warm {
+  background: #302a20;
+  border-color: #40392c;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.reverse .track {
+  animation-direction: reverse;
+  animation-duration: 56s;
+}
+
+.paused .track {
+  animation-play-state: paused;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.gallery-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 35px 4% 0;
+  color: #9c9f92;
+  font-size: 9px;
+}
+
+button {
+  cursor: pointer;
+  color: #c9cbbf;
+  background: transparent;
+  border: 1px solid #45483b;
+  border-radius: 30px;
+  padding: 10px 14px;
+  font: inherit;
+  letter-spacing: .3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 6px;
+}
+
+.manifesto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 32px 4% 0;
+  padding: 30px 0;
+  border-top: 1px solid #34352b;
+}
+
+.manifesto>span {
+  color: #959988;
+  font-size: 9px;
+}
+
+.manifesto p {
+  font-size: clamp(18px, 2.2vw, 32px);
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.manifesto em {
+  color: #959b89;
+  font-style: normal;
+}
+
+.manifesto b {
+  font-size: 60px;
+  color: var(--yellow);
+}
+
+@media (min-width: 1800px) {
+  .card {
+    width: 25vw;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    padding: 20px 0;
+  }
+
+  .brand {
+    font-size: 30px;
+  }
+
+  .nav-caption {
+    display: none;
+  }
+
+  .auth-actions {
+    gap: 8px;
+  }
+
+  .auth-actions .auth-button {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding-top: 38px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .intro p {
+    font-size: 12px;
+  }
+
+  .intro>span {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .gallery {
+    gap: 10px;
+    margin: 28px 0;
+  }
+
+  .group {
+    gap: 10px;
+    padding-right: 10px;
+  }
+
+  .gallery-footer {
+    font-size: 8px;
+    letter-spacing: .5px;
+  }
+
+  button {
+    padding: 10px;
+  }
+
+  .manifesto {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .manifesto>span {
+    width: 100%;
+  }
+
+  .manifesto b {
+    font-size: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
