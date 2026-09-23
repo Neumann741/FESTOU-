@@ -25,11 +25,11 @@ export class Main {
   // Conecte este evento à futura tela de cadastro.
   readonly registerRequested = output<void>();
   readonly cards = [
-    { label: 'Descubra', title: 'ENCONTRA', accent: 'SUA FESTA.', image: 'assets/img.card1.jpg' },
-    { label: 'Conecte', title: 'FAZ NOVOS', accent: 'AMIGOS.', image: 'assets/img.card2.jpg' },
-    { label: 'Explore', title: 'GARANTE SEU', accent: 'INGRESSO.', image: 'assets/img.card.jpg' },
-    { label: 'Sinta', title: 'CRIA SEU', accent: 'GRUPO.', image: 'assets/img.card3.jpg' },
-    { label: 'Viva', title: 'REGISTRA TODOS', accent: 'OS MOMENTOS.', image: 'assets/img.card5.jpg' },
+    { label: 'Encontre', title: 'ENCONTRA', accent: 'SUA FESTA.', image: 'assets/img.card1.jpg' },
+    { label: 'Faca', title: 'FAZ NOVOS', accent: 'AMIGOS.', image: 'assets/img.card2.jpg' },
+    { label: 'Garanta', title: 'GARANTE SEU', accent: 'INGRESSO.', image: 'assets/molck.jpg' },
+    { label: 'Crie', title: 'CRIA SEU', accent: 'GRUPO.', image: 'assets/img.card4.jpg' },
+    { label: 'Registre', title: 'REGISTRA TODOS', accent: 'OS MOMENTOS.', image: 'assets/img.card5.jpg' },
     {
       title: 'TUDO EM',
       accent: 'UM SÓ LUGAR.',

@@ -27,7 +27,7 @@
                 "
               >
               
-                <h3 [id]="'story-card-' + index">
+                <h3 [id]="'story-card-' + index" >
                   {{ card.title }}<br /><span>{{ card.accent }}</span>
                 </h3>
               </div>
@@ -39,7 +39,7 @@
                   [attr.tabindex]="showRegistration() || staticMode() ? 0 : -1"
                   [attr.aria-hidden]="!showRegistration() && !staticMode() ? true : null"
                   (click)="registerRequested.emit()"
-                  routerLink=""
+                  routerLink="/main-page"
                 >
                   Registre-se 
                 </button>
