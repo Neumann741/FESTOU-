@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 interface PartyCard {
   id: number;
@@ -10,6 +11,7 @@ interface PartyCard {
   selector: 'app-header',
   styleUrl: './header.css',
   templateUrl: './header.html',
+  imports: [RouterLink],
 })
 export class Header {
   readonly copies = [0, 1];

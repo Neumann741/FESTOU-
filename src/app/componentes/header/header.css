@@ -2,9 +2,10 @@
   display: block;
 }
 
+
 header {
   --yellow: rgb(228, 192, 73);
-  background: #10110e;
+  background: #000000;
   color: #f5f5ec;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;

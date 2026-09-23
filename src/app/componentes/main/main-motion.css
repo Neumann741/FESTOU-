@@ -1,0 +1,134 @@
+.story.is-animated:not(.static-mode) {
+  height: 650svh;
+}
+.is-animated .story-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+.is-animated .story-layout {
+  flex: 1;
+  min-height: 0;
+  padding: 24px 0;
+}
+.is-animated .card-deck {
+  position: relative;
+  height: min(72svh, 720px);
+}
+.is-animated .story-card {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: min(35vw, 500px);
+  height: 100%;
+  min-height: 0;
+  will-change: transform;
+}
+.is-animated .finale {
+  width: var(--final-width, min(35vw, 500px));
+  height: var(--final-height, 100%);
+  border-radius: var(--final-radius, 20px);
+}
+.is-animated .finale .card-content {
+  opacity: var(--content-opacity, 1);
+  width: min(35vw, 500px);
+}
+.is-animated .finale .card-photo,
+.is-animated .finale .card-shade {
+  opacity: calc(1 - var(--morph, 0));
+}
+.is-animated .register-cta {
+  opacity: var(--button-opacity, 0);
+}
+.story:not(.is-animated) .story-card {
+  transform: none !important;
+  opacity: 1 !important;
+}
+@media (max-width: 700px) {
+  .story-stage {
+    padding: 24px 5vw;
+  }
+  .story-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .story-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .eyebrow {
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 9px;
+  }
+  h2 {
+    font-size: 34px;
+  }
+  .story-nav {
+    margin: 0;
+    gap: 0;
+  }
+  .story-nav button {
+    width: 19px;
+  }
+  .story-nav button.selected span {
+    width: 15px;
+  }
+  .is-animated .story-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 28px;
+    padding: 16px 0 26px;
+  }
+  .is-animated .card-deck {
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    max-height: 63svh;
+  }
+  .is-animated .story-card {
+    width: 78vw;
+  }
+  .is-animated .finale {
+    width: var(--final-width, 78vw);
+    height: var(--final-height, 100%);
+  }
+  .is-animated .finale .card-content {
+    width: 78vw;
+  }
+  .card-content {
+    padding: 24px;
+  }
+  h3 {
+    font-size: clamp(30px, 8.5vw, 42px);
+  }
+  .section-bottomline {
+    font-size: 8px;
+    letter-spacing: 0.4px;
+  }
+}
+@media (max-height: 550px) and (min-width: 701px) {
+  h2 {
+    font-size: 38px;
+  }
+  .is-animated .card-deck {
+    height: 68svh;
+  }
+  h3 {
+    font-size: 28px;
+  }
+  .card-content {
+    padding: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-nav button span {
+    transition: none;
+  }
+}
