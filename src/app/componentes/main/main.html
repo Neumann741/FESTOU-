@@ -1,1 +1,96 @@
-<p>main works!</p>
+<main>
+  <section
+    #story
+    class="story"
+    [class.static-mode]="staticMode()"
+    aria-labelledby="story-title"
+    id="universo-festou"
+  >
+    <div class="story-stage">
+      <div class="section-topline">
+        <span>O UNIVERSO FESTOU!</span><span>FEITO PARA VIVER LÁ FORA ↗</span>
+      </div>
+
+      <div class="story-layout">
+        <div class="story-intro">
+          <span class="sticker" aria-hidden="true">BORA VIVER? ↗</span>
+          <h2 id="story-title">
+            SAIA DO <br />ÓBVIO.<br /><span>ENTRE NA <br />FESTA.</span>
+          </h2>
+          <p>O lugar certo. A sua galera.<br />Aquela história que só você vai contar.</p>
+          @if (!staticMode()) {
+            <nav class="story-nav" aria-label="Escolher um momento da Festou!">
+              @for (card of cards; track card.label; let index = $index) {
+                <button
+                  type="button"
+                  (click)="goToCard(index)"
+                  [class.selected]="activeCard() === index"
+                  [attr.aria-current]="activeCard() === index ? 'step' : null"
+                  [attr.aria-label]="card.label"
+                >
+                  <img [src]="card.image" alt="" loading="lazy" />
+                  <span>{{ index + 1 }}</span>
+                </button>
+              }
+            </nav>
+          }
+        </div>
+
+        <div class="card-deck">
+          @for (card of cards; track card.label; let index = $index) {
+            <article
+              class="story-card"
+              [style.z-index]="index + 1"
+              [class.finale]="index === cards.length - 1"
+              [attr.aria-labelledby]="'story-card-' + index"
+            >
+              <img class="card-photo" [src]="card.image" alt="" loading="lazy" />
+              <div class="card-shade"></div>
+              <div class="card-top">
+                <span>0{{ index + 1 }} / 04</span><span>{{ card.label }} ↗</span>
+              </div>
+              <div class="card-copy">
+                <h3 [id]="'story-card-' + index">
+                  {{ card.title }}<br /><span>{{ card.accent }}</span>
+                </h3>
+                <p>{{ card.text }}</p>
+              </div>
+              <div class="card-bottom">
+                <span class="card-star" aria-hidden="true">✳</span>
+                <div class="card-tags">
+                  @for (tag of card.tags; track tag) {
+                    <span>{{ tag }}</span>
+                  }
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+
+      <div class="section-bottomline">
+        <span>{{
+          staticMode() ? 'CADA ROLÊ, UMA NOVA HISTÓRIA.' : 'CONTINUE ROLANDO PARA DESCOBRIR ↓'
+        }}</span>
+        <button
+          class="motion-toggle"
+          type="button"
+          (click)="toggleMotion()"
+          [disabled]="reducedMotion()"
+          [attr.aria-pressed]="staticMode()"
+        >
+          {{
+            reducedMotion()
+              ? 'Movimento reduzido ativo'
+              : staticMode()
+                ? 'Ativar animação'
+                : 'Ver sem animação'
+          }}
+        </button>
+        @if (!staticMode()) {
+          <span class="counter">0{{ activeCard() + 1 }} <span>/ 04</span></span>
+        }
+      </div>
+    </div>
+  </section>
+</main>

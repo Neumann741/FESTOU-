@@ -1,0 +1,171 @@
+.story.is-animated:not(.static-mode) {
+  height: 400svh;
+}
+.is-animated .story-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+.is-animated .story-layout {
+  flex: 1;
+  min-height: 0;
+  padding: 24px 0;
+}
+.is-animated .card-deck {
+  position: relative;
+  height: min(72svh, 720px);
+}
+.is-animated .story-card {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: min(35vw, 500px);
+  height: 100%;
+  min-height: 0;
+  will-change: transform;
+}
+.static-mode .story-card {
+  transform: none !important;
+}
+@media (max-width: 700px) {
+  .story-stage {
+    padding: 18px 5vw;
+  }
+  .section-topline,
+  .section-bottomline {
+    font-size: 8px;
+    letter-spacing: 0.7px;
+  }
+  .section-topline {
+    padding-bottom: 12px;
+  }
+  .section-topline span:last-child {
+    display: none;
+  }
+  .story-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  h2 {
+    font-size: 35px;
+    line-height: 0.92;
+  }
+  h2 br:first-child,
+  h2 span br {
+    display: none;
+  }
+  .sticker {
+    display: none;
+  }
+  .story-intro > p {
+    display: none;
+  }
+  .story-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .story-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 32px);
+    gap: 6px;
+  }
+  .story-nav button {
+    width: 32px;
+    height: 32px;
+  }
+  .is-animated .story-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px 0 26px;
+  }
+  .is-animated .card-deck {
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    max-height: 64svh;
+  }
+  .is-animated .story-card {
+    width: 78vw;
+    padding: 22px;
+    border-radius: 16px;
+  }
+  h3 {
+    font-size: clamp(30px, 8vw, 45px);
+  }
+  .card-copy {
+    padding: 18px 0;
+  }
+  .card-copy p {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .card-star {
+    font-size: 38px;
+  }
+  .card-tags span {
+    font-size: 9px;
+  }
+  .section-bottomline {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .counter {
+    display: none;
+  }
+  .motion-toggle {
+    font-size: 9px;
+  }
+}
+@media (max-height: 550px) and (min-width: 701px) {
+  h2 {
+    font-size: 40px;
+  }
+  .sticker,
+  .story-intro > p {
+    display: none;
+  }
+  .is-animated .card-deck {
+    height: 70svh;
+  }
+  .story-card {
+    padding: 18px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  .card-copy {
+    padding: 16px 0;
+  }
+  .card-copy p {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story {
+    transition: none;
+  }
+  .story.is-animated {
+    height: auto;
+  }
+  .is-animated .story-stage {
+    position: static;
+    height: auto;
+    display: block;
+  }
+  .is-animated .card-deck {
+    height: auto;
+  }
+  .is-animated .story-card {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    transform: none !important;
+  }
+}

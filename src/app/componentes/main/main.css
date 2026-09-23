@@ -1,0 +1,231 @@
+:host {
+  display: block;
+}
+* {
+  box-sizing: border-box;
+}
+.story {
+  --gold: #e4c049;
+  --scene-color: #292b1d;
+  background: var(--scene-color);
+  color: #faf7ec;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.5s;
+}
+.story-stage {
+  padding: 28px 4vw;
+  overflow: hidden;
+}
+.section-topline,
+.section-bottomline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.section-topline {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ffffff26;
+}
+.story-layout {
+  display: grid;
+  grid-template-columns: 39% 61%;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+}
+.story-intro {
+  position: relative;
+  z-index: 5;
+}
+.sticker {
+  display: inline-block;
+  padding: 12px 17px;
+  margin: 0 0 25px 10px;
+  border-radius: 7px;
+  background: var(--gold);
+  color: #1b1d14;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transform: rotate(-9deg);
+}
+h2 {
+  margin: 0;
+  font-size: clamp(42px, 5.3vw, 88px);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+h2 > span {
+  color: var(--gold);
+}
+.story-intro > p {
+  margin: 22px 0;
+  color: #e1dfd0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.story-nav {
+  display: flex;
+  gap: 10px;
+  padding: 4px;
+}
+.story-nav button {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background: #161911;
+  color: #fff;
+}
+.story-nav img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+.story-nav button > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.story-nav button.selected {
+  border-color: var(--gold);
+  outline: 2px solid #e4c04940;
+  outline-offset: 3px;
+}
+button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 5px;
+}
+.card-deck {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.story-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 500px;
+  padding: 28px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #141710;
+  box-shadow: -10px 8px 35px #0002;
+}
+.card-photo,
+.card-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.card-photo {
+  object-fit: cover;
+}
+.card-shade {
+  background: linear-gradient(180deg, #0007, #0001 20%, #0006 48%, #000c 100%);
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ffffff80;
+  padding-top: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+.card-copy {
+  margin-top: auto;
+  padding: 48px 0 24px;
+}
+h3 {
+  margin: 0;
+  font-size: clamp(30px, 3.6vw, 62px);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.97;
+}
+h3 span {
+  color: #ffe077;
+}
+.card-copy p {
+  max-width: 320px;
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.card-bottom {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.card-star {
+  font-size: 50px;
+  color: var(--gold);
+  line-height: 1;
+}
+.card-tags {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.card-tags span {
+  background: #faf7ec;
+  color: #22251b;
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.finale .card-shade {
+  background: linear-gradient(180deg, #e4c049d9, #e4c049f5);
+}
+.finale {
+  color: #23251b;
+}
+.finale h3 span,
+.finale .card-star {
+  color: #23251b;
+}
+.finale .card-top {
+  border-color: #23251b70;
+}
+.section-bottomline {
+  padding-top: 14px;
+  border-top: 1px solid #ffffff26;
+}
+.motion-toggle {
+  border: 0;
+  border-bottom: 1px solid #ffffff70;
+  padding: 6px 0;
+  color: inherit;
+  background: none;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+.counter {
+  font-size: 16px;
+}
+.counter span {
+  opacity: 0.5;
+}
