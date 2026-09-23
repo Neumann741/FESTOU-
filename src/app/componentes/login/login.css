@@ -1,0 +1,227 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #11120f;
+  color: #faf7ec;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Container central */
+.fundo {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at 80% 20%, #cdb4000d, transparent 50%);
+}
+
+/* Card de login */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #1a1b17;
+  border: 1px solid #34352b;
+  border-radius: 16px;
+  padding: 48px 40px;
+}
+
+/* Logo / Título */
+.logo {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.logo span {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: #faf7ec;
+}
+
+.logo h1 span {
+  color: #e4c049;
+}
+
+.logo p {
+  margin: 10px 0 0;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  color: #93968a;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Mensagem de feedback */
+.mensagem {
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.mensagem.sucesso {
+  background: rgba(228, 192, 73, 0.12);
+  border: 1px solid rgba(228, 192, 73, 0.3);
+  color: #e4c049;
+}
+
+.mensagem.erro {
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.25);
+  color: #ff6b6b;
+}
+
+/* Campos */
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  font-weight: 600;
+  color: #93968a;
+  text-transform: uppercase;
+}
+
+.campo input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #151612;
+  border: 1px solid #34352b;
+  border-radius: 10px;
+  color: #faf7ec;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.campo input::placeholder {
+  color: #5c5e54;
+}
+
+.campo input:focus {
+  border-color: #e4c049;
+}
+
+/* Campo de senha com botão */
+.senha-box {
+  position: relative;
+}
+
+.senha-box input {
+  padding-right: 50px;
+}
+
+.senha-box button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #93968a;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.senha-box button:hover {
+  color: #e4c049;
+}
+
+/* Botão principal */
+.btn-entrar {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px;
+  background: #e4c049;
+  color: #10110e;
+  border: 1px solid #e4c049;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.btn-entrar:hover {
+  background: transparent;
+  color: #e4c049;
+}
+
+/* Divisor */
+.ou {
+  text-align: center;
+  margin: 28px 0 18px;
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  font-weight: 600;
+  color: #93968a;
+  text-transform: uppercase;
+}
+
+/* Botões sociais */
+.sociais {
+  display: flex;
+  gap: 12px;
+}
+
+.sociais button {
+  flex: 1;
+  padding: 13px;
+  background: transparent;
+  border: 1px solid #45483b;
+  border-radius: 30px;
+  color: #c9cbbf;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.sociais button:hover {
+  border-color: #e4c049;
+  color: #e4c049;
+}
+
+/* Foco acessível */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #e4c049;
+  outline-offset: 3px;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .card {
+    padding: 36px 24px;
+  }
+
+  .logo h1 {
+    font-size: 26px;
+  }
+
+  .sociais {
+    flex-direction: column;
+  }
+}
