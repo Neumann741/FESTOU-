@@ -1,0 +1,69 @@
+:host {
+  display: block;
+}
+
+
+header {
+  --yellow: rgb(228, 192, 73);
+  background: #000000;
+  color: #f5f5ec;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 4%;
+  padding: 25px 0;
+  border-bottom: 1px solid #34352b;
+}
+
+.brand {
+  color: var(--yellow);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-decoration: none;
+}
+
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.auth-actions .auth-button {
+  min-height: 44px;
+  padding: 11px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color .2s, border-color .2s;
+  border-radius: 20px;
+}
+
+.auth-actions .register-button {
+  color: var(--yellow);
+  background-color: #000000;
+  border-color: var(--yellow);
+}
+
+.auth-actions .register-button:hover {
+  background: #fed40514;
+}
+
+.auth-actions .login-button {
+  color: #10110e;
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.auth-actions .login-button:hover {
+  background: #ffee0000;
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
