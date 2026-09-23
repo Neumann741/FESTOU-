@@ -5,12 +5,12 @@ import {
   ElementRef,
   inject,
   NgZone,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
 
 @Component({
-  imports: [],
   selector: 'app-main',
   styleUrls: ['./main.css', './main-motion.css'],
   templateUrl: './main.html',
@@ -19,42 +19,20 @@ export class Main {
   readonly activeCard = signal(0);
   readonly staticMode = signal(false);
   readonly reducedMotion = signal(false);
+  readonly showRegistration = signal(false);
+  // Conecte este evento à futura tela de cadastro.
+  readonly registerRequested = output<void>();
   readonly cards = [
+    { label: 'Descubra', title: 'SEU PRÓXIMO', accent: '“EU FUI”.', image: 'assets/img1.jpg' },
+    { label: 'Conecte', title: 'SUA GALERA.', accent: 'SEU LUGAR.', image: 'assets/img5.jpg' },
+    { label: 'Explore', title: 'SAIA DO', accent: 'MESMO ROLÊ.', image: 'assets/img2.jpg' },
+    { label: 'Sinta', title: 'ENCONTRE', accent: 'SUA BATIDA.', image: 'assets/img4.jpg' },
+    { label: 'Viva', title: 'MENOS “E SE?”.', accent: 'MAIS “BORA!”.', image: 'assets/img3.jpg' },
     {
-      label: 'Descubra',
-      title: 'SEU PRÓXIMO',
-      accent: '“EU FUI”.',
-      text: 'Tem uma festa esperando para virar a sua melhor história. Encontre a sua.',
-      image: 'assets/img1.jpg',
-      tags: ['Novos lugares', 'Novas histórias'],
-      color: '#292b1d',
-    },
-    {
-      label: 'Conecte',
-      title: 'O ROLÊ É BOM.',
-      accent: 'JUNTO É MELHOR.',
-      text: 'Descubra quem vai, chame sua galera e encontre quem está na mesma sintonia.',
-      image: 'assets/img5.jpg',
-      tags: ['Sua galera', 'Novas conexões'],
-      color: '#30252c',
-    },
-    {
-      label: 'Viva',
-      title: 'MENOS “E SE?”.',
-      accent: 'MAIS “BORA!”.',
-      text: 'Do primeiro convite à última música. Viva festas que combinam com você.',
-      image: 'assets/img3.jpg',
-      tags: ['Sua música', 'Sua vibe'],
-      color: '#25302d',
-    },
-    {
-      label: 'Festou!',
-      title: 'A FESTA ACABA.',
-      accent: 'A HISTÓRIA FICA.',
-      text: 'Pessoas, lugares e lembranças. Tudo conectado em um só lugar.',
-      image: 'assets/img1.jpg',
-      tags: ['Compartilhe momentos', 'Faça parte'],
-      color: '#35301b',
+      label: 'Faça parte',
+      title: 'A PRÓXIMA',
+      accent: 'HISTÓRIA É SUA.',
+      image: 'assets/img6.jpg',
     },
   ];
 
@@ -64,9 +42,10 @@ export class Main {
   private frame = 0;
   private motionQuery?: MediaQueryList;
   private manualStatic = false;
+  // Cinco entradas, uma breve leitura do sexto card, transformação e pausa final.
+  private readonly timeline = 6.6;
 
   constructor() {
-    // A rolagem controla apenas transforms; nenhum evento de wheel/touch é bloqueado.
     afterNextRender(() => {
       this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const updatePreference = () => {
@@ -100,12 +79,9 @@ export class Main {
 
   goToCard(index: number): void {
     const section = this.story().nativeElement;
-    const target = section.getBoundingClientRect().top + window.scrollY;
+    const top = section.getBoundingClientRect().top + window.scrollY;
     const distance = section.offsetHeight - window.innerHeight;
-    window.scrollTo({
-      top: target + (distance * index) / (this.cards.length - 1),
-      behavior: 'auto',
-    });
+    window.scrollTo({ top: top + (distance * index) / this.timeline, behavior: 'auto' });
   }
 
   private readonly scheduleUpdate = (): void => {
@@ -129,16 +105,39 @@ export class Main {
       1,
       Math.max(0, -section.getBoundingClientRect().top / Math.max(1, distance)),
     );
-    const position = progress * (this.cards.length - 1);
+    const position = progress * this.timeline;
     const active = Math.min(this.cards.length - 1, Math.floor(position + 0.05));
+    const rawMorph = Math.min(1, Math.max(0, position - 5.25));
+    const morph = rawMorph * rawMorph * (3 - 2 * rawMorph);
+    const width = cards[0].offsetWidth;
+    const height = cards[0].offsetHeight;
+    const buttonWidth = Math.min(260, width);
+    const finalWidth = width + (buttonWidth - width) * morph;
+    const finalHeight = height + (64 - height) * morph;
+
+    section.style.setProperty('--morph', String(morph));
+    section.style.setProperty('--final-width', finalWidth + 'px');
+    section.style.setProperty('--final-height', finalHeight + 'px');
+    section.style.setProperty('--final-radius', 20 + 16 * morph + 'px');
+    section.style.setProperty('--content-opacity', String(Math.max(0, 1 - morph * 2.5)));
+    section.style.setProperty('--button-opacity', String(Math.max(0, (morph - 0.7) / 0.3)));
 
     cards.forEach((card, index) => {
       const remaining = Math.max(0, index - position);
       const covered = Math.min(1, Math.max(0, position - index));
-      const x = remaining * (card.offsetWidth + 28) + index * 5;
-      card.style.transform = `translate3d(${x}px, ${index * 3}px, 0) rotate(${covered * -2}deg) scale(${1 - covered * 0.025})`;
+      const final = index === this.cards.length - 1;
+      const x = remaining * (width + 28) + index * 4 + (final ? (width - finalWidth) / 2 : 0);
+      const y = index * 2 + (final ? (height - finalHeight) / 2 : 0);
+      card.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${final ? 0 : covered * -1.5}deg)`;
+      card.style.opacity = final ? '1' : String(1 - morph);
     });
-    section.style.setProperty('--scene-color', this.cards[active].color);
-    if (active !== this.activeCard()) this.zone.run(() => this.activeCard.set(active));
+
+    const ready = rawMorph >= 1;
+    if (active !== this.activeCard() || ready !== this.showRegistration()) {
+      this.zone.run(() => {
+        this.activeCard.set(active);
+        this.showRegistration.set(ready);
+      });
+    }
   }
 }
