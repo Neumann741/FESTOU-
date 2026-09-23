@@ -1,0 +1,91 @@
+<main>
+  <section
+    #story
+    class="story"
+    [class.static-mode]="staticMode()"
+    aria-labelledby="story-title"
+    id="universo-festou"
+  >
+    <div class="story-stage">
+      <div class="story-layout">
+        <div class="story-intro">
+          <span class="eyebrow">ISSO É FESTOU!</span>
+          <h2 id="story-title">MENOS FEED.<br /><span>MAIS VIDA.</span></h2>
+          @if (!staticMode()) {
+            <nav class="story-nav" aria-label="Escolher um momento da Festou!">
+              @for (card of cards; track card.label; let index = $index) {
+                <button
+                  type="button"
+                  (click)="goToCard(index)"
+                  [class.selected]="activeCard() === index"
+                  [attr.aria-current]="activeCard() === index ? 'step' : null"
+                  [attr.aria-label]="'Card ' + (index + 1) + ': ' + card.label"
+                >
+                  <span></span>
+                </button>
+              }
+            </nav>
+          }
+        </div>
+        <div class="card-deck">
+          @for (card of cards; track card.label; let index = $index) {
+            <article
+              class="story-card"
+              [style.z-index]="index + 1"
+              [class.finale]="index === cards.length - 1"
+              [attr.aria-labelledby]="'story-card-' + index"
+            >
+              <img class="card-photo" [src]="card.image" alt="" loading="lazy" />
+              <div class="card-shade"></div>
+              <div
+                class="card-content"
+                [attr.aria-hidden]="
+                  index === cards.length - 1 && showRegistration() && !staticMode() ? true : null
+                "
+              >
+                <span class="card-number">0{{ index + 1 }} / 0{{ cards.length }}</span>
+                <h3 [id]="'story-card-' + index">
+                  {{ card.title }}<br /><span>{{ card.accent }}</span>
+                </h3>
+              </div>
+              @if (index === cards.length - 1) {
+                <button
+                  class="register-cta"
+                  type="button"
+                  [disabled]="!showRegistration() && !staticMode()"
+                  [attr.tabindex]="showRegistration() || staticMode() ? 0 : -1"
+                  [attr.aria-hidden]="!showRegistration() && !staticMode() ? true : null"
+                  (click)="registerRequested.emit()"
+                >
+                  Registre-se <span aria-hidden="true">↗</span>
+                </button>
+              }
+            </article>
+          }
+        </div>
+      </div>
+      <div class="section-bottomline">
+        <span>{{
+          showRegistration() && !staticMode()
+            ? 'SUA PRÓXIMA HISTÓRIA COMEÇA AQUI.'
+            : 'DESCUBRA ROLANDO ↓'
+        }}</span>
+        <button
+          class="motion-toggle"
+          type="button"
+          (click)="toggleMotion()"
+          [disabled]="reducedMotion()"
+          [attr.aria-pressed]="staticMode()"
+        >
+          {{
+            reducedMotion()
+              ? 'Movimento reduzido'
+              : staticMode()
+                ? 'Ativar animação'
+                : 'Ver sem animação'
+          }}
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
