@@ -9,11 +9,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   styleUrls: ['./main.css', './main-motion.css'],
   templateUrl: './main.html',
+  imports: [RouterLink],
 })
 export class Main {
   readonly activeCard = signal(0);
@@ -23,16 +25,15 @@ export class Main {
   // Conecte este evento à futura tela de cadastro.
   readonly registerRequested = output<void>();
   readonly cards = [
-    { label: 'Descubra', title: 'SEU PRÓXIMO', accent: '“EU FUI”.', image: 'assets/img1.jpg' },
-    { label: 'Conecte', title: 'SUA GALERA.', accent: 'SEU LUGAR.', image: 'assets/img5.jpg' },
-    { label: 'Explore', title: 'SAIA DO', accent: 'MESMO ROLÊ.', image: 'assets/img2.jpg' },
-    { label: 'Sinta', title: 'ENCONTRE', accent: 'SUA BATIDA.', image: 'assets/img4.jpg' },
-    { label: 'Viva', title: 'MENOS “E SE?”.', accent: 'MAIS “BORA!”.', image: 'assets/img3.jpg' },
+    { label: 'Descubra', title: 'ENCONTRA', accent: 'SUA FESTA.', image: 'assets/img.card1.jpg' },
+    { label: 'Conecte', title: 'FAZ NOVOS', accent: 'AMIGOS.', image: 'assets/img.card2.jpg' },
+    { label: 'Explore', title: 'GARANTE SEU', accent: 'INGRESSO.', image: 'assets/img.card.jpg' },
+    { label: 'Sinta', title: 'CRIA SEU', accent: 'GRUPO.', image: 'assets/img.card3.jpg' },
+    { label: 'Viva', title: 'REGISTRA TODOS', accent: 'OS MOMENTOS.', image: 'assets/img.card5.jpg' },
     {
-      label: 'Faça parte',
-      title: 'A PRÓXIMA',
-      accent: 'HISTÓRIA É SUA.',
-      image: 'assets/img6.jpg',
+      title: 'TUDO EM',
+      accent: 'UM SÓ LUGAR.',
+      image: 'assets/.jpg',
     },
   ];
 
@@ -69,13 +70,6 @@ export class Main {
     });
   }
 
-  toggleMotion(): void {
-    const top = this.story().nativeElement.getBoundingClientRect().top + window.scrollY;
-    this.manualStatic = !this.staticMode();
-    this.staticMode.set(this.manualStatic || !!this.motionQuery?.matches);
-    this.scheduleUpdate();
-    window.scrollTo({ top, behavior: 'auto' });
-  }
 
   goToCard(index: number): void {
     const section = this.story().nativeElement;

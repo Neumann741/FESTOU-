@@ -6,7 +6,7 @@
 }
 .story {
   --gold: #e4c049;
-  background: #11120f;
+  background: #000000;
   color: #faf7ec;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,13 +25,7 @@
   position: relative;
   z-index: 7;
 }
-.eyebrow {
-  display: block;
-  margin-bottom: 24px;
-  color: #aaa99d;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
+
 h2 {
   margin: 0;
   font-size: clamp(32px, 4.5vw, 76px);
@@ -109,10 +103,7 @@ button:focus-visible {
   justify-content: space-between;
   padding: 30px;
 }
-.card-number {
-  font-size: 10px;
-  letter-spacing: 2px;
-}
+
 h3 {
   margin: 0;
   font-size: clamp(30px, 3.5vw, 60px);
@@ -138,8 +129,7 @@ h3 span {
   padding: 0 28px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: center;
   border-radius: inherit;
   background: transparent;
   color: #171810;
@@ -148,9 +138,7 @@ h3 span {
     sans-serif;
   cursor: pointer;
 }
-.register-cta span {
-  font-size: 26px;
-}
+
 .register-cta:disabled {
   pointer-events: none;
 }
@@ -159,7 +147,9 @@ h3 span {
   outline-offset: -6px;
 }
 .register-cta:hover {
-  background: #ffffff25;
+  background: #000000;
+  color: #e4c049;
+  border: 3px solid var(--gold);
 }
 .section-bottomline {
   display: flex;
