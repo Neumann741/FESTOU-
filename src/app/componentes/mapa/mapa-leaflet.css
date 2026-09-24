@@ -1,0 +1,10 @@
+/* Leaflet cria estes elementos fora dos templates Angular. Seletores restritos ao mapa. */
+.mapa-page .leaflet-tile-pane { filter:grayscale(.8) invert(.92) hue-rotate(180deg) brightness(.75); }
+.mapa-page .festou-marker { background:#e4c049; color:#000; border:2px solid #000; border-radius:18px; box-shadow:0 3px 10px #0008; display:grid; place-items:center; font:bold 13px Arial,sans-serif; }
+.mapa-page .festou-marker.is-active { background:#fff; outline:3px solid #e4c049; }
+.mapa-page .festou-popup .leaflet-popup-content-wrapper,.mapa-page .festou-popup .leaflet-popup-tip { background:#141510; color:#fff; }
+.mapa-page .festou-popup img { width:100%; height:100px; object-fit:cover; border-radius:6px; }
+.mapa-page .festou-popup h3 { color:#e4c049; margin:12px 0; }
+.mapa-page .festou-popup p { margin:7px 0; }
+.mapa-page .festou-popup button { display:block; width:100%; margin-top:12px; padding:10px; border:0; border-radius:6px; background:#e4c049; color:#000; font-weight:bold; cursor:pointer; }
+.mapa-page .leaflet-control-zoom a { background:#171715; color:#e4c049; }

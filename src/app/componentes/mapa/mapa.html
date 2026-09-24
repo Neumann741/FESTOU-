@@ -1,1 +1,57 @@
-<p>mapa works!</p>
+<main class="mapa-page">
+ 
+
+  <section class="toolbar" aria-label="Buscar e filtrar festas">
+    <label class="search">Buscar festa ou lugar
+      <input type="search" placeholder="Buscar festa ou lugar..." [value]="busca()" (input)="busca.set($any($event.target).value); filtrar()">
+    </label>
+    <button class="nearby" [class.active]="perto()" [attr.aria-pressed]="perto()" [disabled]="carregandoLocal()" (click)="alternarPerto()">
+      {{ carregandoLocal() ? 'Buscando localização…' : perto() ? '✓ MOSTRANDO FESTAS EM ATÉ ' + config.raioKm + ' KM' : '⌖ FESTAS PERTO DE MIM' }}
+    </button>
+    <div class="filters">
+      <button [class.active]="periodo() === 'hoje'" [attr.aria-pressed]="periodo() === 'hoje'" (click)="mudarPeriodo('hoje')">Hoje</button>
+      <button [class.active]="periodo() === 'amanha'" [attr.aria-pressed]="periodo() === 'amanha'" (click)="mudarPeriodo('amanha')">Amanhã</button>
+      <button [class.active]="periodo() === 'fim'" [attr.aria-pressed]="periodo() === 'fim'" (click)="mudarPeriodo('fim')">Fim de semana</button>
+      <select aria-label="Categoria" [value]="categoria()" (change)="categoria.set($any($event.target).value); filtrar()">
+        <option value="">Todas as categorias</option>
+        @for (item of categorias; track item) { <option [value]="item">{{ item }}</option> }
+      </select>
+      <button class="clear" (click)="verTodas()">Limpar filtros</button>
+    </div>
+  </section>
+  @if (mensagem()) { <p class="notice" role="status">{{ mensagem() }}</p> }
+  @if (erroMapa()) { <p class="notice" role="status">Algumas partes do mapa não carregaram. Verifique sua conexão; a lista continua disponível.</p> }
+
+  <section class="explorer" aria-label="Explorar festas">
+    <aside class="results">
+      <div class="results-heading"><h2>Encontre seu rolê</h2><span aria-live="polite">{{ festas().length }} festas</span></div>
+      <div class="party-list" #lista>
+        @if (carregando()) { <p role="status">Carregando festas…</p> }
+        @for (festa of festas(); track festa.id) {
+          <button class="party-card" [attr.data-festa]="festa.id" [class.selected]="selecionada() === festa.id" [attr.aria-pressed]="selecionada() === festa.id"
+            (click)="selecionar(festa)" (mouseenter)="destacar(festa.id)" (mouseleave)="destacar(null)" (focus)="destacar(festa.id)" (blur)="destacar(null)">
+            @if (festa.imagem) { <img [src]="festa.imagem" alt="" loading="lazy"> }
+            @else { <span class="image-fallback">festou!</span> }
+            <span class="card-content">
+              <span class="date">{{ dataLabel(festa.data) }} · {{ festa.horario }}</span>
+              <strong>{{ festa.nome }}</strong>
+              <span>{{ festa.local }} · {{ festa.cidade }}</span>
+              <span class="category">{{ festa.categoria }}</span>
+              <span>{{ festa.pessoasConfirmadas }} pessoas vão</span>
+              @if (festa.distancia !== undefined) { <span class="distance">⌖ {{ formatarDistancia(festa.distancia) }} de você</span> }
+              <b>{{ preco(festa) }}</b>
+            </span>
+          </button>
+        } @empty {
+          @if (!carregando()) {
+            <div class="empty"><span>⌖</span><h3>{{ perto() ? 'Nenhuma festa encontrada em até ' + config.raioKm + ' km.' : 'Nenhuma festa encontrada.' }}</h3>
+              <p>{{ perto() ? 'Que tal explorar festas um pouco mais longe? Confira também os filtros selecionados.' : 'Tente outro nome, lugar ou categoria.' }}</p>
+              <button (click)="verTodas()">VER TODAS AS FESTAS</button>
+            </div>
+          }
+        }
+      </div>
+    </aside>
+    <div class="map-wrapper"><div #mapa class="map-canvas" aria-label="Mapa interativo de festas"></div></div>
+  </section>
+</main>
