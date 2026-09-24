@@ -39,7 +39,7 @@
                   [attr.tabindex]="showRegistration() || staticMode() ? 0 : -1"
                   [attr.aria-hidden]="!showRegistration() && !staticMode() ? true : null"
                   (click)="registerRequested.emit()"
-                  routerLink="/main-page"
+                  routerLink="/login"
                 >
                   Registre-se 
                 </button>

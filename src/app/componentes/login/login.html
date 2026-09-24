@@ -1,59 +1,48 @@
 <div class="fundo">
   <div class="card">
-    
+
     <div class="logo">
-      <span>🎉</span>
-      <h1>Festou</h1>
-      <p>Entre e continue a festa</p>
+      <h1>Festou!</h1>
+      <p>Digite suas informações</p>
     </div>
 
-    <!-- Mensagem de feedback -->
-    <div *ngIf="message" class="mensagem" [class.erro]="isError" [class.sucesso]="!isError">
-      {{ message }}
-    </div>
 
-    <form (ngSubmit)="onSubmit()">
-      
-      <!-- E-mail -->
+    <form (submit)="verificaInfo($event)">
+
+
       <div class="campo">
+
         <label>E-mail</label>
-        <input 
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          placeholder="seu@email.com"
-        >
+
+        <input type="text" [formField]="usuarioForm.email" placeholder="Digite o seu email">
+        @if (usuarioForm.email().touched() && usuarioForm.email().invalid()) {
+        @for (error of usuarioForm.email().errors(); track error.kind){
+        <span>{{error.message}}</span>
+        }
+        }
       </div>
 
-      <!-- Senha -->
+
       <div class="campo">
         <label>Senha</label>
+
         <div class="senha-box">
-          <input 
-            [type]="showPassword ? 'text' : 'password'"
-            [(ngModel)]="password"
-            name="password"
-            placeholder="••••••••"
-          >
-          <button type="button" (click)="togglePassword()">
-            {{ showPassword ? '🙈' : '👁️' }}
-          </button>
+
+          <input type="password" [formField]="usuarioForm.senha" placeholder="Digite sua senha">
+          @if (usuarioForm.senha().touched() && usuarioForm.senha().invalid()) {
+          @for (error of usuarioForm.senha().errors(); track error.kind){
+          <span>{{error.message}}</span>
+          }
+          }
+
+
         </div>
       </div>
-
-      <!-- Botão Entrar -->
       <button type="submit" class="btn-entrar">
-        Entrar na Festa 🚀
+        Entre
       </button>
     </form>
 
-    <div class="ou">ou continue com</div>
-
-    <!-- Botões sociais -->
-    <div class="sociais">
-      <button type="button" (click)="socialLogin('Google')">Google</button>
-      <button type="button" (click)="socialLogin('Facebook')">Facebook</button>
-    </div>
 
   </div>
 </div>
