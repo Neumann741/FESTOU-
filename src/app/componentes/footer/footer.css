@@ -1,55 +1,205 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  padding: 32px 4%;
+  --accent: #fed405;
+  padding: 56px 5vw 24px;
+  overflow: hidden;
   color: #f5f5ec;
-  background: #10110e;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(254, 212, 5, 0.09), transparent 28%),
+    #10110e;
   border-top: 1px solid #34352b;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.footer-content {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.8fr) minmax(120px, 0.7fr) minmax(190px, 0.8fr);
+  gap: clamp(32px, 7vw, 100px);
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+.footer-brand {
+  max-width: 390px;
+}
+
 .footer-logo {
-  color: #fed405;
-  font-size: 28px;
+  display: inline-block;
+  color: var(--accent);
+  font-size: clamp(32px, 4vw, 46px);
   font-weight: 900;
-  letter-spacing: -1px;
-}
-
-.footer p {
-  margin: 0;
-  color: #b7baae;
-  font-size: 13px;
-}
-
-.footer-links {
-  display: flex;
-  gap: 20px;
-}
-
-.footer a {
-  color: inherit;
+  line-height: 1;
+  letter-spacing: -2px;
   text-decoration: none;
+  transition: transform 180ms ease;
 }
 
-.footer-links a {
-  font-size: 12px;
+.footer-logo span {
+  color: #f5f5ec;
 }
 
-.footer-links a:hover {
-  color: #fed405;
+.footer-logo:hover {
+  transform: translateY(-2px);
 }
 
-.footer small {
-  color: #777b70;
+.footer-brand p {
+  max-width: 310px;
+  margin: 18px 0 0;
+  color: #a9aca2;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-title {
+  display: block;
+  margin-bottom: 18px;
+  color: #f5f5ec;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.footer-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.footer-navigation .footer-title {
+  margin-bottom: 6px;
+}
+
+.footer-navigation a {
+  color: #a9aca2;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.footer-navigation a:hover {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.social-links a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: #f5f5ec;
+  border: 1px solid #3a3c35;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.02);
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.social-links a:hover {
+  color: #10110e;
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.social-links svg {
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.social-links svg path:not(.play-icon),
+.social-links .icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.social-links .play-icon {
+  fill: #f5f5ec;
+  stroke: none;
+}
+
+.social-links a:hover .play-icon {
+  fill: #10110e;
+}
+
+.footer a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding-top: 22px;
+  color: #74786e;
+  border-top: 1px solid #2a2c26;
   font-size: 10px;
+  letter-spacing: 0.06em;
 }
 
-@media (max-width: 650px) {
+.footer-bottom span {
+  text-align: right;
+}
+
+@media (max-width: 720px) {
   .footer {
-    align-items: flex-start;
+    padding-top: 42px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 38px 24px;
+    padding-bottom: 36px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 430px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
+  }
+
+  .footer-bottom span {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer a {
+    transition: none;
   }
 }
