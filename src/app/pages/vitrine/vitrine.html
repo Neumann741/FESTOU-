@@ -1,0 +1,67 @@
+<main class="vitrine">
+  <section class="destaques">
+    <header class="titulo-container">
+      <h1>Em destaque</h1>
+
+      <button class="ver-todas" type="button">
+        Ver todas
+        <span aria-hidden="true">→</span>
+      </button>
+    </header>
+
+    <div class="festas-grid">
+      @for (festa of festas; track festa.nome) {
+        <article class="festa-card">
+          <div
+            class="imagem-container"
+            role="img"
+            [attr.aria-label]="'Festa ' + festa.nome"
+            [style.background-image]="'url(\'' + festa.imagem + '\')'"
+          >
+
+            @if (festa.ficticia) {
+              <span class="selo-ficticio">
+                Conceito fictício
+              </span>
+            }
+
+            <span class="data">{{ festa.data }}</span>
+
+            <button
+              class="favorito"
+              type="button"
+              [attr.aria-label]="'Favoritar ' + festa.nome"
+            >
+              ♡
+            </button>
+          </div>
+
+          <div class="card-conteudo">
+            <h2>{{ festa.nome }}</h2>
+
+            <p class="informacao">
+              <span aria-hidden="true">♫</span>
+              {{ festa.categoria }}
+            </p>
+
+            <p class="informacao">
+              <span aria-hidden="true">⌖</span>
+              {{ festa.local }}
+            </p>
+
+            <p class="preco">
+              A partir de
+              <strong>
+                {{ festa.preco | currency:'BRL':'symbol':'1.0-0':'pt-BR' }}
+              </strong>
+            </p>
+
+            <button class="ver-festa" type="button">
+              Ver festa
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+</main>
