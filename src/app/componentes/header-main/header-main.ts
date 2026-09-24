@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './header-main.css',
   templateUrl: './header-main.html',
 })
-export class HeaderMain {}
+export class HeaderMain {
+  currentSlide = 0;
+
+  nextSlide(): void { this.currentSlide = (this.currentSlide + 1) % 3; }
+  previousSlide(): void { this.currentSlide = (this.currentSlide + 2) % 3; }
+  goToSlide(index: number): void { this.currentSlide = index; }
+}

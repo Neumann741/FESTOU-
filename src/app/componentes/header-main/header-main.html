@@ -9,4 +9,33 @@
     </div>
   </nav>
 
+  <div id="carouselHeader" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" [class.active]="currentSlide === 0" aria-label="Slide 1" (click)="goToSlide(0)"></button>
+      <button type="button" [class.active]="currentSlide === 1" aria-label="Slide 2" (click)="goToSlide(1)"></button>
+      <button type="button" [class.active]="currentSlide === 2" aria-label="Slide 3" (click)="goToSlide(2)"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item" [class.active]="currentSlide === 0">
+        <div class="image-space">Imagem 1</div>
+        <!-- <img src="caminho-da-imagem-1" class="d-block w-100" alt="Descrição da imagem 1"> -->
+      </div>
+      <div class="carousel-item" [class.active]="currentSlide === 1">
+        <div class="image-space">Imagem 2</div>
+        <!-- <img src="caminho-da-imagem-2" class="d-block w-100" alt="Descrição da imagem 2"> -->
+      </div>
+      <div class="carousel-item" [class.active]="currentSlide === 2">
+        <div class="image-space">Imagem 3</div>
+        <!-- <img src="caminho-da-imagem-3" class="d-block w-100" alt="Descrição da imagem 3"> -->
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" aria-label="Anterior" (click)="previousSlide()">
+      <span aria-hidden="true">&#10094;</span>
+    </button>
+    <button class="carousel-control-next" type="button" aria-label="Próximo" (click)="nextSlide()">
+      <span aria-hidden="true">&#10095;</span>
+    </button>
+  </div>
 </header>
