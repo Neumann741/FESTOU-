@@ -67,3 +67,16 @@ nav {
   border-color: var(--yellow);
   color: var(--yellow);
 }
+
+.carousel { position: relative; }
+.carousel-inner { overflow: hidden; }
+.carousel-item { display: none; }
+.carousel-item.active { display: block; }
+.image-space { display: grid; min-height: 420px; place-items: center; background: #242424; color: #aaa; font-size: 24px; }
+.carousel-item img { width: 100%; height: 420px; object-fit: cover; }
+.carousel-control-prev, .carousel-control-next { position: absolute; top: 0; bottom: 0; width: 10%; border: 0; background: transparent; color: white; cursor: pointer; font-size: 36px; }
+.carousel-control-prev { left: 0; }
+.carousel-control-next { right: 0; }
+.carousel-indicators { position: absolute; z-index: 2; right: 0; bottom: 15px; left: 0; display: flex; justify-content: center; gap: 8px; }
+.carousel-indicators button { width: 30px; height: 3px; padding: 0; border: 0; background: #fff; opacity: .5; cursor: pointer; }
+.carousel-indicators button.active { opacity: 1; }
