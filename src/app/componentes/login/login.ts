@@ -1,63 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginInter } from './login-inter';
+import { email, form, required, FormField } from '@angular/forms/signals';
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FormField],
   selector: 'app-login',
   styleUrl: './login.css',
   templateUrl: './login.html',
 })
 export class Login {
-  constructor(private router: Router) {}
 
- email = '';
-  password = '';
-  showPassword = false;
-  message = '';
-  isError = false;
+protected usuarioModel = signal <LoginInter> ({
+  email: '',
+  senha: ''
+})
 
-  // Usuários de teste
-  users = [
-    { email: 'admin@festa.com', password: '123456', name: 'Admin' },
-    { email: 'user@festa.com', password: '123456', name: 'Usuário' }
-  ];
+ private router = inject(Router);
 
-  // Mostrar / ocultar senha
-  togglePassword() {
-    this.showPassword = !this.showPassword;
+
+protected usuarioForm = form(this.usuarioModel, (s) => {
+  required(s.email, {message: 'o email é obrigatório'});
+  email(s.email, {message: 'O email não condiz com um email'});
+
+  required(s.senha, {message: 'A senha é obrigatória'});
+});
+
+private usuario =  signal<string> ('arthurneumann18@gmail.com');
+private senha =  signal<string> ('123');
+
+
+
+
+
+protected verificaInfo(event: SubmitEvent) {
+  if( this.usuarioModel().email === this.usuario() && this.usuarioModel().senha === this.senha()) {
+    this.router.navigate(['/main-page']);
   }
 
-  // Função de login
-  onSubmit() {
-    // Verifica se preencheu os campos
-    if (this.email === '' || this.password === '') {
-      this.message = 'Preencha todos os campos';
-      this.isError = true;
-      return;
-    }
+  event.preventDefault();
+  
+}
 
-    // Procura o usuário
-    const user = this.users.find(
-      u => u.email === this.email && u.password === this.password
-    );
 
-    if (user) {
-      this.message = 'Login realizado com sucesso! Bem-vindo ' + user.name;
-      this.isError = false;
 
-      this.router.navigate(['/home-page']);
-    } else {
-      this.message = 'E-mail ou senha inválidos';
-      this.isError = true;
-    }
-  }
 
-  // Login social (simulado)
-  socialLogin(provider: string) {
-    this.message = 'Login com ' + provider + ' realizado!';
-    this.isError = false;
-    this.router.navigate(['/home-page']);
-  }
 }
