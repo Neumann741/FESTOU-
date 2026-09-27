@@ -1,21 +1,51 @@
-<main class="perfil">
-  <a class="voltar-interno" routerLink="/main-page">← Explorar Festou!</a>
-  <div class="capa-perfil"><span>GENTE. MÚSICA. ENCONTROS.</span><strong>Seu próximo rolê<br>começa por aqui.</strong><b>✦</b></div>
-  <section class="cabecalho-perfil">
-    <div class="foto">L</div>
-    <div><h1>Lucas Festou</h1><p>Blumenau, SC · Sempre procurando a próxima festa.</p></div>
-    <a routerLink="/criar-festa">Criar festa</a>
-  </section>
-
-  <section class="numeros">
-    <div><strong>{{ interacao.confirmadas().length }}</strong><span>festas confirmadas</span></div>
-    <div><strong>{{ interacao.favoritos().length }}</strong><span>festas salvas</span></div>
-    <div><strong>{{ amigos.length }}</strong><span>amigos</span></div>
-  </section>
-
-  <section><p class="etiqueta-interna">QUEM FAZ PARTE DA SUA HISTÓRIA</p><h2>Meus amigos</h2><div class="amigos">
-    @for (amigo of amigos; track amigo.nome) { <div class="amigo"><div class="foto pequena">{{ amigo.nome[0] }}</div><strong>{{ amigo.nome }}</strong><span>{{ amigo.estilo }}</span></div> }
-  </div></section>
-
-  <section class="atalhos"><a routerLink="/mapa-page">Explorar mapa</a><a routerLink="/vitrine">Ver destaques</a><a routerLink="/minhas-festas">Minhas festas</a></section>
+<main class="pagina-social">
+  <nav class="barra-social">
+    <a class="marca-social" routerLink="/main-page">festou!</a>
+    <a routerLink="/main-page">← Explorar festas</a>
+  </nav>
+  <div class="limite-social">
+    <div class="capa-social"><span>BOAS HISTÓRIAS COMEÇAM COM UM ENCONTRO.</span><b>✦</b></div>
+    <section class="identidade-social">
+      <div class="avatar-social">LF</div>
+      <div class="nome-social">
+        <p class="usuario-social">@lucas.festou</p>
+        <h1>Lucas Festou</h1>
+        <p class="bio-social">Blumenau, SC · Música boa e a galera por perto.</p>
+        <div class="gostos-social"><span>Pagode</span><span>Eletrônica</span><span>Festivais</span></div>
+      </div>
+      <a class="criar-social" routerLink="/criar-festa">+ Criar festa</a>
+    </section>
+    <div class="resumo-social">
+      <button (click)="aba.set('confirmadas')"><strong>{{ confirmadas().length }}</strong> confirmadas</button>
+      <button (click)="aba.set('salvas')"><strong>{{ salvas().length }}</strong> salvas</button>
+      <span><strong>{{ amigos.length }}</strong> amigos</span>
+    </div>
+    <div class="corpo-social">
+      <section class="colecao-social">
+        <div class="abas-social">
+          <button [class.selecionada]="aba() === 'confirmadas'" (click)="aba.set('confirmadas')">Minhas próximas festas <span>{{ confirmadas().length }}</span></button>
+          <button [class.selecionada]="aba() === 'salvas'" (click)="aba.set('salvas')">Salvas <span>{{ salvas().length }}</span></button>
+        </div>
+        <div class="grade-social">
+          @for (festa of exibidas(); track festa.id) {
+            <a class="evento-social" [routerLink]="['/festa', festa.id]">
+              <div class="imagem-social"><img [src]="festa.imagem"><span>{{ festa.categoria }}</span></div>
+              <div class="info-social"><p>{{ festa.data }} · {{ festa.horario }}</p><h2>{{ festa.nome }}</h2><span>{{ festa.local }} · {{ festa.cidade }}</span><div class="rodape-social"><span>{{ aba() === 'confirmadas' ? '✓ Presença confirmada' : '♡ Na sua lista' }}</span><b>↗</b></div></div>
+            </a>
+          } @empty {
+            <div class="vazio-social"><span>✦</span><h2>Seu próximo encontro está por aí.</h2><p>{{ aba() === 'confirmadas' ? 'Confirme presença em uma festa para encontrá-la aqui.' : 'Salve as festas que você quer conhecer.' }}</p><a routerLink="/vitrine">Descobrir festas →</a></div>
+          }
+        </div>
+      </section>
+      <aside class="lateral-social">
+        <section class="amigos-social"><div class="titulo-social"><h2>Sua galera</h2><span>{{ amigos.length }}</span></div>
+          @for (amigo of amigos; track amigo.nome; let i = $index) {
+            <div class="pessoa-social"><span class="inicial-social" [class.tom-rosa]="i === 1" [class.tom-verde]="i === 2" [class.tom-azul]="i === 3">{{ amigo.nome[0] }}</span><div><strong>{{ amigo.nome }}</strong><p>{{ amigo.estilo }}</p></div></div>
+          }
+        </section>
+        <a class="gerenciar-social" routerLink="/minhas-festas"><span>PARA QUEM FAZ A FESTA</span><h2>Seu rolê.<br>Suas regras.</h2><p>Organize seus eventos em um só lugar.</p><strong>Minhas festas ↗</strong></a>
+        <a class="mapa-social" routerLink="/mapa-page">⌖ Explorar o mapa →</a>
+      </aside>
+    </div>
+  </div>
 </main>
