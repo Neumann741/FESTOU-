@@ -11,6 +11,7 @@ interface DadosFesta {
   horario: string;
   local: string;
   preco: string;
+  tipo: 'publica' | 'privada';
 }
 
 @Component({
@@ -27,6 +28,7 @@ export class CriarFesta {
     horario: '',
     local: '',
     preco: '',
+    tipo: 'publica',
   });
 
   protected formulario = form(this.dados, (dados) => {
@@ -71,6 +73,7 @@ export class CriarFesta {
       latitude: this.latitude,
       longitude: this.longitude,
       pessoasConfirmadas: 0,
+      tipo: dados.tipo,
     });
 
     void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });

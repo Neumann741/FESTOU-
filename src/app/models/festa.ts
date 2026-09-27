@@ -13,4 +13,5 @@ export interface Festa {
   preco?: number;
   imagem?: string;
   pessoasConfirmadas: number;
+  tipo: 'publica' | 'privada';
 }

@@ -25,6 +25,7 @@ export class DetalhesFesta {
   }
 
   confirmar(): void { const festa = this.festa(); if (festa) this.interacao.confirmar(festa.id); }
+  pedirParticipacao(): void { const festa = this.festa(); if (festa) this.interacao.pedirParticipacao(festa.id); }
   favoritar(): void { const festa = this.festa(); if (festa) this.interacao.favoritar(festa.id); }
   enviarComentario(): void {
     const festa = this.festa();
