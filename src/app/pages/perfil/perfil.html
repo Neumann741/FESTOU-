@@ -1,0 +1,19 @@
+<main class="perfil">
+  <section class="cabecalho-perfil">
+    <div class="foto">L</div>
+    <div><h1>Lucas Festou</h1><p>Blumenau, SC · Sempre procurando a próxima festa.</p></div>
+    <a routerLink="/criar-festa">Criar festa</a>
+  </section>
+
+  <section class="numeros">
+    <div><strong>{{ interacao.confirmadas().length }}</strong><span>festas confirmadas</span></div>
+    <div><strong>{{ interacao.favoritos().length }}</strong><span>festas salvas</span></div>
+    <div><strong>{{ amigos.length }}</strong><span>amigos</span></div>
+  </section>
+
+  <section><h2>Meus amigos</h2><div class="amigos">
+    @for (amigo of amigos; track amigo.nome) { <div class="amigo"><div class="foto pequena">{{ amigo.nome[0] }}</div><strong>{{ amigo.nome }}</strong><span>{{ amigo.estilo }}</span></div> }
+  </div></section>
+
+  <section class="atalhos"><a routerLink="/mapa-page">Explorar mapa</a><a routerLink="/vitrine">Ver destaques</a><a routerLink="/minhas-festas">Minhas festas</a></section>
+</main>
