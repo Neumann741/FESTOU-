@@ -38,7 +38,12 @@ export class FestaService {
 
   private buscarFestas(): Festa[] {
     const dados = localStorage.getItem(this.chave);
-    return dados ? JSON.parse(dados) : criarFestasMock();
+    const padrao = criarFestasMock();
+    if (!dados) return padrao;
+    const salvas: Festa[] = JSON.parse(dados);
+    const normalizadas = salvas.map((festa) => ({ ...festa, tipo: festa.tipo || 'publica' } as Festa));
+    const ids = new Set(normalizadas.map((festa) => festa.id));
+    return [...normalizadas, ...padrao.filter((festa) => !ids.has(festa.id))];
   }
 
   private salvarFestas(festas: Festa[]): void {

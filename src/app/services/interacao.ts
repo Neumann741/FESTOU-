@@ -10,6 +10,7 @@ export class Interacao {
   favoritos = signal<number[]>(this.ler('festou-favoritos', [2, 5]));
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
+  ingressos = signal<number[]>(this.ler('festou-ingressos', []));
   pessoas = ['Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
   amigosPorFesta = signal<Record<number, string[]>>(this.ler('festou-amigos-festas', {
     1: ['Ana', 'João'],
@@ -40,6 +41,13 @@ export class Interacao {
     const pedidos = [...this.pedidos(), id];
     this.pedidos.set(pedidos);
     this.salvar('festou-pedidos', pedidos);
+  }
+
+  comprarIngresso(id: number): void {
+    if (this.ingressos().includes(id)) return;
+    const ingressos = [...this.ingressos(), id];
+    this.ingressos.set(ingressos);
+    this.salvar('festou-ingressos', ingressos);
   }
 
   comentar(id: number, texto: string): void {

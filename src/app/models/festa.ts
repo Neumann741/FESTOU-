@@ -14,4 +14,7 @@ export interface Festa {
   imagem?: string;
   pessoasConfirmadas: number;
   tipo: 'publica' | 'privada';
+  eventoGrande?: boolean;
+  organizadora?: string;
+  limiteParticipantes?: number;
 }

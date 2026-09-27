@@ -7,4 +7,5 @@ h1 { margin: 0; font-size: 52px; } h2 { margin-top: 30px; } .conteudo { max-widt
 button, .botoes a { padding: 12px 18px; color: #080808; background: #f4c928; border: 0; border-radius: 8px; font-weight: bold; text-decoration: none; cursor: pointer; }
 input, select { flex: 1; min-width: 220px; padding: 12px; border-radius: 8px; border: 1px solid #4b504d; }
 .amigos { display: flex; gap: 8px; flex-wrap: wrap; }.amigos span, .mensagem { padding: 9px 12px; background: #1d211f; border-radius: 8px; }
+.organizadora { display: inline-block; padding: 8px 12px; color: #080808; background: #f4c928; border-radius: 999px; font-weight: bold; }
 
