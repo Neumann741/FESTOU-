@@ -1,2 +1,117 @@
-.pagina-playlist { min-height: 100vh; padding: 52px 8%; color: #f7f7f2; background: #080808; font-family: "Graphik", "Helvetica Neue", Arial, sans-serif; }.pagina-playlist > a { color: #f4c928; text-decoration: none; }.formulario { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 750px; margin: 28px 0; }.formulario input { padding: 12px; border: 1px solid #4b504d; border-radius: 8px; }.formulario button, .lista button { padding: 10px 14px; color: #080808; background: #f4c928; border: 0; border-radius: 8px; font-weight: bold; cursor: pointer; }.lista { display: grid; gap: 10px; max-width: 750px; }.lista article { display: flex; align-items: center; gap: 14px; padding: 14px; background: #101211; border-radius: 10px; }.lista article > span { color: #f4c928; font-size: 22px; font-weight: bold; }.lista p { margin: 5px 0 0; color: #c9cbc7; }.lista article div { flex: 1; }.lista a { color: #f4c928; }.lista button { color: #f7f7f2; background: #6f2525; } @media (max-width: 600px) { .formulario { grid-template-columns: 1fr; }.lista article { flex-wrap: wrap; } }
+.pagina-playlist {
+  min-height: 100vh;
+  padding: 0 max(24px, calc((100vw - 1180px) / 2)) 80px;
+  background: radial-gradient(ellipse at 15% 15%, #292817 0, transparent 48%), #0c0d0b;
+  color: #f6f3e9;
+  font-family: "Graphik", "Helvetica Neue", Arial, sans-serif;
+}
+
+.navegacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 88px;
+  border-bottom: 1px solid #ffffff14;
+}
+
+.navegacao a { color: #b7b9ad; text-decoration: none; font-size: 13px; }
+.navegacao .marca { color: #f4c928; font-size: 32px; font-weight: 900; letter-spacing: -2px; }
+
+.cabecalho {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 56px 0;
+}
+
+.capa-musical {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffe273, #e5b924);
+  box-shadow: 0 20px 60px #0006;
+}
+
+.disco {
+  display: grid;
+  place-items: center;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #131511 0 3px, #282b24 4px 5px);
+  transform: translate(28px, -10px) rotate(-15deg);
+  box-shadow: -10px 14px 24px #0005;
+}
+
+.disco span {
+  display: grid;
+  place-items: center;
+  width: 38%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f4c928;
+  color: #12130e;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.selo { position: absolute; left: 18px; bottom: 19px; color: #15160c; font-size: 10px; letter-spacing: 2px; font-weight: 900; }
+.etiqueta { margin: 0 0 14px; color: #f4c928; font-size: 10px; letter-spacing: 2px; font-weight: 700; }
+.apresentacao h1 { margin: 0; font-size: clamp(42px, 5vw, 72px); line-height: 1.04; letter-spacing: -2px; font-weight: 500; }
+.apresentacao em { color: #f4c928; }
+.apresentacao > p:not(.etiqueta) { max-width: 460px; color: #afb2a6; font-size: 15px; line-height: 1.7; margin: 20px 0; }
+.contador { display: inline-block; padding: 10px 15px; border: 1px solid #ffffff1a; border-radius: 30px; font-size: 12px; color: #d6d8c9; }
+
+.conteudo { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; }
+.titulo-lista { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 24px; }
+.titulo-lista h2 { font-size: 28px; margin: 0; font-weight: 500; }
+.titulo-lista > span { background: #22251c; color: #f4c928; padding: 8px 13px; border-radius: 10px; font-size: 13px; }
+.lista .faixa { display: flex; gap: 14px; align-items: center; margin-bottom: 8px; padding: 16px; border: 1px solid #ffffff0e; border-radius: 12px; background: #151712; box-shadow: none; }
+.numero { color: #74796b; font-size: 12px; width: 18px; }
+.icone-musica { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; background: #2a2d1d; color: #e3c457; border-radius: 8px; }
+.dados-musica { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.dados-musica strong { font-size: 14px; }
+.dados-musica p { color: #949a8b; margin: 6px 0 0; font-size: 12px; }
+.acoes { display: flex; gap: 12px; align-items: center; }
+.acoes a { color: #f4c928; text-decoration: none; font-size: 12px; white-space: nowrap; }
+.acoes button { background: transparent; border: 0; color: #989b91; padding: 8px 0; font-size: 11px; cursor: pointer; }
+.acoes button:hover { color: #ffa59d; }
+
+.vazio { display: grid; justify-items: center; text-align: center; padding: 58px 28px; border: 1px dashed #3b4031; border-radius: 16px; }
+.vazio > span { color: #f4c928; font-size: 40px; margin-bottom: 18px; }
+.vazio h3 { font-size: 25px; font-weight: 500; margin: 0 0 12px; }
+.vazio p { color: #989e8e; max-width: 290px; font-size: 14px; line-height: 1.7; margin: 0; }
+.painel { background: #191c15; border: 1px solid #353a2a; border-radius: 18px; padding: 28px; }
+.simbolo { color: #f4c928; font-size: 28px; }
+.painel h2 { font-size: 29px; margin: 15px 0; line-height: 1.15; font-weight: 500; }
+.painel > p { color: #a2a796; font-size: 13px; line-height: 1.6; }
+.formulario { display: grid; gap: 18px; margin-top: 25px; }
+.formulario label { display: grid; gap: 8px; font-size: 12px; color: #dddfd4; }
+.formulario label span { color: #8f9583; }
+.formulario input { width: 100%; min-width: 0; padding: 13px; border: 1px solid #383e2c; border-radius: 8px; background: #11140e; color: #f6f3e9; font: inherit; }
+.formulario input::placeholder { color: #7f8773; }
+.formulario button { padding: 15px; background: #f4c928; color: #151609; font-weight: 700; border: 0; border-radius: 9px; cursor: pointer; }
+.formulario button:hover { background: #ffdb50; }
+.formulario button:disabled { opacity: .45; cursor: default; }
+.painel .observacao { margin: 16px 0 0; font-size: 11px; text-align: center; }
+
+@media (max-width: 850px) {
+  .cabecalho { grid-template-columns: 200px 1fr; gap: 28px; }
+  .conteudo { grid-template-columns: 1fr; }
+  .painel { max-width: none; }
+}
+
+@media (max-width: 520px) {
+  .pagina-playlist { padding-inline: 18px; }
+  .cabecalho { grid-template-columns: 1fr; padding: 32px 0; }
+  .capa-musical { width: 170px; }
+  .apresentacao h1 { font-size: 46px; }
+  .lista .faixa { flex-wrap: wrap; gap: 10px; }
+  .acoes { width: 100%; justify-content: flex-end; }
+  .painel { padding: 24px; }
+}
 

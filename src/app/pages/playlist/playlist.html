@@ -1,4 +1,27 @@
-<main class="pagina-playlist"><a routerLink="/mapa-page">← Voltar ao mapa</a><h1>Playlist da festa</h1><p>Monte a trilha sonora com seus amigos.</p>
-  <section class="formulario"><input [(ngModel)]="nome" placeholder="Nome da música"><input [(ngModel)]="artista" placeholder="Artista"><input [(ngModel)]="link" placeholder="Link do Spotify ou YouTube"><button (click)="adicionar()">Adicionar música</button></section>
-  <section class="lista">@for (musica of playlist.daFesta(festaId()); track $index) { <article><span>{{ $index + 1 }}</span><div><strong>{{ musica.nome }}</strong><p>{{ musica.artista }}</p></div>@if (musica.link) { <a [href]="musica.link" target="_blank">Ouvir</a> }<button (click)="remover($index)">Remover</button></article> } @empty { <p>Comece adicionando a primeira música.</p> }</section>
+<main class="pagina-playlist">
+  <nav class="navegacao"><a routerLink="/main-page" class="marca">festou!</a><a [routerLink]="['/festa', festaId()]">← Voltar à festa</a></nav>
+  <header class="cabecalho">
+    <div class="capa-musical"><div class="disco"><span>f!</span></div><span class="selo">FEITA PELA GALERA</span></div>
+    <div class="apresentacao"><p class="etiqueta">A TRILHA SONORA DO SEU ROLÊ</p><h1>O som da<br><em>nossa festa.</em></h1><p>Cada pessoa traz uma música. Juntos, vocês dão o tom da noite.</p><span class="contador">♫ {{ playlist.daFesta(festaId()).length }} músicas · Playlist colaborativa</span></div>
+  </header>
+  <div class="conteudo">
+    <section class="lista">
+      <div class="titulo-lista"><div><p class="etiqueta">NA SEQUÊNCIA</p><h2>Seleção da galera</h2></div><span>{{ playlist.daFesta(festaId()).length }}</span></div>
+      @for (musica of playlist.daFesta(festaId()); track $index) {
+        <article class="faixa"><span class="numero">{{ $index + 1 }}</span><span class="icone-musica">♫</span><div class="dados-musica"><strong>{{ musica.nome }}</strong><p>{{ musica.artista || 'Artista não informado' }}</p></div><div class="acoes">@if (musica.link) { <a [href]="musica.link" target="_blank" rel="noopener noreferrer">↗ Ouvir</a> }<button type="button" (click)="remover($index)">Remover</button></div></article>
+      } @empty {
+        <div class="vazio"><span>♫</span><h3>A primeira música é sua.</h3><p>Que tal começar com aquela que faz todo mundo cantar junto?</p></div>
+      }
+    </section>
+    <aside class="painel">
+      <span class="simbolo">+</span><h2>Sua música,<br>nosso próximo hit.</h2><p>Adicione uma faixa à seleção da festa.</p>
+      <form class="formulario" (ngSubmit)="adicionar()">
+        <label>Nome da música<input name="musica" [(ngModel)]="nome" placeholder="Qual não pode faltar?"></label>
+        <label>Artista<input name="artista" [(ngModel)]="artista" placeholder="Quem canta?"></label>
+        <label>Link para ouvir <span>(opcional)</span><input name="link" [(ngModel)]="link" placeholder="Spotify, YouTube…"></label>
+        <button type="submit" [disabled]="!nome.trim()">+ Adicionar à playlist</button>
+      </form>
+      <p class="observacao">Os links abrem no serviço de música escolhido.</p>
+    </aside>
+  </div>
 </main>
