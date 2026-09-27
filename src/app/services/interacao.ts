@@ -9,6 +9,7 @@ export interface Comentario {
 export class Interacao {
   favoritos = signal<number[]>(this.ler('festou-favoritos', [2, 5]));
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
+  pedidos = signal<number[]>(this.ler('festou-pedidos', []));
   pessoas = ['Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
   amigosPorFesta = signal<Record<number, string[]>>(this.ler('festou-amigos-festas', {
     1: ['Ana', 'João'],
@@ -32,6 +33,13 @@ export class Interacao {
     const confirmadas = lista.includes(id) ? lista.filter((festa) => festa !== id) : [...lista, id];
     this.confirmadas.set(confirmadas);
     this.salvar('festou-confirmadas', confirmadas);
+  }
+
+  pedirParticipacao(id: number): void {
+    if (this.pedidos().includes(id)) return;
+    const pedidos = [...this.pedidos(), id];
+    this.pedidos.set(pedidos);
+    this.salvar('festou-pedidos', pedidos);
   }
 
   comentar(id: number, texto: string): void {

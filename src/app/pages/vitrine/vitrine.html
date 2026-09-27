@@ -19,6 +19,7 @@
             [style.background-image]="festa.imagem ? 'url(' + festa.imagem + ')' : null"
           >
             <span class="data">{{ dataLabel(festa.data) }}</span>
+            @if (festa.tipo === 'privada') { <span class="tipo-festa">Privada</span> }
 
             <button
               class="favorito"
@@ -56,9 +57,9 @@
               <strong>{{ preco(festa) }}</strong>
             </p>
 
-            <button class="ver-festa" type="button" (click)="verDetalhes(festa)">
-              Ver detalhes
-            </button>
+            @if (festa.tipo === 'privada') {
+              <button class="ver-festa" type="button" (click)="pedirParticipacao(festa)">{{ interacao.pedidos().includes(festa.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
+            } @else { <button class="ver-festa" type="button" (click)="verDetalhes(festa)">Ver detalhes</button> }
           </div>
         </article>
       }

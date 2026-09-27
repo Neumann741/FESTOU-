@@ -32,6 +32,8 @@ export class Vitrine {
     void this.router.navigate(['/festa', festa.id]);
   }
 
+  pedirParticipacao(festa: Festa): void { this.interacao.pedirParticipacao(festa.id); }
+
   dataLabel(data: string): string {
     return new Date(`${data}T00:00:00`)
       .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })

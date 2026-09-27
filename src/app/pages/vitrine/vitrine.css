@@ -142,6 +142,8 @@
   border-color: var(--amarelo);
 }
 
+.tipo-festa { position: absolute; z-index: 1; top: 62px; left: 16px; padding: 7px 10px; color: #090909; background: var(--amarelo); border-radius: 999px; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+
 .abrir-no-mapa {
   right: 16px;
   bottom: 16px;
