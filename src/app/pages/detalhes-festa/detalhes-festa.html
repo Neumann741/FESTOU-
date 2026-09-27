@@ -5,6 +5,7 @@
       <div class="fundo"><p>{{ evento.categoria }}</p><h1>{{ evento.nome }}</h1><p>{{ evento.local }} · {{ evento.cidade }}</p></div>
     </section>
     <section class="conteudo">
+      @if (evento.eventoGrande) { <p class="organizadora">Evento por {{ evento.organizadora }}</p> }
       <p>{{ evento.data }} às {{ evento.horario }}</p>
       <h2>{{ evento.preco === 0 ? 'Grátis' : 'Ingresso ' + evento.preco }}</h2>
       <div class="botoes">
@@ -12,6 +13,7 @@
         <button (click)="favoritar()">{{ interacao.favoritos().includes(evento.id) ? '♥ Salva' : '♡ Salvar festa' }}</button>
         <a [routerLink]="['/galeria', evento.id]">Ver galeria</a>
         <a [routerLink]="['/playlist', evento.id]">Montar playlist</a>
+        @if (evento.eventoGrande) { <button (click)="comprarIngresso()">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso' }}</button> }
       </div>
       <h2>Quem vai</h2><p>{{ evento.pessoasConfirmadas + interacao.confirmadas().length }} pessoas confirmadas</p>
       @if (interacao.amigosNaFesta(evento.id).length) {

@@ -15,7 +15,7 @@ import { MAPA_CONFIG } from './mapa.config';
 })
 export class Mapa {
   readonly config = MAPA_CONFIG;
-  readonly categorias = ['Eletrônica', 'Sertanejo', 'Pagode', 'Funk', 'Rock', 'Festival', 'Universitária', 'Bar/Balada'];
+  readonly categorias = ['Eletrônica', 'Sertanejo', 'Pagode', 'Funk', 'Rock', 'Festival', 'Open Bar', 'Abertas', 'Eventos', 'Universitária', 'Bar/Balada'];
   readonly festas = signal<(Festa & { distancia?: number })[]>([]);
   readonly selecionada = signal<number | null>(null);
   readonly perto = signal(false);

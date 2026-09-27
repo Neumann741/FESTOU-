@@ -23,6 +23,9 @@
             <option value="Funk">Funk</option>
             <option value="Rock">Rock</option>
             <option value="Festival">Festival</option>
+            <option value="Open Bar">Open Bar</option>
+            <option value="Abertas">Abertas</option>
+            <option value="Eventos">Eventos</option>
           </select>
           @if (formulario.categoria().touched() && formulario.categoria().invalid()) {
             @for (erro of formulario.categoria().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
