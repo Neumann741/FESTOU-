@@ -1,0 +1,13 @@
+<section class="galeria-geral">
+  <div class="titulo-galeria">
+    <div><p>MEMÓRIAS DA FESTOU!</p><h2>Galeria da comunidade</h2></div>
+    <a routerLink="/galeria/1">Ver galeria</a>
+  </div>
+  <div class="mural-fotos">
+    @for (foto of galeria.fotos().slice(-6).reverse(); track $index) {
+      <a [routerLink]="['/galeria', foto.festaId]"><img [src]="foto.link"></a>
+    } @empty {
+      <div class="sem-fotos"><span>✦</span><p>As fotos enviadas nas festas vão aparecer aqui.</p></div>
+    }
+  </div>
+</section>
