@@ -1,0 +1,72 @@
+<main class="pagina-criar">
+  <section class="caixa-formulario">
+    <h1>Criar festa</h1>
+    <p class="texto">Preencha o básico e publique sua festa no Festou!</p>
+
+    <form class="formulario" (submit)="criarFesta($event)">
+      <div class="grupo">
+        <label>Nome da festa</label>
+        <input type="text" [formField]="formulario.nome" placeholder="Ex: Noite do Pagode">
+        @if (formulario.nome().touched() && formulario.nome().invalid()) {
+          @for (erro of formulario.nome().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
+        }
+      </div>
+
+      <div class="linha">
+        <div class="grupo">
+          <label>Categoria</label>
+          <select [formField]="formulario.categoria">
+            <option value="">Selecione</option>
+            <option value="Eletrônica">Eletrônica</option>
+            <option value="Sertanejo">Sertanejo</option>
+            <option value="Pagode">Pagode</option>
+            <option value="Funk">Funk</option>
+            <option value="Rock">Rock</option>
+            <option value="Festival">Festival</option>
+          </select>
+          @if (formulario.categoria().touched() && formulario.categoria().invalid()) {
+            @for (erro of formulario.categoria().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
+          }
+        </div>
+        <div class="grupo">
+          <label>Preço</label>
+          <input type="number" [formField]="formulario.preco" placeholder="0 para grátis">
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="grupo">
+          <label>Data</label>
+          <input type="date" [formField]="formulario.data">
+          @if (formulario.data().touched() && formulario.data().invalid()) {
+            @for (erro of formulario.data().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
+          }
+        </div>
+        <div class="grupo">
+          <label>Horário</label>
+          <input type="time" [formField]="formulario.horario">
+          @if (formulario.horario().touched() && formulario.horario().invalid()) {
+            @for (erro of formulario.horario().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
+          }
+        </div>
+      </div>
+
+      <div class="grupo">
+        <label>Endereço da festa</label>
+        <div class="buscar-local">
+          <input type="text" [formField]="formulario.local" placeholder="Ex: Vila Germânica, Blumenau">
+          <button class="botao-buscar" type="button" (click)="buscarLocalizacao()" [disabled]="buscando()">Buscar localização</button>
+        </div>
+        @if (formulario.local().touched() && formulario.local().invalid()) {
+          @for (erro of formulario.local().errors(); track erro.kind) { <span>{{ erro.message }}</span> }
+        }
+        @if (mensagem()) { <p class="mensagem">{{ mensagem() }}</p> }
+      </div>
+
+      <div class="botoes">
+        <button class="botao-cancelar" type="button" (click)="cancelar()">Cancelar</button>
+        <button class="botao-publicar" type="submit" [disabled]="formulario().invalid() || buscando()">Publicar festa</button>
+      </div>
+    </form>
+  </section>
+</main>

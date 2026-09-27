@@ -2,3 +2,42 @@
 @import './app/componentes/mapa/mapa-leaflet.css';
 * { box-sizing: border-box; }
 body { margin: 0; background: #10110e; }
+
+/* Padrão visual das páginas internas da Festou. */
+.pagina-criar,
+.detalhes,
+.galeria-pagina,
+.pagina-playlist,
+.minhas-festas,
+.perfil {
+  background:
+    radial-gradient(circle at top right, rgba(244, 201, 40, .08), transparent 28%),
+    #080808;
+}
+
+.caixa-formulario,
+.festa,
+.lista article,
+.fotos article,
+.numeros div,
+.amigo {
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .18);
+}
+
+.festa,
+.lista article,
+.fotos article,
+.numeros div,
+.amigo,
+.caixa-formulario {
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.festa:hover,
+.lista article:hover,
+.fotos article:hover,
+.numeros div:hover,
+.amigo:hover {
+  transform: translateY(-3px);
+  border-color: #f4c928;
+}

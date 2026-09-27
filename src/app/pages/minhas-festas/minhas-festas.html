@@ -1,0 +1,8 @@
+<main class="minhas-festas">
+  <header><div><p>PAINEL DO ORGANIZADOR</p><h1>Minhas festas</h1></div><a routerLink="/criar-festa">+ Criar festa</a></header>
+  <section class="lista-festas">
+    @for (festa of festas(); track festa.id) {
+      <article class="festa"><div><h2>{{ festa.nome }}</h2><p>{{ festa.data }} · {{ festa.horario }} · {{ festa.local }}</p><span>{{ festa.categoria }} · {{ festa.pessoasConfirmadas }} confirmados</span></div><div class="acoes"><a [routerLink]="['/festa', festa.id]">Ver</a><button (click)="excluir(festa.id)">Excluir</button></div></article>
+    } @empty { <p>Nenhuma festa criada ainda.</p> }
+  </section>
+</main>
