@@ -1,5 +1,225 @@
-.perfil { min-height: 100vh; padding: 56px 8%; color: #f7f7f2; background: #080808; font-family: "Graphik", "Helvetica Neue", Arial, sans-serif; }
-.cabecalho-perfil { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }.cabecalho-perfil h1 { margin: 0; }.cabecalho-perfil p { color: #c9cbc7; }.cabecalho-perfil a, .atalhos a { padding: 11px 15px; color: #080808; background: #f4c928; border-radius: 8px; text-decoration: none; font-weight: bold; }
-.foto { display: grid; width: 78px; height: 78px; place-items: center; color: #080808; background: #f4c928; border-radius: 50%; font-size: 30px; font-weight: bold; }.pequena { width: 42px; height: 42px; font-size: 17px; }
-.numeros, .amigos { display: flex; gap: 16px; flex-wrap: wrap; margin: 36px 0; }.numeros div, .amigo { display: flex; flex-direction: column; gap: 6px; padding: 20px; background: #101211; border: 1px solid #4b504d; border-radius: 12px; }.numeros strong { color: #f4c928; font-size: 32px; }.numeros span, .amigo span { color: #c9cbc7; }.amigo { min-width: 150px; }.atalhos { display: flex; gap: 12px; margin-top: 35px; flex-wrap: wrap; }
+:host {
+  display: block;
+}
+.pagina-social {
+  min-height: 100vh;
+  background: #0d0e0c;
+  color: #f4f3ec;
+  font-family: "Graphik", "Helvetica Neue", Arial, sans-serif;
+}
+.barra-social {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px max(24px, calc((100vw - 1120px) / 2));
+  border-bottom: 1px solid #ffffff0d;
+}
+.barra-social a {
+  text-decoration: none;
+  color: #a4a69a;
+  font-size: 12px;
+}
+.barra-social .marca-social {
+  color: #f4c928;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+.limite-social {
+  max-width: 1120px;
+  margin: auto;
+  padding: 32px 24px 80px;
+}
+.capa-social {
+  position: relative;
+  height: 170px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: repeating-linear-gradient(125deg, transparent 0 65px, #f4c92809 66px 67px), linear-gradient(115deg, #292e1e, #444122);
+  border: 1px solid #ffffff0b;
+}
+.capa-social > span {
+  position: absolute;
+  top: 28px;
+  left: 30px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #d7d7af;
+}
+.capa-social b {
+  position: absolute;
+  right: 65px;
+  top: -76px;
+  font-size: 310px;
+  font-weight: 400;
+  color: #d6c567;
+  opacity: .23;
+  transform: rotate(15deg);
+}
+.identidade-social {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 0 26px;
+  margin-top: -38px;
+}
+.avatar-social {
+  display: grid;
+  place-items: center;
+  width: 126px;
+  height: 126px;
+  flex-shrink: 0;
+  border: 7px solid #0d0e0c;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #fff0ad, #d1a81f);
+  color: #29220b;
+  font-family: Georgia, serif;
+  font-size: 38px;
+}
+.nome-social {
+  flex: 1;
+  padding-top: 60px;
+}
+.usuario-social {
+  margin: 0 0 8px;
+  color: #969d87;
+  font-size: 12px;
+}
+.nome-social h1 {
+  font-family: "Graphik", Arial, sans-serif;
+  margin: 0;
+  font-size: clamp(28px, 4vw, 38px);
+  letter-spacing: -1.4px;
+}
+.bio-social {
+  color: #afb3a5;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+.gostos-social {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.gostos-social span {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid #34392c;
+  color: #c6cbb9;
+  font-size: 10px;
+}
+.criar-social {
+  text-decoration: none;
+  background: #f4c928;
+  color: #151608;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.resumo-social {
+  display: flex;
+  gap: 28px;
+  padding: 28px 26px 32px 176px;
+}
+.resumo-social button, .resumo-social > span {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #929989;
+  font: inherit;
+  font-size: 12px;
+}
+.resumo-social button { cursor: pointer; }
+.resumo-social strong { color: #f4f3ec; margin-right: 5px; font-size: 17px; }
+.corpo-social {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 32px;
+  border-top: 1px solid #292f22;
+  padding-top: 30px;
+}
+.abas-social {
+  display: flex;
+  gap: 26px;
+  border-bottom: 1px solid #292f22;
+  margin-bottom: 24px;
+}
+.abas-social button {
+  padding: 0 0 17px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #969e8b;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.abas-social button.selecionada { border-color: #f4c928; color: #f4c928; }
+.abas-social button span { margin-left: 6px; opacity: .6; }
+.grade-social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.evento-social {
+  text-decoration: none;
+  color: inherit;
+  background: #151911;
+  border: 1px solid #2c3323;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.evento-social:hover { transform: translateY(-3px); border-color: #a49343; }
+.imagem-social { position: relative; aspect-ratio: 1.5; overflow: hidden; }
+.imagem-social img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.imagem-social > span { position: absolute; left: 12px; bottom: 12px; padding: 6px 9px; background: #111a; backdrop-filter: blur(8px); border-radius: 6px; font-size: 10px; }
+.info-social { padding: 18px; }
+.info-social > p { margin: 0 0 10px; font-size: 10px; color: #d9c76a; letter-spacing: .5px; }
+.info-social h2 { margin: 0 0 9px; font-size: 24px; font-weight: 500; overflow-wrap: anywhere; }
+.info-social > span { font-size: 11px; color: #959f86; }
+.rodape-social { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid #303827; font-size: 10px; color: #b6c69d; }
+.rodape-social b { font-size: 18px; color: #f4c928; }
+.amigos-social { padding: 22px; border: 1px solid #303827; border-radius: 12px; }
+.titulo-social { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.titulo-social h2 { margin: 0; font-size: 21px; font-weight: 500; }
+.titulo-social > span { font-size: 11px; color: #8f9a7e; }
+.pessoa-social { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.inicial-social { display: grid; place-items: center; height: 38px; width: 38px; background: #d8c881; color: #252e1b; border-radius: 50%; font-size: 12px; }
+.tom-rosa { background: #d6a898; }
+.tom-verde { background: #b0c698; }
+.tom-azul { background: #a0b3ce; }
+.pessoa-social strong { font-size: 12px; font-weight: 500; }
+.pessoa-social p { font-size: 10px; color: #929d83; margin: 5px 0 0; }
+.gerenciar-social { display: block; padding: 24px; margin-top: 20px; border: 1px solid #444b2c; background: linear-gradient(130deg, #30351f, #191f12); border-radius: 12px; text-decoration: none; color: #f4f3ec; }
+.gerenciar-social > span { font-size: 8px; letter-spacing: 1.5px; color: #d4c672; }
+.gerenciar-social h2 { font-size: 32px; font-weight: 400; margin: 18px 0 12px; line-height: 1.1; }
+.gerenciar-social p { font-size: 12px; color: #abb795; line-height: 1.6; }
+.gerenciar-social strong { display: block; margin-top: 22px; color: #f4c928; font-size: 12px; }
+.mapa-social { display: block; margin-top: 22px; text-decoration: none; color: #aeb99b; font-size: 12px; text-align: center; }
+.vazio-social { grid-column: 1 / -1; text-align: center; padding: 48px 24px; border: 1px dashed #38422a; border-radius: 12px; }
+.vazio-social > span { font-size: 38px; color: #f4c928; }
+.vazio-social h2 { font-size: 25px; font-weight: 400; }
+.vazio-social p { color: #a2ae91; font-size: 13px; line-height: 1.7; }
+.vazio-social a { color: #f4c928; font-size: 12px; display: inline-block; margin-top: 12px; }
+@media (max-width: 850px) {
+  .corpo-social { grid-template-columns: 1fr; }
+  .lateral-social { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .gerenciar-social { margin-top: 0; }
+  .mapa-social { grid-column: 1 / -1; margin-top: 0; }
+}
+@media (max-width: 560px) {
+  .limite-social { padding: 18px 16px 50px; }
+  .capa-social { height: 130px; }
+  .capa-social > span { max-width: 180px; line-height: 1.8; left: 20px; }
+  .capa-social b { right: -30px; }
+  .identidade-social { flex-wrap: wrap; padding: 0 12px; gap: 16px; }
+  .avatar-social { width: 92px; height: 92px; font-size: 27px; }
+  .nome-social { flex-basis: 100%; padding-top: 0; }
+  .criar-social { width: 100%; text-align: center; }
+  .resumo-social { padding: 26px 12px; justify-content: space-between; gap: 10px; }
+  .resumo-social button, .resumo-social > span { font-size: 10px; }
+  .grade-social, .lateral-social { grid-template-columns: 1fr; }
+  .abas-social { gap: 20px; }
+}
 
