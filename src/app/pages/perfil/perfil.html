@@ -1,4 +1,6 @@
 <main class="perfil">
+  <a class="voltar-interno" routerLink="/main-page">← Explorar Festou!</a>
+  <div class="capa-perfil"><span>GENTE. MÚSICA. ENCONTROS.</span><strong>Seu próximo rolê<br>começa por aqui.</strong><b>✦</b></div>
   <section class="cabecalho-perfil">
     <div class="foto">L</div>
     <div><h1>Lucas Festou</h1><p>Blumenau, SC · Sempre procurando a próxima festa.</p></div>
@@ -11,7 +13,7 @@
     <div><strong>{{ amigos.length }}</strong><span>amigos</span></div>
   </section>
 
-  <section><h2>Meus amigos</h2><div class="amigos">
+  <section><p class="etiqueta-interna">QUEM FAZ PARTE DA SUA HISTÓRIA</p><h2>Meus amigos</h2><div class="amigos">
     @for (amigo of amigos; track amigo.nome) { <div class="amigo"><div class="foto pequena">{{ amigo.nome[0] }}</div><strong>{{ amigo.nome }}</strong><span>{{ amigo.estilo }}</span></div> }
   </div></section>
 

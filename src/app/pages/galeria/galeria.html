@@ -1,10 +1,11 @@
 <main class="galeria-pagina">
-  <a routerLink="/mapa-page">← Voltar ao mapa</a>
-  <h1>Galeria da festa</h1>
+  <a [routerLink]="['/festa', festaId()]">← Voltar à festa</a>
+  <p class="etiqueta-interna">MEMÓRIAS COMPARTILHADAS</p>
+  <h1>A noite passa.<br>As histórias ficam.</h1>
   <p>Compartilhe um link de imagem para guardar os melhores momentos.</p>
   <div class="enviar"><input [(ngModel)]="foto" placeholder="Cole o link da imagem aqui"><button (click)="publicar()">Adicionar foto</button></div>
   <section class="fotos">
     @for (item of galeria.fotosDaFesta(festaId()); track $index) { <article><img [src]="item.link"><span>Enviado por {{ item.pessoa }}</span></article> }
-    @empty { <p>Nenhuma foto publicada ainda.</p> }
+    @empty { <div class="vazio-interno"><span>✦</span><h2>O primeiro registro é seu.</h2><p>Adicione uma imagem e comece o álbum dessa festa.</p></div> }
   </section>
 </main>
