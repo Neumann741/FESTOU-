@@ -1,0 +1,180 @@
+/* Estilos restritos às páginas internas. A Home usa seus próprios componentes. */
+app-perfil .perfil,
+app-galeria .galeria-pagina,
+app-minhas-festas .minhas-festas,
+app-detalhes-festa .detalhes,
+app-criar-festa .pagina-criar {
+  padding: 48px max(22px, calc((100vw - 1120px) / 2)) 88px;
+  background: radial-gradient(ellipse at top left, #292817, transparent 50%), #0c0d0b;
+  color: #f6f3e9;
+}
+
+app-perfil .voltar-interno,
+app-minhas-festas .voltar-interno,
+app-galeria .galeria-pagina > a,
+app-detalhes-festa .voltar {
+  display: inline-block;
+  margin-bottom: 28px;
+  padding: 0;
+  background: transparent;
+  color: #b6bcaa;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+app-perfil .etiqueta-interna,
+app-galeria .etiqueta-interna,
+app-criar-festa .etiqueta-interna {
+  color: #f4c928;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0 0 16px;
+}
+
+app-perfil .capa-perfil {
+  position: relative;
+  overflow: hidden;
+  padding: 36px 40px 70px;
+  border: 1px solid #51482b;
+  border-radius: 24px;
+  background: linear-gradient(115deg, #38331c, #151811);
+}
+
+app-perfil .capa-perfil span {
+  display: block;
+  color: #f4c928;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+app-perfil .capa-perfil strong {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 400;
+}
+
+app-perfil .capa-perfil b {
+  position: absolute;
+  right: 7%;
+  top: -35px;
+  color: #f4c928;
+  font-size: 250px;
+  opacity: .18;
+}
+
+app-perfil .cabecalho-perfil {
+  position: relative;
+  margin: -32px 24px 0;
+  gap: 24px;
+  align-items: center;
+}
+
+app-perfil .cabecalho-perfil > .foto {
+  width: 112px;
+  height: 112px;
+  border: 7px solid #0c0d0b;
+  flex-shrink: 0;
+}
+
+app-perfil .cabecalho-perfil > div:nth-child(2) { flex: 1; padding-top: 40px; }
+app-perfil .cabecalho-perfil h1 { font-size: 36px; font-weight: 500; }
+app-perfil .cabecalho-perfil a { margin-top: 30px; }
+app-perfil .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 42px 0 56px; }
+app-perfil .numeros > div { padding: 28px; border-color: #303627; background: #161a12; border-radius: 16px; }
+app-perfil .numeros strong { font-size: 44px; font-weight: 500; }
+app-perfil .numeros span { font-size: 13px; color: #a3ab95; }
+app-perfil .amigos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 22px 0; }
+app-perfil .amigo { min-width: 0; padding: 24px; border-color: #303627; background: #161a12; gap: 12px; }
+app-perfil .amigo:nth-child(2) .foto { background: #b6c692; }
+app-perfil .amigo:nth-child(3) .foto { background: #e5b6a3; }
+app-perfil .amigo:nth-child(4) .foto { background: #acb8d2; }
+app-perfil .atalhos { padding-top: 26px; border-top: 1px solid #303627; }
+app-perfil .atalhos a { background: #20251a; border: 1px solid #3c4430; color: #e8ebdf; padding: 16px 22px; }
+
+app-galeria h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 500; letter-spacing: -2px; margin: 0 0 24px; line-height: 1.08; }
+app-galeria .galeria-pagina > p:not(.etiqueta-interna) { color: #a7af98; line-height: 1.7; }
+app-galeria .enviar { max-width: none; margin: 36px 0; padding: 24px; background: #191d14; border: 1px solid #353c2b; border-radius: 16px; }
+app-galeria .enviar input { min-width: 0; background: #10140d; color: #f6f3e9; border-color: #39422b; padding: 16px; }
+app-galeria .fotos { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+app-galeria .fotos article { border: 1px solid #353c2b; border-radius: 16px; background: #191d14; }
+app-galeria .fotos img { height: 280px; display: block; }
+app-galeria .fotos span { padding: 18px; font-size: 12px; color: #b1b99f; }
+app-galeria .vazio-interno { grid-column: 1 / -1; padding: 62px 24px; text-align: center; border: 1px dashed #414b34; border-radius: 16px; }
+app-galeria .vazio-interno span { color: #f4c928; font-size: 40px; }
+app-galeria .vazio-interno h2 { font-weight: 500; font-size: 28px; }
+app-galeria .vazio-interno p { color: #a7af98; }
+
+app-minhas-festas header { padding: 22px 0 36px; border-bottom: 1px solid #303627; }
+app-minhas-festas header h1 { font-size: clamp(38px, 5vw, 58px); font-weight: 500; }
+app-minhas-festas header p { color: #f4c928; letter-spacing: 2px; font-size: 10px; }
+app-minhas-festas .festa { align-items: center; background: #161a12; border-color: #303627; padding: 18px; gap: 24px; border-radius: 16px; }
+app-minhas-festas .capa-gerenciamento { width: 96px; height: 108px; object-fit: cover; border-radius: 10px; }
+app-minhas-festas .festa > div:first-of-type { flex: 1; }
+app-minhas-festas .festa h2 { font-size: 25px; font-weight: 500; }
+app-minhas-festas .festa p { font-size: 13px; color: #abb39b; line-height: 1.6; }
+app-minhas-festas .festa span { font-size: 12px; color: #d3bd68; }
+app-minhas-festas .acoes button { background: transparent; color: #de9f97; }
+
+app-criar-festa .caixa-formulario { width: 100%; max-width: 790px; padding: clamp(24px, 5vw, 54px); border-color: #353c2b; border-radius: 24px; background: #161a12; }
+app-criar-festa h1 { font-size: 52px; font-weight: 500; letter-spacing: -2px; }
+app-criar-festa .texto { color: #a7af98; line-height: 1.6; margin-bottom: 36px; }
+app-criar-festa .formulario { gap: 26px; }
+app-criar-festa label { font-size: 12px; color: #d5dac9; margin-bottom: 10px; }
+app-criar-festa input, app-criar-festa select { padding: 15px; border-color: #39422b; background: #10140d; color-scheme: dark; }
+app-criar-festa .mensagem { padding: 14px; border-left: 2px solid #f4c928; background: #25291c; line-height: 1.6; }
+app-criar-festa .botoes { padding-top: 24px; border-top: 1px solid #303627; }
+
+app-detalhes-festa .capa { height: 420px; border-radius: 24px; border: 1px solid #353c2b; margin: 0 0 32px; }
+app-detalhes-festa .fundo { padding: 38px; background: linear-gradient(transparent, #0b1007ed); }
+app-detalhes-festa h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 500; letter-spacing: -2px; overflow-wrap: anywhere; }
+app-detalhes-festa .conteudo { max-width: none; padding: clamp(22px, 4vw, 42px); border: 1px solid #353c2b; border-radius: 22px; background: #161a12; }
+app-detalhes-festa .conteudo > h2 { border-top: 1px solid #333c27; padding-top: 28px; font-size: 28px; font-weight: 500; }
+app-detalhes-festa .conteudo p { color: #b5bda6; line-height: 1.7; }
+app-detalhes-festa .botoes { padding: 12px 0 20px; gap: 10px; }
+app-detalhes-festa .botoes a { background: #272f1e; color: #e8dfab; border: 1px solid #445031; }
+app-detalhes-festa input, app-detalhes-festa select { min-width: 0; background: #10140d; color: #eef0e7; border-color: #3a452c; padding: 16px; }
+app-detalhes-festa .amigos { margin: 22px 0; }
+app-detalhes-festa .amigos span { border: 1px solid #445031; border-radius: 25px; color: #e5d382; background: #232b1b; }
+app-detalhes-festa .mensagem { padding: 18px; background: #1e2618; border-radius: 12px; }
+
+app-vitrine .festas-grid { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
+app-vitrine .festa-card { display: flex; flex-direction: column; border-color: #303627; background: #161a12; }
+app-vitrine .card-conteudo { display: flex; flex-direction: column; flex: 1; gap: 6px; padding: 24px; }
+app-vitrine .card-conteudo h2 { font-weight: 500; font-size: 29px; }
+app-vitrine .preco { margin-top: auto; padding-top: 24px; }
+app-vitrine .amigos-festa { padding: 10px 12px; border-radius: 8px; background: #252d1b; font-size: 12px; }
+app-vitrine .informacao { font-size: 13px; line-height: 1.5; }
+app-mapa .mapa-page { background: #0c0d0b; padding: 32px; }
+app-mapa .explorer { border-color: #39432d; border-radius: 20px; }
+app-mapa .results { background: #161a12; }
+app-mapa .party-card { background: #1d2317; border-color: #343f28; border-radius: 12px; }
+app-mapa .party-card.selected { background: #343521; border-color: #f4c928; }
+app-mapa .filters button, app-mapa select { border-radius: 25px; }
+
+app-header-main nav { max-width: 1280px; margin-inline: auto; padding-inline: 24px; }
+app-header-main .atalhos { position: static; transform: none; flex-wrap: wrap; gap: 14px; }
+app-header-main .image-space { min-height: 260px; background: radial-gradient(ellipse at right, #39391c, #13170d); color: #b5bd9f; }
+
+@media (max-width: 740px) {
+  app-perfil .amigos { grid-template-columns: repeat(2, 1fr); }
+  app-perfil .numeros { gap: 10px; }
+  app-perfil .numeros > div { padding: 18px; }
+  app-perfil .cabecalho-perfil { margin-inline: 0; }
+  app-perfil .cabecalho-perfil > div:nth-child(2) { padding-top: 0; }
+  app-perfil .cabecalho-perfil a { margin-top: 0; }
+  app-minhas-festas .festa { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  app-minhas-festas .acoes { width: 100%; justify-content: flex-end; }
+  app-detalhes-festa .capa { height: 310px; }
+  app-detalhes-festa .fundo { padding: 22px; }
+  app-detalhes-festa .comentario { flex-direction: column; }
+  app-mapa .mapa-page { padding: 20px; }
+}
+
+@media (max-width: 420px) {
+  app-perfil .numeros { grid-template-columns: 1fr; }
+  app-perfil .capa-perfil { padding-inline: 22px; }
+  app-perfil .amigos { grid-template-columns: 1fr; }
+  app-criar-festa .buscar-local { flex-direction: column; }
+}
