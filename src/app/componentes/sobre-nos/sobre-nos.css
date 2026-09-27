@@ -2,7 +2,7 @@
   padding: 100px 6%;
   color: #f7f7f2;
   background: radial-gradient(circle at 85% 20%, rgba(244, 201, 40, .12), transparent 24%), #080808;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Graphik", "Helvetica Neue", Arial, sans-serif;
 }
 
 .titulo-sobre,
@@ -87,3 +87,4 @@
   .sobre-nos { padding: 70px 20px; }
   .titulo-sobre h2 { letter-spacing: -2px; }
 }
+
