@@ -105,8 +105,8 @@
 }
 
 .data,
-.selo-ficticio,
-.favorito {
+.favorito,
+.abrir-no-mapa {
   position: absolute;
   z-index: 1;
 }
@@ -122,22 +122,6 @@
   font-size: 14px;
   font-weight: 900;
   line-height: 1.25;
-}
-
-.selo-ficticio {
-  top: 16px;
-  left: 16px;
-  padding: 7px 10px;
-  color: #050505;
-  background: var(--amarelo);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.selo-ficticio + .data {
-  top: 58px;
 }
 
 .favorito {
@@ -156,6 +140,28 @@
 .favorito:hover {
   color: var(--amarelo);
   border-color: var(--amarelo);
+}
+
+.abrir-no-mapa {
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  color: #090909;
+  background: var(--amarelo);
+  border: 0;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.abrir-no-mapa:hover {
+  background: #ffe36d;
+  transform: translateY(-2px);
 }
 
 .card-conteudo {
@@ -180,6 +186,13 @@
 .informacao span {
   color: var(--amarelo);
   font-size: 20px;
+}
+
+.amigos-festa {
+  margin: 12px 0;
+  color: var(--amarelo);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .preco {

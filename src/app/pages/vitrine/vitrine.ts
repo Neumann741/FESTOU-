@@ -1,74 +1,43 @@
-import { Component } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
-
-interface Festa {
-  nome: string;
-  data: string;
-  categoria: string;
-  local: string;
-  preco: number;
-  imagem: string;
-  ficticia?: boolean;
-}
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Festa } from '../../models/festa';
+import { FestaService } from '../../services/festa.service';
+import { Interacao } from '../../services/interacao';
 
 @Component({
-  imports: [CurrencyPipe],
+  imports: [],
   selector: 'app-vitrine',
   styleUrl: './vitrine.css',
   templateUrl: './vitrine.html',
 })
 export class Vitrine {
-  festas: Festa[] = [
-    {
-      nome: 'MATAHARI',
-      data: 'SÁB, 28 SET',
-      categoria: 'Eletrônica',
-      local: 'Belo Horizonte, MG',
-      preco: 80,
-      imagem: '/assets/img1.jpg',
-    },
-    {
-      nome: 'RIVAGE',
-      data: 'SEX, 04 OUT',
-      categoria: 'Open format',
-      local: 'Nova Lima, MG',
-      preco: 60,
-      imagem: '/assets/img2.jpg',
-    },
-    {
-      nome: 'THE BASEMENT',
-      data: 'SÁB, 12 OUT',
-      categoria: 'House & Techno',
-      local: 'Belo Horizonte, MG',
-      preco: 75,
-      imagem: '/assets/img3.jpg',
-    },
-    {
-      nome: 'NEON PULSE',
-      data: 'SEX, 18 OUT',
-      categoria: 'Synthwave',
-      local: 'Galpão 54 · BH',
-      preco: 45,
-      imagem: '/assets/img4.jpg',
-      ficticia: true,
-    },
-    {
-      nome: 'AURORA CLUB',
-      data: 'SÁB, 26 OUT',
-      categoria: 'Pop & Disco',
-      local: 'Terraço Central · BH',
-      preco: 55,
-      imagem: '/assets/img5.jpg',
-      ficticia: true,
-    },
-    {
-      nome: 'NOITE SOLAR',
-      data: 'SÁB, 09 NOV',
-      categoria: 'Brasilidades',
-      local: 'Mirante 360 · BH',
-      preco: 40,
-      imagem: '/assets/img6.jpg',
-      ficticia: true,
-    },
-  ];
+  readonly festas = signal<Festa[]>([]);
+  private readonly festaService = inject(FestaService);
+  readonly interacao = inject(Interacao);
+  private readonly router = inject(Router);
+
+  constructor() {
+    this.festaService.getFestas().subscribe((festas) => this.festas.set(festas));
+  }
+
+  abrirNoMapa(festa: Festa): void {
+    void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
+  }
+
+  verTodasNoMapa(): void {
+    void this.router.navigate(['/mapa-page']);
+  }
+
+  dataLabel(data: string): string {
+    return new Date(`${data}T00:00:00`)
+      .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })
+      .replace('.', '')
+      .toUpperCase();
+  }
+
+  preco(festa: Festa): string {
+    if (festa.preco === undefined) return 'A confirmar';
+    if (festa.preco === 0) return 'Grátis';
+    return festa.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
 }

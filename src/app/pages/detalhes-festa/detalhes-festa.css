@@ -1,0 +1,9 @@
+.detalhes { min-height: 100vh; padding: 32px 8%; color: #f7f7f2; background: #080808; font-family: Arial, Helvetica, sans-serif; }
+.voltar { color: #f4c928; text-decoration: none; }
+.capa { height: 360px; margin: 24px 0; background-position: center; background-size: cover; border-radius: 18px; overflow: hidden; }
+.fundo { height: 100%; display: flex; flex-direction: column; justify-content: end; padding: 32px; background: linear-gradient(transparent, #080808); }
+h1 { margin: 0; font-size: 52px; } h2 { margin-top: 30px; } .conteudo { max-width: 800px; }
+.botoes, .comentario { display: flex; gap: 12px; flex-wrap: wrap; }
+button, .botoes a { padding: 12px 18px; color: #080808; background: #f4c928; border: 0; border-radius: 8px; font-weight: bold; text-decoration: none; cursor: pointer; }
+input, select { flex: 1; min-width: 220px; padding: 12px; border-radius: 8px; border: 1px solid #4b504d; }
+.amigos { display: flex; gap: 8px; flex-wrap: wrap; }.amigos span, .mensagem { padding: 9px 12px; background: #1d211f; border-radius: 8px; }
