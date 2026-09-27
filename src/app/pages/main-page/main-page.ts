@@ -5,9 +5,10 @@ import { Footer } from '../../componentes/footer/footer';
 import { Vitrine } from '../vitrine/vitrine';
 import { Mapa } from '../../componentes/mapa/mapa';
 import { GaleriaGeral } from '../../componentes/galeria-geral/galeria-geral';
+import { SobreNos } from '../../componentes/sobre-nos/sobre-nos';
 
 @Component({
-  imports: [Header, HeaderMain, Footer, Vitrine, Mapa, GaleriaGeral],
+  imports: [Header, HeaderMain, Footer, Vitrine, Mapa, GaleriaGeral, SobreNos],
   selector: 'app-main-page',
   styleUrl: './main-page.css',
   templateUrl: './main-page.html',

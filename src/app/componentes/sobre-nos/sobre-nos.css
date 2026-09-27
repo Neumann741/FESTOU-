@@ -1,0 +1,89 @@
+.sobre-nos {
+  padding: 100px 6%;
+  color: #f7f7f2;
+  background: radial-gradient(circle at 85% 20%, rgba(244, 201, 40, .12), transparent 24%), #080808;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.titulo-sobre,
+.conteudo-sobre {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.titulo-sobre > p {
+  margin: 0 0 12px;
+  color: #f4c928;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.titulo-sobre h2 {
+  max-width: 820px;
+  margin: 0;
+  font-size: clamp(40px, 6vw, 76px);
+  letter-spacing: -3px;
+  line-height: 1;
+}
+
+.conteudo-sobre {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 60px;
+  margin-top: 64px;
+}
+
+.texto-sobre > span {
+  color: #f4c928;
+  font-size: 48px;
+}
+
+.texto-sobre h3 {
+  margin: 22px 0 14px;
+  font-size: 28px;
+}
+
+.texto-sobre p,
+.pilares p {
+  color: #b9bbb4;
+  line-height: 1.6;
+}
+
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.pilares article {
+  padding: 25px;
+  background: #12130f;
+  border: 1px solid #34362f;
+  border-radius: 16px;
+}
+
+.pilares b {
+  color: #f4c928;
+  font-size: 30px;
+}
+
+.pilares h3 {
+  margin: 24px 0 10px;
+  font-size: 20px;
+}
+
+.pilares p {
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (max-width: 850px) {
+  .conteudo-sobre { grid-template-columns: 1fr; gap: 35px; }
+  .pilares { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .sobre-nos { padding: 70px 20px; }
+  .titulo-sobre h2 { letter-spacing: -2px; }
+}
