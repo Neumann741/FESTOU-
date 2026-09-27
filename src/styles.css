@@ -1,7 +1,18 @@
 @import 'leaflet/dist/leaflet.css';
 @import './app/componentes/mapa/mapa-leaflet.css';
 * { box-sizing: border-box; }
-body { margin: 0; background: #10110e; }
+body {
+  margin: 0;
+  background: #10110e;
+  font-family: "Graphik", "Helvetica Neue", Arial, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
 
 h1,
 h2,

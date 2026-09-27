@@ -13,7 +13,7 @@
   color: #f5f5ec;
   background: #000000;
   border-top: 1px solid #34352b;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Graphik", "Helvetica Neue", Arial, sans-serif;
 }
 
 .footer-content {
@@ -201,3 +201,4 @@
     transition: none;
   }
 }
+
