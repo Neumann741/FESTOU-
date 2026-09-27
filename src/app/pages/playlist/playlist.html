@@ -1,0 +1,4 @@
+<main class="pagina-playlist"><a routerLink="/mapa-page">← Voltar ao mapa</a><h1>Playlist da festa</h1><p>Monte a trilha sonora com seus amigos.</p>
+  <section class="formulario"><input [(ngModel)]="nome" placeholder="Nome da música"><input [(ngModel)]="artista" placeholder="Artista"><input [(ngModel)]="link" placeholder="Link do Spotify ou YouTube"><button (click)="adicionar()">Adicionar música</button></section>
+  <section class="lista">@for (musica of playlist.daFesta(festaId()); track $index) { <article><span>{{ $index + 1 }}</span><div><strong>{{ musica.nome }}</strong><p>{{ musica.artista }}</p></div>@if (musica.link) { <a [href]="musica.link" target="_blank">Ouvir</a> }<button (click)="remover($index)">Remover</button></article> } @empty { <p>Comece adicionando a primeira música.</p> }</section>
+</main>
