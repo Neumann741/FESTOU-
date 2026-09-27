@@ -1,5 +1,5 @@
 import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as L from 'leaflet';
 import { Festa } from '../../models/festa';
@@ -32,6 +32,7 @@ export class Mapa {
   private readonly service = inject(FestaService);
   private readonly location = inject(LocationService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   private todos: Festa[] = [];
   private usuario?: Localizacao;
@@ -40,10 +41,16 @@ export class Mapa {
   private circulo?: L.Circle;
   private usuarioMarker?: L.CircleMarker;
   private observer?: ResizeObserver;
+  private festaInicial?: number;
 
   constructor() {
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const id = Number(params.get('festa'));
+      this.festaInicial = Number.isInteger(id) && id > 0 ? id : undefined;
+      this.selecionarFestaDaUrl();
+    });
     this.service.getFestas().pipe(takeUntilDestroyed()).subscribe({
-      next: festas => { this.todos = festas; this.carregando.set(false); this.filtrar(); },
+      next: festas => { this.todos = festas; this.carregando.set(false); this.filtrar(); this.selecionarFestaDaUrl(); },
       error: () => { this.carregando.set(false); this.mensagem.set('Não conseguimos carregar as festas. Tente recarregar a página.'); },
     });
     afterNextRender(() => {
@@ -51,6 +58,7 @@ export class Mapa {
       L.tileLayer(this.config.tiles, { attribution: this.config.attribution, maxZoom: this.config.maxZoom })
         .on('tileerror', () => this.erroMapa.set(true)).addTo(this.map);
       this.atualizarMarkers();
+      this.selecionarFestaDaUrl();
       if (typeof ResizeObserver !== 'undefined') {
         this.observer = new ResizeObserver(() => this.map?.invalidateSize());
         this.observer.observe(this.container().nativeElement);
@@ -159,6 +167,14 @@ export class Mapa {
       this.markers.set(festa.id, marker);
     }
     this.destacar(null);
+  }
+
+  private selecionarFestaDaUrl(): void {
+    if (!this.map || !this.festaInicial) return;
+    const festa = this.todos.find((item) => item.id === this.festaInicial);
+    if (!festa) return;
+    this.selecionar(festa);
+    this.festaInicial = undefined;
   }
 
   private popup(festa: Festa): HTMLElement {
