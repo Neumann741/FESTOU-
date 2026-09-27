@@ -3,6 +3,13 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: #10110e; }
 
+h1,
+h2,
+h3,
+.brand {
+  font-family: "Roslindale", "Roslindale Display Condensed", Georgia, serif;
+}
+
 /* Padrão visual das páginas internas da Festou. */
 .pagina-criar,
 .detalhes,
