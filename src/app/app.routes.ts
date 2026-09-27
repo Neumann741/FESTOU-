@@ -9,6 +9,7 @@ import { Perfil } from './pages/perfil/perfil';
 import { MinhasFestas } from './pages/minhas-festas/minhas-festas';
 import { GaleriaPage } from './pages/galeria/galeria';
 import { PlaylistPage } from './pages/playlist/playlist';
+import { SobreNos } from './pages/sobre-nos/sobre-nos';
 
 export const routes: Routes = [
   { path: 'mapa', loadComponent: () => import('./componentes/mapa/mapa').then(m => m.Mapa) },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'minhas-festas', component: MinhasFestas },
   { path: 'galeria/:id', component: GaleriaPage },
   { path: 'playlist/:id', component: PlaylistPage },
+  { path: 'sobre-nos', component: SobreNos },
   { path: 'login', component: Login },
   { path: 'login', component: Login },
   { path: 'mapa-page', loadComponent: () => import('./pages/mapa-page/mapa-page').then(m => m.MapaPage) }
