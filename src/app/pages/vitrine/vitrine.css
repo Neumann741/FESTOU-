@@ -223,6 +223,12 @@
     color 0.2s ease;
 }
 
+.pedir-participacao {
+  margin-top: 8px;
+  color: var(--amarelo);
+  background: transparent;
+}
+
 .ver-festa:hover {
   color: var(--amarelo);
   background: transparent;
