@@ -7,5 +7,5 @@ export const MAPA_CONFIG = {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   maxZoom: 19,
   // Ativar somente quando a página /festa/:id existir.
-  detalhesDisponiveis: false,
+  detalhesDisponiveis: true,
 };

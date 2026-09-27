@@ -3,29 +3,22 @@
     <header class="titulo-container">
       <h1>Em destaque</h1>
 
-      <button class="ver-todas" type="button">
+      <button class="ver-todas" type="button" (click)="verTodasNoMapa()">
         Ver todas
         <span aria-hidden="true">→</span>
       </button>
     </header>
 
     <div class="festas-grid">
-      @for (festa of festas; track festa.nome) {
+      @for (festa of festas(); track festa.id) {
         <article class="festa-card">
           <div
             class="imagem-container"
             role="img"
             [attr.aria-label]="'Festa ' + festa.nome"
-            [style.background-image]="'url(\'' + festa.imagem + '\')'"
+            [style.background-image]="festa.imagem ? 'url(' + festa.imagem + ')' : null"
           >
-
-            @if (festa.ficticia) {
-              <span class="selo-ficticio">
-                Conceito fictício
-              </span>
-            }
-
-            <span class="data">{{ festa.data }}</span>
+            <span class="data">{{ dataLabel(festa.data) }}</span>
 
             <button
               class="favorito"
@@ -33,6 +26,11 @@
               [attr.aria-label]="'Favoritar ' + festa.nome"
             >
               ♡
+            </button>
+
+            <button class="abrir-no-mapa" type="button" (click)="abrirNoMapa(festa)">
+              Ver no mapa
+              <span aria-hidden="true">↗</span>
             </button>
           </div>
 
@@ -46,18 +44,20 @@
 
             <p class="informacao">
               <span aria-hidden="true">⌖</span>
-              {{ festa.local }}
+              {{ festa.local }} · {{ festa.cidade }}
             </p>
+
+            @if (interacao.amigosNaFesta(festa.id).length) {
+              <p class="amigos-festa">👥 {{ interacao.amigosNaFesta(festa.id).join(', ') }} vai{{ interacao.amigosNaFesta(festa.id).length > 1 ? 'ão' : '' }}</p>
+            }
 
             <p class="preco">
-              A partir de
-              <strong>
-                {{ festa.preco | currency:'BRL':'symbol':'1.0-0':'pt-BR' }}
-              </strong>
+              Ingressos
+              <strong>{{ preco(festa) }}</strong>
             </p>
 
-            <button class="ver-festa" type="button">
-              Ver festa
+            <button class="ver-festa" type="button" (click)="abrirNoMapa(festa)">
+              Abrir no mapa
             </button>
           </div>
         </article>
