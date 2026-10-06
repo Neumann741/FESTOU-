@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Notificacoes } from './pages/notificacoes/notificacoes';
 import { HomePage } from './pages/home-page/home-page';
 import { MainPage } from './pages/main-page/main-page';
 import { Vitrine } from './pages/vitrine/vitrine';
@@ -11,6 +12,7 @@ import { GaleriaPage } from './pages/galeria/galeria';
 import { PlaylistPage } from './pages/playlist/playlist';
 
 export const routes: Routes = [
+  { path: 'notificacoes', component: Notificacoes },
   { path: 'mapa', loadComponent: () => import('./componentes/mapa/mapa').then(m => m.Mapa) },
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomePage },

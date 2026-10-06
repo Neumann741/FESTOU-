@@ -1,0 +1,14 @@
+.pagina-avisos {
+  min-height: 100vh;
+  padding: 40px max(22px, calc((100% - 900px) / 2));
+  background: #10110e;
+  color: #f6f3e9;
+}
+header { margin: 40px 0; }
+header p, a { color: #f4c928; }
+h1 { font-size: clamp(36px, 7vw, 60px); margin: 12px 0; }
+article { padding: 24px; margin: 18px 0; border: 1px solid #35382b; border-radius: 16px; background: #191c15; }
+article.novo { border-left: 4px solid #f4c928; }
+small, header span { color: #b1b5a6; }
+button { padding: 14px 20px; border: 0; border-radius: 10px; background: #f4c928; cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }

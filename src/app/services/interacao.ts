@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { Avisos } from './avisos';
 
 export interface Comentario {
   pessoa: string;
@@ -7,6 +8,7 @@ export interface Comentario {
 
 @Injectable({ providedIn: 'root' })
 export class Interacao {
+  private readonly avisos = inject(Avisos);
   favoritos = signal<number[]>(this.ler('festou-favoritos', [2, 5]));
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
@@ -41,6 +43,7 @@ export class Interacao {
     const pedidos = [...this.pedidos(), id];
     this.pedidos.set(pedidos);
     this.salvar('festou-pedidos', pedidos);
+    this.avisos.adicionar('Seu pedido de participação foi enviado.', id);
   }
 
   comprarIngresso(id: number): void {

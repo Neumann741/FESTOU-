@@ -38,6 +38,7 @@
         </div>
       </section>
       <aside class="lateral-social">
+        <a class="mapa-social" routerLink="/notificacoes">Notificações · {{ avisos.naoLidos() }} novas →</a>
         <section class="amigos-social"><div class="titulo-social"><h2>Sua galera</h2><span>{{ amigos.length }}</span></div>
           @for (amigo of amigos; track amigo.nome; let i = $index) {
             <div class="pessoa-social"><span class="inicial-social" [class.tom-rosa]="i === 1" [class.tom-verde]="i === 2" [class.tom-azul]="i === 3">{{ amigo.nome[0] }}</span><div><strong>{{ amigo.nome }}</strong><p>{{ amigo.estilo }}</p></div></div>

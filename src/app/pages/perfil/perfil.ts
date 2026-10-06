@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Interacao } from '../../services/interacao';
 import { FestaService } from '../../services/festa.service';
 import { Festa } from '../../models/festa';
+import { Avisos } from '../../services/avisos';
 
 @Component({
   imports: [RouterLink],
@@ -12,6 +13,7 @@ import { Festa } from '../../models/festa';
   templateUrl: './perfil.html',
 })
 export class Perfil {
+  readonly avisos = inject(Avisos);
   readonly interacao = inject(Interacao);
   readonly festas = signal<Festa[]>([]);
   readonly aba = signal('confirmadas');
