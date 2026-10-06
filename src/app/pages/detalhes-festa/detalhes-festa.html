@@ -27,10 +27,7 @@
         <p>Seus amigos que vão:</p>
         <div class="amigos">@for (pessoa of interacao.amigosNaFesta(evento.id); track pessoa) { <span>{{ pessoa }}</span> }</div>
       } @else { <p>Nenhum amigo confirmou presença ainda.</p> }
-      <div class="comentario">
-        <select [(ngModel)]="amigoEscolhido"><option value="">Adicionar amigo fictício</option>@for (pessoa of interacao.pessoas; track pessoa) { <option [value]="pessoa">{{ pessoa }}</option> }</select>
-        <button (click)="adicionarAmigo()">Adicionar amigo</button>
-      </div>
+      <p>Use a seção “Convide sua galera” abaixo para chamar amigos fictícios.</p>
       <h2>Comentários</h2>
       <div class="comentario"><input [(ngModel)]="comentario" placeholder="Escreva um comentário"><button (click)="enviarComentario()">Enviar</button></div>
       @for (item of interacao.comentarios()[evento.id] || []; track $index) { <p class="mensagem"><strong>{{ item.pessoa }}:</strong> {{ item.texto }}</p> }

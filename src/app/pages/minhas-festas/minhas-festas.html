@@ -14,6 +14,13 @@
           
           <section class="pedidos">
             <h3>Pedidos de participação</h3>
+            @for (convite of interacao.convites()[festa.id] || []; track convite.pessoa) {
+              @if (convite.status === 'aguardando aprovação') {
+                <p>{{ convite.pessoa }} aceitou seu convite e aguarda aprovação.</p>
+                <button (click)="interacao.aprovarConvite(festa, convite.pessoa, true)" [disabled]="interacao.fechada(festa) || interacao.lotada(festa)">Aprovar {{ convite.pessoa }}</button>
+                <button (click)="interacao.aprovarConvite(festa, convite.pessoa, false)">Recusar</button>
+              }
+            }
             @if (interacao.pedidos().includes(festa.id)) {
               <p>Você (participante da demonstração) pediu para participar.</p>
               <button (click)="interacao.responderPedido(festa, true)" [disabled]="interacao.fechada(festa) || interacao.lotada(festa)">Aprovar</button>
