@@ -26,13 +26,13 @@ export class DetalhesFesta {
 
   confirmar(): void {
     const festa = this.festa();
-    if (!festa) return;
+    if (!festa || this.interacao.fechada(festa)) return;
     const confirmada = this.interacao.confirmadas().includes(festa.id);
     if (!confirmada && (festa.tipo === 'privada' || this.interacao.lotada(festa))) return;
     this.interacao.confirmar(festa.id);
   }
-  pedirParticipacao(): void { const festa = this.festa(); if (festa) this.interacao.pedirParticipacao(festa.id); }
-  comprarIngresso(): void { const festa = this.festa(); if (festa) this.interacao.comprarIngresso(festa.id); }
+  pedirParticipacao(): void { const festa = this.festa(); if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa)) this.interacao.pedirParticipacao(festa.id); }
+  comprarIngresso(): void { const festa = this.festa(); if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa) && (festa.tipo === 'publica' || this.interacao.confirmadas().includes(festa.id))) this.interacao.comprarIngresso(festa.id); }
   favoritar(): void { const festa = this.festa(); if (festa) this.interacao.favoritar(festa.id); }
   enviarComentario(): void {
     const festa = this.festa();

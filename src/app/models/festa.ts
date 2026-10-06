@@ -17,4 +17,5 @@ export interface Festa {
   eventoGrande?: boolean;
   organizadora?: string;
   limiteParticipantes?: number;
+  status?: 'publicada' | 'esgotada' | 'cancelada' | 'encerrada';
 }
