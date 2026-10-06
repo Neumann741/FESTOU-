@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'main-page', component: MainPage },
   {path: 'vitrine', component: Vitrine},
   { path: 'criar-festa', component: CriarFesta },
+  { path: 'editar-festa/:id', component: CriarFesta },
   { path: 'festa/:id', component: DetalhesFesta },
   { path: 'perfil', component: Perfil },
   { path: 'minhas-festas', component: MinhasFestas },
