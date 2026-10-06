@@ -5,6 +5,7 @@ import { Interacao } from '../../services/interacao';
 import { FestaService } from '../../services/festa.service';
 import { Festa } from '../../models/festa';
 import { Avisos } from '../../services/avisos';
+import { Usuario } from '../../services/usuario';
 
 @Component({
   imports: [RouterLink],
@@ -13,6 +14,10 @@ import { Avisos } from '../../services/avisos';
   templateUrl: './perfil.html',
 })
 export class Perfil {
+  readonly usuario = inject(Usuario);
+  fotoFalhou = false;
+  readonly estilos = computed(() => this.usuario.perfil().estilos.split(',').map(estilo => estilo.trim()).filter(Boolean));
+  readonly iniciais = computed(() => this.usuario.perfil().nome.split(' ').filter(Boolean).slice(0, 2).map(nome => nome[0]).join('').toUpperCase());
   readonly avisos = inject(Avisos);
   readonly interacao = inject(Interacao);
   readonly festas = signal<Festa[]>([]);
