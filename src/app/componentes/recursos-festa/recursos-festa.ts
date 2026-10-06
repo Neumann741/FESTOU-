@@ -1,6 +1,7 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Interacao } from '../../services/interacao';
+import { Experiencias } from '../../services/experiencias';
 import { Festa } from '../../models/festa';
 
 @Component({
@@ -13,6 +14,12 @@ export class RecursosFesta {
   festa = input.required<Festa>();
   mensagem = signal('');
   readonly interacao = inject(Interacao);
+  readonly experiencias = inject(Experiencias);
+  avaliador = 'Você';
+  nota = 5;
+  comentario = '';
+  avisoAvaliacao = '';
+  avaliar(): void { this.avisoAvaliacao = this.experiencias.avaliar(this.festa(), this.avaliador, Number(this.nota), this.comentario); }
   amigo = '';
   avisoConvite = '';
   convidar(): void { this.avisoConvite = this.interacao.convidar(this.festa(), this.amigo); }

@@ -1,4 +1,18 @@
 <section class="recurso">
+  <p class="etiqueta">COMO FOI A NOITE?</p><h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
+  <p>{{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o encerramento, apenas para quem participou.</p>
+  <label>Avaliar como (simulação)<select [(ngModel)]="avaliador"><option value="Você">Você</option>@for (pessoa of interacao.amigosNaFesta(festa().id); track pessoa) { <option [value]="pessoa">{{ pessoa }} (fictício)</option> }</select></label>
+  @if (experiencias.podeAvaliar(festa(), avaliador)) {
+    <label>Nota<select [(ngModel)]="nota"><option [ngValue]="1">1 ★</option><option [ngValue]="2">2 ★</option><option [ngValue]="3">3 ★</option><option [ngValue]="4">4 ★</option><option [ngValue]="5">5 ★</option></select></label>
+    <label>Comentário<textarea [(ngModel)]="comentario" maxlength="500" rows="3" placeholder="O que você achou da festa?"></textarea></label>
+    <div class="acoes"><button (click)="avaliar()">Salvar avaliação</button></div>
+  }
+  @if (avisoAvaliacao) { <p class="aviso">{{ avisoAvaliacao }}</p> }
+  @for (avaliacao of experiencias.avaliacoes()[festa().id] || []; track avaliacao.pessoa) {
+    <article><strong>{{ avaliacao.pessoa }} · {{ avaliacao.nota }} ★</strong><p>{{ avaliacao.comentario }}</p></article>
+  } @empty { <p>Ainda não há avaliações.</p> }
+</section>
+<section class="recurso">
   <p class="etiqueta">MELHOR COM AMIGOS</p><h2>Convide sua galera</h2>
   <p>Demonstração: envie um convite e escolha a resposta do amigo fictício. Festas privadas ainda precisam da aprovação do organizador.</p>
   <label>Amigo<select [(ngModel)]="amigo"><option value="">Escolha um amigo</option>@for (pessoa of interacao.pessoas; track pessoa) { <option [value]="pessoa">{{ pessoa }}</option> }</select></label>
