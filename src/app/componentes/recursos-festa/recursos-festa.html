@@ -1,0 +1,6 @@
+<section class="recurso">
+  <p class="etiqueta">CHAME A GALERA</p><h2>Compartilhe esse rolê</h2>
+  <p>O link é local: não funciona no celular de outra pessoa sem uma versão publicada do site.</p>
+  <div class="acoes"><button (click)="copiar()">Copiar link</button><a [href]="whatsapp()" target="_blank" rel="noopener noreferrer">Abrir no WhatsApp ↗</a></div>
+  @if (mensagem()) { <p class="aviso">{{ mensagem() }}</p><input [value]="link()" readonly> }
+</section>
