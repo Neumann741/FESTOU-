@@ -1,0 +1,12 @@
+<main class="pagina-agenda">
+  <a routerLink="/perfil">← Meu perfil</a>
+  <header><p>SEUS PRÓXIMOS ENCONTROS</p><h1>Minha agenda</h1><span>As festas em que você confirmou presença, organizadas por data.</span></header>
+  <nav><button [class.ativa]="aba() === 'proximas'" (click)="aba.set('proximas')">Próximas</button><button [class.ativa]="aba() === 'historico'" (click)="aba.set('historico')">Histórico</button><button [class.ativa]="aba() === 'canceladas'" (click)="aba.set('canceladas')">Canceladas</button></nav>
+  <section>
+    @for (festa of lista(); track festa.id) {
+      <article><div class="data"><strong>{{ festa.data | date:'dd' }}</strong><span>{{ festa.data | date:'MM/yyyy' }}</span></div><div class="informacoes"><small>{{ festa.horario }} · {{ interacao.status(festa) }}</small><h2>{{ festa.nome }}</h2><p>{{ festa.local }} · {{ festa.cidade }}</p></div><a [routerLink]="['/festa', festa.id]">Ver festa →</a></article>
+    } @empty {
+      <article class="vazio"><h2>Nenhuma festa por aqui ainda.</h2><p>As presenças confirmadas aparecem automaticamente nesta agenda.</p><a routerLink="/vitrine">Explorar festas</a></article>
+    }
+  </section>
+</main>
