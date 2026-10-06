@@ -14,6 +14,31 @@ export class Interacao {
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
   respostas = signal<Record<number, string>>(this.ler('festou-respostas', {}));
+  espera = signal<number[]>(this.ler('festou-espera', []));
+
+  total(festa: Festa): number {
+    return festa.pessoasConfirmadas + (this.confirmadas().includes(festa.id) ? 1 : 0);
+  }
+
+  lotada(festa: Festa): boolean {
+    return !!festa.limiteParticipantes && this.total(festa) >= festa.limiteParticipantes;
+  }
+
+  alternarEspera(festa: Festa): void {
+    if (this.confirmadas().includes(festa.id)) return;
+    if (this.espera().includes(festa.id)) {
+      this.removerEspera(festa.id);
+    } else if (this.lotada(festa)) {
+      this.espera.update(lista => [...lista, festa.id]);
+      this.salvar('festou-espera', this.espera());
+      this.avisos.adicionar(`Você entrou na lista de espera de ${festa.nome}. Consulte a festa para verificar vagas.`, festa.id);
+    }
+  }
+
+  private removerEspera(id: number): void {
+    this.espera.update(lista => lista.filter(item => item !== id));
+    this.salvar('festou-espera', this.espera());
+  }
   ingressos = signal<number[]>(this.ler('festou-ingressos', []));
   pessoas = ['Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
   amigosPorFesta = signal<Record<number, string[]>>(this.ler('festou-amigos-festas', {
@@ -38,6 +63,7 @@ export class Interacao {
     const confirmadas = lista.includes(id) ? lista.filter((festa) => festa !== id) : [...lista, id];
     this.confirmadas.set(confirmadas);
     this.salvar('festou-confirmadas', confirmadas);
+    this.removerEspera(id);
   }
 
   pedirParticipacao(id: number): void {

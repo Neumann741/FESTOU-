@@ -20,6 +20,9 @@
             } @else { <p>Nenhum pedido pendente.</p> }
           </section>
         }
+        @if (interacao.espera().includes(festa.id)) {
+          <section class="pedidos"><h3>Lista de espera</h3><p>Você está aguardando uma vaga nesta festa. Edite o limite para disponibilizar mais vagas.</p></section>
+        }
       </div>
     } @empty { <p>Nenhuma festa criada ainda.</p> }
   </section>

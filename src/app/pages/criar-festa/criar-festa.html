@@ -44,6 +44,11 @@
         <select [formField]="formulario.tipo"><option value="publica">Festa pública</option><option value="privada">Festa privada</option></select>
       </div>
 
+      <div class="grupo">
+        <label>Limite de participantes (opcional)</label>
+        <input type="number" min="1" step="1" [formField]="formulario.limite" placeholder="Deixe vazio para não limitar">
+      </div>
+
       <div class="linha">
         <div class="grupo">
           <label>Data</label>

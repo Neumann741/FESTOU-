@@ -24,7 +24,13 @@ export class DetalhesFesta {
     this.festaService.getFestas().subscribe((festas) => this.festa.set(festas.find((festa) => festa.id === id)));
   }
 
-  confirmar(): void { const festa = this.festa(); if (festa) this.interacao.confirmar(festa.id); }
+  confirmar(): void {
+    const festa = this.festa();
+    if (!festa) return;
+    const confirmada = this.interacao.confirmadas().includes(festa.id);
+    if (!confirmada && (festa.tipo === 'privada' || this.interacao.lotada(festa))) return;
+    this.interacao.confirmar(festa.id);
+  }
   pedirParticipacao(): void { const festa = this.festa(); if (festa) this.interacao.pedirParticipacao(festa.id); }
   comprarIngresso(): void { const festa = this.festa(); if (festa) this.interacao.comprarIngresso(festa.id); }
   favoritar(): void { const festa = this.festa(); if (festa) this.interacao.favoritar(festa.id); }
