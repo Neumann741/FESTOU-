@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormField, form, minLength, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Festa } from '../../models/festa';
+import { Interacao } from '../../services/interacao';
 import { FestaService } from '../../services/festa.service';
 import { Localizacao } from '../../services/localizacao';
 
@@ -12,6 +13,7 @@ interface DadosFesta {
   horario: string;
   local: string;
   preco: string;
+  limite: string;
   tipo: 'publica' | 'privada';
 }
 
@@ -29,6 +31,7 @@ export class CriarFesta {
     horario: '',
     local: '',
     preco: '',
+    limite: '',
     tipo: 'publica',
   });
 
@@ -44,6 +47,7 @@ export class CriarFesta {
   private readonly festaService = inject(FestaService);
   private readonly localizacao = inject(Localizacao);
   private readonly router = inject(Router);
+  private readonly interacao = inject(Interacao);
   protected buscando = signal(false);
   protected mensagem = signal('');
   private latitude = 0;
@@ -62,7 +66,8 @@ export class CriarFesta {
       if (!festa) { this.indisponivel = true; return; }
       this.original = festa;
       this.dados.set({ nome: festa.nome, categoria: festa.categoria, data: festa.data,
-        horario: festa.horario, local: festa.local, preco: String(festa.preco ?? 0), tipo: festa.tipo });
+        horario: festa.horario, local: festa.local, preco: String(festa.preco ?? 0), tipo: festa.tipo,
+        limite: festa.limiteParticipantes ? String(festa.limiteParticipantes) : '' });
       this.latitude = festa.latitude;
       this.longitude = festa.longitude;
       this.cidade = festa.cidade;
@@ -86,6 +91,7 @@ export class CriarFesta {
       return;
     }
     const valores = {
+      limiteParticipantes: dados.limite ? Number(dados.limite) : undefined,
       nome: dados.nome,
       descricao: '',
       categoria: dados.categoria,
@@ -101,6 +107,11 @@ export class CriarFesta {
       tipo: dados.tipo,
     };
     let festa: Festa;
+    if (dados.limite && (!Number.isInteger(Number(dados.limite)) || Number(dados.limite) < 1 ||
+        (this.original && Number(dados.limite) < this.interacao.total(this.original)))) {
+      this.mensagem.set('O limite deve ser um número inteiro positivo, sem ficar abaixo das presenças confirmadas.');
+      return;
+    }
     if (this.original) {
       festa = { ...this.original, ...valores, imagem: this.original.imagem,
         descricao: this.original.descricao, pessoasConfirmadas: this.original.pessoasConfirmadas };
