@@ -30,7 +30,12 @@ export class EditarPerfil {
         return;
       }
     }
-    this.usuario.salvar({ nome, foto, bio: this.dados.bio.trim().slice(0, 180), estilos: this.dados.estilos.trim().slice(0, 120) });
+    this.usuario.salvar({
+      nome,
+      foto,
+      bio: this.dados.bio.trim().slice(0, 180),
+      estilos: this.dados.estilos.trim().slice(0, 120),
+    });
     void this.router.navigate(['/perfil']);
   }
 }
