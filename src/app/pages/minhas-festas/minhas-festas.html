@@ -1,6 +1,7 @@
 <main class="minhas-festas">
   <a class="voltar-interno" routerLink="/perfil">← Voltar ao perfil</a>
   <header><div><p>PAINEL DO ORGANIZADOR</p><h1>Minhas festas</h1></div><a routerLink="/criar-festa">+ Criar festa</a></header>
+  <p>Demonstração local: você pode gerenciar as festas fictícias e testar as respostas aos seus próprios pedidos.</p>
   <section class="lista-festas">
     @for (festa of festas(); track festa.id) {
       <div class="gerenciamento">

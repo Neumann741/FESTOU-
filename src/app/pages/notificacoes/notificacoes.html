@@ -1,12 +1,25 @@
 <main class="pagina-avisos">
   <a routerLink="/perfil">← Meu perfil</a>
-  <header><p>FIQUE POR DENTRO</p><h1>Notificações</h1><span>Pedidos e novidades da sua comunidade local.</span></header>
-  <button (click)="avisos.marcarLidos()" [disabled]="!avisos.naoLidos()">Marcar todas como lidas ({{ avisos.naoLidos() }})</button>
+  <header>
+    <p>FIQUE POR DENTRO</p>
+    <h1>Notificações</h1>
+    <span>Pedidos e novidades da sua comunidade local.</span>
+  </header>
+  <button (click)="avisos.marcarLidos()" [disabled]="!avisos.naoLidos()">
+    Marcar todas como lidas ({{ avisos.naoLidos() }})
+  </button>
   <section>
     @for (aviso of avisos.lista(); track aviso.id) {
-      <article [class.novo]="!aviso.lido"><small>{{ aviso.data }} · {{ aviso.lido ? 'Lida' : 'Nova' }}</small><p>{{ aviso.texto }}</p><a [routerLink]="['/festa', aviso.festaId]">Ver festa →</a></article>
+      <article [class.novo]="!aviso.lido">
+        <small>{{ aviso.data }} · {{ aviso.lido ? 'Lida' : 'Nova' }}</small>
+        <p>{{ aviso.texto }}</p>
+        <a [routerLink]="['/festa', aviso.festaId]">Ver festa →</a>
+      </article>
     } @empty {
-      <article><h2>Tudo em dia ✦</h2><p>Quando você pedir para participar ou receber uma resposta, o aviso aparecerá aqui.</p></article>
+      <article>
+        <h2>Tudo em dia ✦</h2>
+        <p>Quando você pedir para participar ou receber uma resposta, o aviso aparecerá aqui.</p>
+      </article>
     }
   </section>
 </main>

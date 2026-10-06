@@ -59,7 +59,7 @@
 
             <button class="ver-festa" type="button" (click)="verDetalhes(festa)">Ver detalhes</button>
             @if (festa.tipo === 'privada') {
-              <button class="ver-festa pedir-participacao" type="button" (click)="pedirParticipacao(festa)">{{ interacao.pedidos().includes(festa.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
+              <button class="ver-festa pedir-participacao" type="button" (click)="pedirParticipacao(festa)" [disabled]="interacao.pedidos().includes(festa.id) || interacao.confirmadas().includes(festa.id)">{{ interacao.confirmadas().includes(festa.id) ? 'Participação aprovada' : interacao.pedidos().includes(festa.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
             }
           </div>
         </article>
