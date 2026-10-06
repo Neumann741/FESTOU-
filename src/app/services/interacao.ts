@@ -6,6 +6,10 @@ export interface Comentario {
   pessoa: string;
   texto: string;
 }
+export interface Convite {
+  pessoa: string;
+  status: 'pendente' | 'aguardando aprovação' | 'confirmado' | 'recusado';
+}
 
 @Injectable({ providedIn: 'root' })
 export class Interacao {
@@ -15,9 +19,40 @@ export class Interacao {
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
   respostas = signal<Record<number, string>>(this.ler('festou-respostas', {}));
   espera = signal<number[]>(this.ler('festou-espera', []));
+  convites = signal<Record<number, Convite[]>>(this.ler('festou-convites', {}));
+
+  convidar(festa: Festa, pessoa: string): string {
+    if (!this.pessoas.includes(pessoa)) return 'Escolha um amigo.';
+    if (this.fechada(festa) || this.lotada(festa)) return 'Esta festa não está recebendo convites.';
+    if (this.amigosNaFesta(festa.id).includes(pessoa) || (this.convites()[festa.id] || []).some(item => item.pessoa === pessoa)) return 'Esse amigo já participa ou já recebeu um convite.';
+    this.convites.update(lista => ({ ...lista, [festa.id]: [...(lista[festa.id] || []), { pessoa, status: 'pendente' }] }));
+    this.salvar('festou-convites', this.convites());
+    this.avisos.adicionar(`Convite enviado para ${pessoa}: ${festa.nome}.`, festa.id);
+    return 'Convite enviado! Simule a resposta abaixo.';
+  }
+
+  responderConvite(festa: Festa, pessoa: string, aceitar: boolean): void {
+    const convite = (this.convites()[festa.id] || []).find(item => item.pessoa === pessoa);
+    if (!convite || convite.status !== 'pendente') return;
+    if (aceitar && (this.fechada(festa) || this.lotada(festa))) return;
+    this.atualizarConvite(festa, pessoa, aceitar ? (festa.tipo === 'privada' ? 'aguardando aprovação' : 'confirmado') : 'recusado');
+  }
+
+  aprovarConvite(festa: Festa, pessoa: string, aprovar: boolean): void {
+    const convite = (this.convites()[festa.id] || []).find(item => item.pessoa === pessoa);
+    if (!convite || convite.status !== 'aguardando aprovação') return;
+    if (aprovar && (this.fechada(festa) || this.lotada(festa))) return;
+    this.atualizarConvite(festa, pessoa, aprovar ? 'confirmado' : 'recusado');
+  }
+
+  private atualizarConvite(festa: Festa, pessoa: string, status: Convite['status']): void {
+    this.convites.update(lista => ({ ...lista, [festa.id]: (lista[festa.id] || []).map(item => item.pessoa === pessoa ? { ...item, status } : item) }));
+    this.salvar('festou-convites', this.convites());
+    this.avisos.adicionar(`${pessoa} em ${festa.nome}: ${status}.`, festa.id);
+  }
 
   total(festa: Festa): number {
-    return festa.pessoasConfirmadas + (this.confirmadas().includes(festa.id) ? 1 : 0);
+    return festa.pessoasConfirmadas + (this.confirmadas().includes(festa.id) ? 1 : 0) + (this.convites()[festa.id] || []).filter(item => item.status === 'confirmado').length;
   }
 
   lotada(festa: Festa): boolean {
@@ -126,7 +161,7 @@ export class Interacao {
   }
 
   amigosNaFesta(id: number): string[] {
-    return this.amigosPorFesta()[id] || [];
+    return [...new Set([...(this.amigosPorFesta()[id] || []), ...(this.convites()[id] || []).filter(item => item.status === 'confirmado').map(item => item.pessoa)])];
   }
 
   private ler<T>(chave: string, padrao: T): T {

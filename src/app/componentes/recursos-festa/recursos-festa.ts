@@ -1,8 +1,10 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Interacao } from '../../services/interacao';
 import { Festa } from '../../models/festa';
 
 @Component({
-  imports: [],
+  imports: [FormsModule],
   selector: 'app-recursos-festa',
   styleUrl: './recursos-festa.css',
   templateUrl: './recursos-festa.html',
@@ -10,6 +12,10 @@ import { Festa } from '../../models/festa';
 export class RecursosFesta {
   festa = input.required<Festa>();
   mensagem = signal('');
+  readonly interacao = inject(Interacao);
+  amigo = '';
+  avisoConvite = '';
+  convidar(): void { this.avisoConvite = this.interacao.convidar(this.festa(), this.amigo); }
 
   link(): string { return `${window.location.origin}/festa/${this.festa().id}`; }
   whatsapp(): string {

@@ -1,4 +1,18 @@
 <section class="recurso">
+  <p class="etiqueta">MELHOR COM AMIGOS</p><h2>Convide sua galera</h2>
+  <p>Demonstração: envie um convite e escolha a resposta do amigo fictício. Festas privadas ainda precisam da aprovação do organizador.</p>
+  <label>Amigo<select [(ngModel)]="amigo"><option value="">Escolha um amigo</option>@for (pessoa of interacao.pessoas; track pessoa) { <option [value]="pessoa">{{ pessoa }}</option> }</select></label>
+  <div class="acoes"><button (click)="convidar()" [disabled]="!amigo || interacao.fechada(festa()) || interacao.lotada(festa())">Enviar convite</button></div>
+  @if (avisoConvite) { <p class="aviso">{{ avisoConvite }}</p> }
+  @for (convite of interacao.convites()[festa().id] || []; track convite.pessoa) {
+    <article><strong>{{ convite.pessoa }}</strong><p>{{ convite.status }}</p>
+      @if (convite.status === 'pendente') {
+        <div class="acoes"><button (click)="interacao.responderConvite(festa(), convite.pessoa, true)" [disabled]="interacao.fechada(festa()) || interacao.lotada(festa())">Simular aceite</button><button (click)="interacao.responderConvite(festa(), convite.pessoa, false)">Simular recusa</button></div>
+      }
+    </article>
+  } @empty { <p>Nenhum convite enviado para esta festa.</p> }
+</section>
+<section class="recurso">
   <p class="etiqueta">CHAME A GALERA</p><h2>Compartilhe esse rolê</h2>
   <p>O link é local: não funciona no celular de outra pessoa sem uma versão publicada do site.</p>
   <div class="acoes"><button (click)="copiar()">Copiar link</button><a [href]="whatsapp()" target="_blank" rel="noopener noreferrer">Abrir no WhatsApp ↗</a></div>
