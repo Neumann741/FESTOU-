@@ -1,0 +1,13 @@
+:host { display: block; color: #f6f3e9; }
+.recurso { margin-top: 24px; padding: clamp(20px, 4vw, 32px); border: 1px solid #363d2c; border-radius: 18px; background: #161b12; }
+.etiqueta { color: #f4c928; font-size: 11px; letter-spacing: 2px; }
+h2 { font-size: 30px; margin: 12px 0; }
+p, small { line-height: 1.6; color: #b5bca9; }
+.acoes { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 16px; }
+button, a { padding: 13px 18px; border: 1px solid #f4c928; border-radius: 10px; background: #f4c928; color: #10110e; font-weight: 700; cursor: pointer; text-decoration: none; }
+button:disabled { opacity: .45; cursor: default; }
+input, select, textarea { width: 100%; padding: 14px; background: #10140d; border: 1px solid #3d4730; border-radius: 10px; color: #f6f3e9; font: inherit; }
+label { display: grid; gap: 10px; margin-top: 18px; }
+article { margin-top: 18px; padding: 18px; border: 1px solid #333d2a; border-radius: 12px; overflow-wrap: anywhere; }
+.aviso { color: #f4c928; }
+@media (max-width: 520px) { .acoes > * { width: 100%; text-align: center; } }

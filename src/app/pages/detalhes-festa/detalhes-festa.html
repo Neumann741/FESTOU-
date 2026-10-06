@@ -35,5 +35,8 @@
       <div class="comentario"><input [(ngModel)]="comentario" placeholder="Escreva um comentário"><button (click)="enviarComentario()">Enviar</button></div>
       @for (item of interacao.comentarios()[evento.id] || []; track $index) { <p class="mensagem"><strong>{{ item.pessoa }}:</strong> {{ item.texto }}</p> }
     </section>
+    <app-recursos-festa [festa]="evento" />
   </main>
+} @else {
+  <main class="detalhes"><h1>Festa não encontrada</h1><a routerLink="/vitrine">Explorar outras festas</a></main>
 }

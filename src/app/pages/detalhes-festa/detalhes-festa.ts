@@ -4,9 +4,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Festa } from '../../models/festa';
 import { FestaService } from '../../services/festa.service';
 import { Interacao } from '../../services/interacao';
+import { RecursosFesta } from '../../componentes/recursos-festa/recursos-festa';
 
 @Component({
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, RecursosFesta],
   selector: 'app-detalhes-festa',
   styleUrl: './detalhes-festa.css',
   templateUrl: './detalhes-festa.html',
