@@ -9,13 +9,16 @@
       <p>{{ evento.data }} às {{ evento.horario }}</p>
       <h2>{{ evento.preco === 0 ? 'Grátis' : 'Ingresso ' + evento.preco }}</h2>
       <div class="botoes">
-        @if (evento.tipo === 'privada') { <button (click)="pedirParticipacao()">{{ interacao.pedidos().includes(evento.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button> } @else { <button (click)="confirmar()">{{ interacao.confirmadas().includes(evento.id) ? 'Presença confirmada' : 'Confirmar presença' }}</button> }
+        @if (evento.tipo === 'privada' && !interacao.confirmadas().includes(evento.id)) {
+          <button (click)="pedirParticipacao()" [disabled]="interacao.pedidos().includes(evento.id)">{{ interacao.pedidos().includes(evento.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
+        } @else { <button (click)="confirmar()">{{ interacao.confirmadas().includes(evento.id) ? 'Cancelar presença' : 'Confirmar presença' }}</button> }
         <button (click)="favoritar()">{{ interacao.favoritos().includes(evento.id) ? '♥ Salva' : '♡ Salvar festa' }}</button>
         <a [routerLink]="['/galeria', evento.id]">Ver galeria</a>
         <a [routerLink]="['/playlist', evento.id]">Montar playlist</a>
         @if (evento.eventoGrande) { <button (click)="comprarIngresso()">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso' }}</button> }
       </div>
-      <h2>Quem vai</h2><p>{{ evento.pessoasConfirmadas + interacao.confirmadas().length }} pessoas confirmadas</p>
+      @if (interacao.respostas()[evento.id] === 'recusado') { <p class="mensagem">Seu pedido foi recusado. Você pode enviar um novo pedido.</p> }
+      <h2>Quem vai</h2><p>{{ evento.pessoasConfirmadas + (interacao.confirmadas().includes(evento.id) ? 1 : 0) }} pessoas confirmadas</p>
       @if (interacao.amigosNaFesta(evento.id).length) {
         <p>Seus amigos que vão:</p>
         <div class="amigos">@for (pessoa of interacao.amigosNaFesta(evento.id); track pessoa) { <span>{{ pessoa }}</span> }</div>

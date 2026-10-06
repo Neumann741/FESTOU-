@@ -3,8 +3,24 @@
   <header><div><p>PAINEL DO ORGANIZADOR</p><h1>Minhas festas</h1></div><a routerLink="/criar-festa">+ Criar festa</a></header>
   <section class="lista-festas">
     @for (festa of festas(); track festa.id) {
-      <a [routerLink]="['/editar-festa', festa.id]">Editar {{ festa.nome }} →</a>
-      <article class="festa"><img class="capa-gerenciamento" [src]="festa.imagem"><div><h2>{{ festa.nome }}</h2><p>{{ festa.data }} · {{ festa.horario }} · {{ festa.local }}</p><span>{{ festa.categoria }} · {{ festa.pessoasConfirmadas }} confirmados</span></div><div class="acoes"><a [routerLink]="['/festa', festa.id]">Ver festa ↗</a><button (click)="excluir(festa.id)">Excluir</button></div></article>
+      <div class="gerenciamento">
+        <article class="festa">
+          <img class="capa-gerenciamento" [src]="festa.imagem">
+          <div><h2>{{ festa.nome }}</h2><p>{{ festa.data }} · {{ festa.horario }} · {{ festa.local }}</p><span>{{ festa.categoria }} · {{ festa.tipo === 'privada' ? 'Privada' : 'Pública' }}</span></div>
+          <div class="acoes"><a [routerLink]="['/editar-festa', festa.id]">Editar</a><a [routerLink]="['/festa', festa.id]">Ver festa ↗</a><button (click)="excluir(festa.id)">Excluir</button></div>
+        </article>
+        @if (festa.tipo === 'privada') {
+          <section class="pedidos">
+            <h3>Pedidos de participação</h3>
+            @if (interacao.pedidos().includes(festa.id)) {
+              <p>Você (participante da demonstração) pediu para participar.</p>
+              <button (click)="interacao.responderPedido(festa, true)" [disabled]="!!festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes">Aprovar</button>
+              <button class="recusar" (click)="interacao.responderPedido(festa, false)">Recusar</button>
+              @if (festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes) { <p>Sem vagas para aprovar. Aumente o limite de participantes.</p> }
+            } @else { <p>Nenhum pedido pendente.</p> }
+          </section>
+        }
+      </div>
     } @empty { <p>Nenhuma festa criada ainda.</p> }
   </section>
 </main>
