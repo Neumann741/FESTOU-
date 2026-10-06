@@ -18,11 +18,12 @@
         <button (click)="favoritar()">{{ interacao.favoritos().includes(evento.id) ? '♥ Salva' : '♡ Salvar festa' }}</button>
         <a [routerLink]="['/galeria', evento.id]">Ver galeria</a>
         <a [routerLink]="['/playlist', evento.id]">Montar playlist</a>
-        @if (evento.eventoGrande) { <button (click)="comprarIngresso()" [disabled]="interacao.fechada(evento) || interacao.lotada(evento) || (evento.tipo === 'privada' && !interacao.confirmadas().includes(evento.id))">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso fictício' }}</button> }
+        @if (evento.eventoGrande) { <button (click)="comprarIngresso()" [disabled]="interacao.fechada(evento)">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso fictício' }}</button> }
       </div>
       @if (interacao.respostas()[evento.id] === 'recusado') { <p class="mensagem">Seu pedido foi recusado. Você pode enviar um novo pedido.</p> }
       @if (interacao.espera().includes(evento.id)) { <p class="mensagem">Você está na lista de espera. {{ interacao.lotada(evento) ? 'A festa ainda está lotada.' : 'Há vagas! Confirme presença ou peça aprovação se a festa for privada.' }}</p> }
       <h2>Quem vai</h2><p>{{ interacao.total(evento) }} pessoas confirmadas {{ evento.limiteParticipantes ? '· Limite: ' + evento.limiteParticipantes : '· Sem limite definido' }}</p>
+      @if (avisoIngresso) { <p class="mensagem">{{ avisoIngresso }}</p> }
       @if (interacao.amigosNaFesta(evento.id).length) {
         <p>Seus amigos que vão:</p>
         <div class="amigos">@for (pessoa of interacao.amigosNaFesta(evento.id); track pessoa) { <span>{{ pessoa }}</span> }</div>
