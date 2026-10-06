@@ -252,3 +252,22 @@
   }
 }
 
+.filtros-festas {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #353d2b;
+  border-radius: 16px;
+  background: #191d14;
+}
+.filtros-festas label { display: grid; gap: 8px; color: #d5dacb; font-size: 13px; }
+.filtros-festas input, .filtros-festas select { min-width: 0; width: 100%; padding: 12px; border: 1px solid #3f4834; border-radius: 8px; background: #10140d; color: #f6f3e9; }
+.filtros-festas .filtro-amigos { display: flex; align-items: center; }
+.filtro-amigos input { width: 18px; accent-color: #f4c928; }
+.filtros-festas button { border: 1px solid #4a523b; border-radius: 8px; padding: 12px; background: transparent; color: #f4c928; cursor: pointer; }
+.resultado-filtros { color: #b5bda6; }
+.situacao-festa { color: #f4c928; text-transform: capitalize; }
+.sem-resultados { grid-column: 1 / -1; padding: 40px; text-align: center; border: 1px dashed #444d37; border-radius: 16px; }
+@media (max-width: 700px) { .filtros-festas { grid-template-columns: 1fr; padding: 18px; } }
