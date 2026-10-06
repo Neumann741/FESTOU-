@@ -5,6 +5,7 @@ import { Festa } from '../../models/festa';
 import { FestaService } from '../../services/festa.service';
 import { Interacao } from '../../services/interacao';
 import { RecursosFesta } from '../../componentes/recursos-festa/recursos-festa';
+import { Experiencias } from '../../services/experiencias';
 
 @Component({
   imports: [FormsModule, RouterLink, RecursosFesta],
@@ -17,6 +18,8 @@ export class DetalhesFesta {
   comentario = '';
   amigoEscolhido = '';
   readonly interacao = inject(Interacao);
+  readonly experiencias = inject(Experiencias);
+  avisoIngresso = '';
   private readonly rota = inject(ActivatedRoute);
   private readonly festaService = inject(FestaService);
 
@@ -33,7 +36,7 @@ export class DetalhesFesta {
     this.interacao.confirmar(festa.id);
   }
   pedirParticipacao(): void { const festa = this.festa(); if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa)) this.interacao.pedirParticipacao(festa.id); }
-  comprarIngresso(): void { const festa = this.festa(); if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa) && (festa.tipo === 'publica' || this.interacao.confirmadas().includes(festa.id))) this.interacao.comprarIngresso(festa.id); }
+  comprarIngresso(): void { const festa = this.festa(); if (festa) this.avisoIngresso = this.experiencias.emitir(festa); }
   favoritar(): void { const festa = this.festa(); if (festa) this.interacao.favoritar(festa.id); }
   enviarComentario(): void {
     const festa = this.festa();

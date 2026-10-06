@@ -19,6 +19,7 @@ export class RecursosFesta {
   nota = 5;
   comentario = '';
   avisoAvaliacao = '';
+  avisoIngresso = '';
   avaliar(): void { this.avisoAvaliacao = this.experiencias.avaliar(this.festa(), this.avaliador, Number(this.nota), this.comentario); }
   amigo = '';
   avisoConvite = '';

@@ -1,3 +1,15 @@
+<section class="recurso ingresso">
+  <p class="etiqueta">SEU PASSE PARA O ROLÊ</p><h2>Ingresso fictício</h2>
+  <p>Sem pagamento e sem valor comercial. A emissão reserva sua presença. O check-in pode ser simulado antes da data para apresentar o projeto.</p>
+  <div class="acoes"><button (click)="avisoIngresso = experiencias.emitir(festa())" [disabled]="interacao.fechada(festa())">{{ interacao.ingressos().includes(festa().id) ? 'Validar minha reserva' : 'Emitir ingresso fictício' }}</button></div>
+  @if (interacao.ingressos().includes(festa().id)) {
+    <article><p>FESTOU! · DEMONSTRAÇÃO</p><h3>{{ festa().nome }}</h3><p>{{ festa().data }} · {{ festa().horario }}</p><strong>{{ experiencias.codigo(festa()) }}</strong>
+      <p>{{ interacao.fechada(festa()) ? 'Ingresso indisponível: festa ' + interacao.status(festa()) : experiencias.checkins().includes(festa().id) ? 'Ingresso utilizado · Check-in realizado' : interacao.confirmadas().includes(festa().id) ? 'Reserva confirmada' : 'Presença cancelada · Valide a reserva novamente' }}</p>
+      <div class="acoes"><button (click)="avisoIngresso = experiencias.checkin(festa())" [disabled]="experiencias.checkins().includes(festa().id) || interacao.fechada(festa()) || !interacao.confirmadas().includes(festa().id)">Simular check-in</button></div>
+    </article>
+  }
+  @if (avisoIngresso) { <p class="aviso">{{ avisoIngresso }}</p> }
+</section>
 <section class="recurso">
   <p class="etiqueta">COMO FOI A NOITE?</p><h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
   <p>{{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o encerramento, apenas para quem participou.</p>
