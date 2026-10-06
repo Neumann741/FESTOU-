@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Notificacoes } from './pages/notificacoes/notificacoes';
+import { EditarPerfil } from './pages/editar-perfil/editar-perfil';
 import { HomePage } from './pages/home-page/home-page';
 import { MainPage } from './pages/main-page/main-page';
 import { Vitrine } from './pages/vitrine/vitrine';
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'editar-festa/:id', component: CriarFesta },
   { path: 'festa/:id', component: DetalhesFesta },
   { path: 'perfil', component: Perfil },
+  { path: 'editar-perfil', component: EditarPerfil },
   { path: 'minhas-festas', component: MinhasFestas },
   { path: 'galeria/:id', component: GaleriaPage },
   { path: 'playlist/:id', component: PlaylistPage },

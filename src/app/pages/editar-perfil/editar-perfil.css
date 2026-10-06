@@ -1,0 +1,18 @@
+.pagina-editar {
+  min-height: 100vh;
+  padding: 32px max(20px, calc((100% - 760px) / 2)) 64px;
+  background: #10110e;
+  color: #f6f3e9;
+}
+a { color: #f4c928; text-decoration: none; }
+.caixa-editar { margin-top: 28px; padding: clamp(22px, 5vw, 44px); background: #191d14; border: 1px solid #353c2b; border-radius: 22px; }
+.etiqueta { color: #f4c928; font-size: 11px; letter-spacing: 2px; }
+h1 { font-size: clamp(32px, 6vw, 50px); margin: 18px 0; }
+.descricao, small { color: #b5bcaa; line-height: 1.6; }
+form { display: grid; gap: 22px; margin-top: 28px; }
+label { display: grid; gap: 10px; font-size: 14px; }
+input, textarea { width: 100%; padding: 14px; border: 1px solid #3d4431; border-radius: 10px; background: #10140d; color: #f6f3e9; font: inherit; }
+textarea { resize: vertical; }
+.acoes { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+button { padding: 15px 24px; border: 0; border-radius: 10px; background: #f4c928; color: #10110e; font-weight: 700; cursor: pointer; }
+.mensagem { color: #f4c928; }

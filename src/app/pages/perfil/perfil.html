@@ -6,14 +6,15 @@
   <div class="limite-social">
     <div class="capa-social"><span>BOAS HISTÓRIAS COMEÇAM COM UM ENCONTRO.</span><b>✦</b></div>
     <section class="identidade-social">
-      <div class="avatar-social">LF</div>
+      <div class="avatar-social">@if (usuario.perfil().foto && !fotoFalhou) { <img [src]="usuario.perfil().foto" (error)="fotoFalhou = true"> } @else { {{ iniciais() }} }</div>
       <div class="nome-social">
-        <p class="usuario-social">@lucas.festou</p>
-        <h1>Lucas Festou</h1>
-        <p class="bio-social">Blumenau, SC · Música boa e a galera por perto.</p>
-        <div class="gostos-social"><span>Pagode</span><span>Eletrônica</span><span>Festivais</span></div>
+        <p class="usuario-social">MEU PERFIL</p>
+        <h1>{{ usuario.perfil().nome }}</h1>
+        <p class="bio-social">{{ usuario.perfil().bio }}</p>
+        <div class="gostos-social">@for (estilo of estilos(); track $index) { <span>{{ estilo }}</span> }</div>
       </div>
       <a class="criar-social" routerLink="/criar-festa">+ Criar festa</a>
+      <a class="editar-social" routerLink="/editar-perfil">Editar perfil</a>
     </section>
     <div class="resumo-social">
       <button (click)="aba.set('confirmadas')"><strong>{{ confirmadas().length }}</strong> confirmadas</button>

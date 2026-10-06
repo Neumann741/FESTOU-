@@ -223,3 +223,13 @@
   .abas-social { gap: 20px; }
 }
 
+.avatar-social img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.editar-social { color: #f4c928; white-space: nowrap; }
+.bio-social, .nome-social h1 { overflow-wrap: anywhere; }
+.nome-social { min-width: 0; }
+.gostos-social { flex-wrap: wrap; }
