@@ -21,10 +21,22 @@ export class Interacao {
   }
 
   lotada(festa: Festa): boolean {
-    return !!festa.limiteParticipantes && this.total(festa) >= festa.limiteParticipantes;
+    return festa.status === 'esgotada' || (!!festa.limiteParticipantes && this.total(festa) >= festa.limiteParticipantes);
+  }
+
+  status(festa: Festa): string {
+    if (festa.status === 'cancelada' || festa.status === 'encerrada') return festa.status;
+    const fim = new Date(festa.data + 'T23:59:59');
+    if (fim.getTime() < Date.now()) return 'encerrada';
+    return this.lotada(festa) ? 'esgotada' : 'publicada';
+  }
+
+  fechada(festa: Festa): boolean {
+    return ['cancelada', 'encerrada'].includes(this.status(festa));
   }
 
   alternarEspera(festa: Festa): void {
+    if (this.fechada(festa)) return;
     if (this.confirmadas().includes(festa.id)) return;
     if (this.espera().includes(festa.id)) {
       this.removerEspera(festa.id);
@@ -78,7 +90,7 @@ export class Interacao {
 
   responderPedido(festa: Festa, aprovar: boolean): void {
     if (!this.pedidos().includes(festa.id) || festa.tipo !== 'privada') return;
-    if (aprovar && festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes) return;
+    if (aprovar && (this.fechada(festa) || this.lotada(festa))) return;
     this.pedidos.update(lista => lista.filter(id => id !== festa.id));
     this.salvar('festou-pedidos', this.pedidos());
     this.respostas.update(lista => ({ ...lista, [festa.id]: aprovar ? 'aprovado' : 'recusado' }));

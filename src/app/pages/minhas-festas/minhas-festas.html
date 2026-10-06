@@ -11,11 +11,12 @@
           <div class="acoes"><a [routerLink]="['/editar-festa', festa.id]">Editar</a><a [routerLink]="['/festa', festa.id]">Ver festa ↗</a><button (click)="excluir(festa.id)">Excluir</button></div>
         </article>
         @if (festa.tipo === 'privada') {
+          
           <section class="pedidos">
             <h3>Pedidos de participação</h3>
             @if (interacao.pedidos().includes(festa.id)) {
               <p>Você (participante da demonstração) pediu para participar.</p>
-              <button (click)="interacao.responderPedido(festa, true)" [disabled]="!!festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes">Aprovar</button>
+              <button (click)="interacao.responderPedido(festa, true)" [disabled]="interacao.fechada(festa) || interacao.lotada(festa)">Aprovar</button>
               <button class="recusar" (click)="interacao.responderPedido(festa, false)">Recusar</button>
               @if (festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes) { <p>Sem vagas para aprovar. Aumente o limite de participantes.</p> }
             } @else { <p>Nenhum pedido pendente.</p> }
@@ -24,6 +25,15 @@
         @if (interacao.espera().includes(festa.id)) {
           <section class="pedidos"><h3>Lista de espera</h3><p>Você está aguardando uma vaga nesta festa. Edite o limite para disponibilizar mais vagas.</p></section>
         }
+        <section class="pedidos">
+          <label>Status da festa
+            <select [ngModel]="festa.status || 'publicada'" (ngModelChange)="alterarStatus(festa, $event)">
+              <option value="publicada">Publicada</option><option value="esgotada">Esgotada</option>
+              <option value="cancelada">Cancelada</option><option value="encerrada">Encerrada</option>
+            </select>
+          </label>
+          <p>Status atual: {{ interacao.status(festa) }}. A lotação e o fim da data da festa também atualizam o status automaticamente.</p>
+        </section>
       </div>
     } @empty { <p>Nenhuma festa criada ainda.</p> }
   </section>

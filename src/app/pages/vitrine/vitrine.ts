@@ -32,7 +32,10 @@ export class Vitrine {
     void this.router.navigate(['/festa', festa.id]);
   }
 
-  pedirParticipacao(festa: Festa): void { this.interacao.pedirParticipacao(festa.id); }
+  pedirParticipacao(festa: Festa): void {
+    if (!this.interacao.fechada(festa) && !this.interacao.lotada(festa)) this.interacao.pedirParticipacao(festa.id);
+    else this.verDetalhes(festa);
+  }
 
   dataLabel(data: string): string {
     return new Date(`${data}T00:00:00`)

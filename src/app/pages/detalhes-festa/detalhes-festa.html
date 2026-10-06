@@ -9,7 +9,8 @@
       <p>{{ evento.data }} às {{ evento.horario }}</p>
       <h2>{{ evento.preco === 0 ? 'Grátis' : 'Ingresso ' + evento.preco }}</h2>
       <div class="botoes">
-        @if (interacao.lotada(evento) && !interacao.confirmadas().includes(evento.id)) {
+        @if (interacao.fechada(evento)) { <p class="mensagem">Festa {{ interacao.status(evento) }} · Participações encerradas.</p>
+        } @else if (interacao.lotada(evento) && !interacao.confirmadas().includes(evento.id)) {
           <button (click)="interacao.alternarEspera(evento)">{{ interacao.espera().includes(evento.id) ? 'Sair da lista de espera' : 'Festa lotada · Entrar na lista de espera' }}</button>
         } @else if (evento.tipo === 'privada' && !interacao.confirmadas().includes(evento.id)) {
           <button (click)="pedirParticipacao()" [disabled]="interacao.pedidos().includes(evento.id)">{{ interacao.pedidos().includes(evento.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
@@ -17,7 +18,7 @@
         <button (click)="favoritar()">{{ interacao.favoritos().includes(evento.id) ? '♥ Salva' : '♡ Salvar festa' }}</button>
         <a [routerLink]="['/galeria', evento.id]">Ver galeria</a>
         <a [routerLink]="['/playlist', evento.id]">Montar playlist</a>
-        @if (evento.eventoGrande) { <button (click)="comprarIngresso()">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso' }}</button> }
+        @if (evento.eventoGrande) { <button (click)="comprarIngresso()" [disabled]="interacao.fechada(evento) || interacao.lotada(evento) || (evento.tipo === 'privada' && !interacao.confirmadas().includes(evento.id))">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso fictício' }}</button> }
       </div>
       @if (interacao.respostas()[evento.id] === 'recusado') { <p class="mensagem">Seu pedido foi recusado. Você pode enviar um novo pedido.</p> }
       @if (interacao.espera().includes(evento.id)) { <p class="mensagem">Você está na lista de espera. {{ interacao.lotada(evento) ? 'A festa ainda está lotada.' : 'Há vagas! Confirme presença ou peça aprovação se a festa for privada.' }}</p> }
