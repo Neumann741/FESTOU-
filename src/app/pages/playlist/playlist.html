@@ -6,9 +6,11 @@
   </header>
   <div class="conteudo">
     <section class="lista">
+      <label class="votante">Votar como (simulação)<select [(ngModel)]="votante">@for (pessoa of playlist.votantes; track pessoa) { <option [value]="pessoa">{{ pessoa }}</option> }</select></label>
+      <p class="instrucao-voto">Um voto por pessoa em cada música. Clique novamente para retirar o voto.</p>
       <div class="titulo-lista"><div><p class="etiqueta">NA SEQUÊNCIA</p><h2>Seleção da galera</h2></div><span>{{ playlist.daFesta(festaId()).length }}</span></div>
       @for (musica of playlist.daFesta(festaId()); track $index) {
-        <article class="faixa"><span class="numero">{{ $index + 1 }}</span><span class="icone-musica">♫</span><div class="dados-musica"><strong>{{ musica.nome }}</strong><p>{{ musica.artista || 'Artista não informado' }}</p></div><div class="acoes">@if (musica.link) { <a [href]="musica.link" target="_blank" rel="noopener noreferrer">↗ Ouvir</a> }<button type="button" (click)="remover($index)">Remover</button></div></article>
+        <article class="faixa"><span class="numero">{{ $index + 1 }}</span><span class="icone-musica">♫</span><div class="dados-musica"><strong>{{ musica.nome }}</strong><p>{{ musica.artista || 'Artista não informado' }}</p></div><div class="acoes"><button type="button" class="votar" [class.votada]="musica.votos?.includes(votante)" (click)="playlist.votar(festaId(), $index, votante)">{{ musica.votos?.includes(votante) ? '♥' : '♡' }} {{ musica.votos?.length || 0 }} votos</button>@if (musica.link) { <a [href]="musica.link" target="_blank" rel="noopener noreferrer">↗ Ouvir</a> }<button type="button" (click)="remover($index)">Remover</button></div></article>
       } @empty {
         <div class="vazio"><span>♫</span><h3>A primeira música é sua.</h3><p>Que tal começar com aquela que faz todo mundo cantar junto?</p></div>
       }
