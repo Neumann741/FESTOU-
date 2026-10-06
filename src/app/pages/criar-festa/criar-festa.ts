@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormField, form, minLength, required } from '@angular/forms/signals';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Festa } from '../../models/festa';
 import { FestaService } from '../../services/festa.service';
 import { Localizacao } from '../../services/localizacao';
 
@@ -48,19 +49,43 @@ export class CriarFesta {
   private latitude = 0;
   private longitude = 0;
   private cidade = '';
+  protected original?: Festa;
+  private enderecoEncontrado = '';
+  protected indisponivel = false;
+
+  constructor() {
+    const id = inject(ActivatedRoute).snapshot.paramMap.get('id');
+    if (!id) return;
+    this.festaService.getFestas().subscribe(festas => {
+      if (this.original) return;
+      const festa = festas.find(item => item.id === Number(id));
+      if (!festa) { this.indisponivel = true; return; }
+      this.original = festa;
+      this.dados.set({ nome: festa.nome, categoria: festa.categoria, data: festa.data,
+        horario: festa.horario, local: festa.local, preco: String(festa.preco ?? 0), tipo: festa.tipo });
+      this.latitude = festa.latitude;
+      this.longitude = festa.longitude;
+      this.cidade = festa.cidade;
+      this.enderecoEncontrado = festa.local;
+    });
+  }
 
   protected criarFesta(event: SubmitEvent): void {
     event.preventDefault();
 
-    if (this.formulario().invalid()) return;
+    if (this.formulario().invalid() || this.indisponivel || this.buscando()) return;
 
-    if (!this.latitude || !this.longitude) {
+    if (!this.enderecoEncontrado || this.enderecoEncontrado !== this.dados().local) {
       this.mensagem.set('Clique em buscar localização antes de publicar.');
       return;
     }
 
     const dados = this.dados();
-    const festa = this.festaService.criarFesta({
+    if (Number(dados.preco) < 0 || !Number.isFinite(Number(dados.preco))) {
+      this.mensagem.set('Informe um preço válido, a partir de zero.');
+      return;
+    }
+    const valores = {
       nome: dados.nome,
       descricao: '',
       categoria: dados.categoria,
@@ -74,7 +99,15 @@ export class CriarFesta {
       longitude: this.longitude,
       pessoasConfirmadas: 0,
       tipo: dados.tipo,
-    });
+    };
+    let festa: Festa;
+    if (this.original) {
+      festa = { ...this.original, ...valores, imagem: this.original.imagem,
+        descricao: this.original.descricao, pessoasConfirmadas: this.original.pessoasConfirmadas };
+      this.festaService.atualizarFesta(festa);
+    } else {
+      festa = this.festaService.criarFesta(valores);
+    }
 
     void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
   }
@@ -105,6 +138,7 @@ export class CriarFesta {
         this.longitude = lugar.geometry.coordinates[0];
         this.latitude = lugar.geometry.coordinates[1];
         this.cidade = lugar.properties.city || lugar.properties.county || 'Blumenau';
+        this.enderecoEncontrado = endereco;
         this.mensagem.set(`Local encontrado: ${lugar.properties.formatted}`);
         this.buscando.set(false);
       },
