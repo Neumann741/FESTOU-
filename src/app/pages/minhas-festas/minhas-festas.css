@@ -1,2 +1,13 @@
 .minhas-festas { min-height: 100vh; padding: 52px 8%; color: #f7f7f2; background: #080808; font-family: "Graphik", "Helvetica Neue", Arial, sans-serif; }.minhas-festas header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }.minhas-festas h1 { margin: 0; font-size: 42px; }.minhas-festas header p, .festa p, .festa span { color: #c9cbc7; }.minhas-festas a, button { padding: 10px 14px; color: #080808; background: #f4c928; border: 0; border-radius: 8px; font-weight: bold; text-decoration: none; cursor: pointer; }.lista-festas { display: grid; gap: 14px; margin-top: 32px; }.festa { display: flex; justify-content: space-between; gap: 16px; padding: 20px; background: #101211; border: 1px solid #4b504d; border-radius: 12px; }.festa h2 { margin: 0; }.acoes { display: flex; align-items: center; gap: 8px; }.acoes button { color: #f7f7f2; background: #6f2525; } @media (max-width: 600px) { .festa, .minhas-festas header { align-items: start; flex-direction: column; } }
 
+.gerenciamento {
+  margin-top: 24px;
+  border: 1px solid #353c2b;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pedidos { padding: 20px; background: #191d14; }
+.pedidos p { color: #b6bcaa; line-height: 1.6; }
+.pedidos button { padding: 12px 20px; margin: 4px 8px 4px 0; border: 1px solid #f4c928; border-radius: 10px; background: #f4c928; cursor: pointer; }
+.pedidos .recusar { background: transparent; color: #e0a29b; border-color: #72554c; }
+.pedidos button:disabled { opacity: .4; cursor: default; }

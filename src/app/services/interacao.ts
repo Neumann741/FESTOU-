@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Avisos } from './avisos';
+import { Festa } from '../models/festa';
 
 export interface Comentario {
   pessoa: string;
@@ -12,6 +13,7 @@ export class Interacao {
   favoritos = signal<number[]>(this.ler('festou-favoritos', [2, 5]));
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
+  respostas = signal<Record<number, string>>(this.ler('festou-respostas', {}));
   ingressos = signal<number[]>(this.ler('festou-ingressos', []));
   pessoas = ['Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
   amigosPorFesta = signal<Record<number, string[]>>(this.ler('festou-amigos-festas', {
@@ -39,11 +41,24 @@ export class Interacao {
   }
 
   pedirParticipacao(id: number): void {
-    if (this.pedidos().includes(id)) return;
+    if (this.pedidos().includes(id) || this.confirmadas().includes(id)) return;
     const pedidos = [...this.pedidos(), id];
     this.pedidos.set(pedidos);
     this.salvar('festou-pedidos', pedidos);
     this.avisos.adicionar('Seu pedido de participação foi enviado.', id);
+    this.respostas.update(lista => ({ ...lista, [id]: 'pendente' }));
+    this.salvar('festou-respostas', this.respostas());
+  }
+
+  responderPedido(festa: Festa, aprovar: boolean): void {
+    if (!this.pedidos().includes(festa.id) || festa.tipo !== 'privada') return;
+    if (aprovar && festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes) return;
+    this.pedidos.update(lista => lista.filter(id => id !== festa.id));
+    this.salvar('festou-pedidos', this.pedidos());
+    this.respostas.update(lista => ({ ...lista, [festa.id]: aprovar ? 'aprovado' : 'recusado' }));
+    this.salvar('festou-respostas', this.respostas());
+    if (aprovar && !this.confirmadas().includes(festa.id)) this.confirmar(festa.id);
+    this.avisos.adicionar(`Seu pedido para ${festa.nome} foi ${aprovar ? 'aprovado' : 'recusado'}.`, festa.id);
   }
 
   comprarIngresso(id: number): void {

@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Festa } from '../../models/festa';
 import { FestaService } from '../../services/festa.service';
+import { Interacao } from '../../services/interacao';
 
 @Component({
   imports: [RouterLink],
@@ -10,6 +11,7 @@ import { FestaService } from '../../services/festa.service';
   templateUrl: './minhas-festas.html',
 })
 export class MinhasFestas {
+  readonly interacao = inject(Interacao);
   festas = signal<Festa[]>([]);
   private readonly festaService = inject(FestaService);
 
