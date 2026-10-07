@@ -1,0 +1,53 @@
+<aside class="navegacao-interna">
+  <div class="topo-menu">
+    <a class="marca" routerLink="/main-page">festou!</a
+    ><button class="abrir-menu" (click)="menuAberto = !menuAberto">
+      {{ menuAberto ? 'Fechar' : 'Menu' }}
+    </button>
+  </div>
+  <nav [class.aberto]="menuAberto" (click)="menuAberto = false">
+    <a routerLink="/main-page" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="m16 8-3 5-5 3 3-5Z" /></svg
+      >Explorar</a
+    >
+    <a routerLink="/mapa-page" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Zm6-2v16m6-14v16" /></svg
+      >Mapa</a
+    >
+    <a routerLink="/agenda" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M7 2v6m10-6v6M3 11h18" /></svg
+      >Agenda</a
+    >
+    <a routerLink="/notificacoes" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0v5l2 3H4l2-3Zm3 11h6" /></svg
+      >Notificações
+      @if (avisos.naoLidos()) {
+        <span class="contador">{{ avisos.naoLidos() }}</span>
+      }
+    </a>
+    <a routerLink="/minhas-festas" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M8 4v16m5-11h4m-4 5h4" /></svg
+      >Minhas festas</a
+    >
+    <a routerLink="/perfil" routerLinkActive="ativo"
+      ><svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21v-2a8 8 0 0 1 16 0v2" /></svg
+      >Perfil</a
+    >
+    <a class="criar" routerLink="/criar-festa" routerLinkActive="ativo">+ Criar festa</a>
+  </nav>
+  <a class="conta" routerLink="/perfil"
+    ><span class="avatar">{{ usuario.perfil().nome.charAt(0) }}</span
+    ><span
+      ><strong>{{ usuario.perfil().nome }}</strong
+      ><small>Meu perfil</small></span
+    ></a
+  >
+</aside>

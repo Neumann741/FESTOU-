@@ -1,4 +1,6 @@
-
-
-<router-outlet />
-
+<div [class.area-interna]="!home()">
+  @if (!home()) {
+    <app-navegacao-interna />
+  }
+  <div [class.conteudo-interno]="!home()"><router-outlet /></div>
+</div>

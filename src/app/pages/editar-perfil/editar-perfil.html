@@ -1,9 +1,8 @@
 <main class="pagina-editar">
   <a routerLink="/perfil">← Voltar ao perfil</a>
   <section class="caixa-editar">
-    <p class="etiqueta">DO SEU JEITO</p>
     <h1>Editar perfil</h1>
-    <p class="descricao">Conte para a galera quem você é e o que gosta de ouvir.</p>
+    <p class="descricao">Atualize suas informações e preferências.</p>
     <form (ngSubmit)="salvar()">
       <label>Nome<input name="nome" [(ngModel)]="dados.nome" maxlength="60" required /></label>
       <label
