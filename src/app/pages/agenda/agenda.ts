@@ -16,13 +16,28 @@ export class Agenda {
   readonly interacao = inject(Interacao);
   festas = signal<Festa[]>([]);
   aba = signal('proximas');
-  lista = computed(() => this.festas().filter(festa => {
-    if (!this.interacao.confirmadas().includes(festa.id)) return false;
-    const status = this.interacao.status(festa);
-    return this.aba() === 'historico' ? status === 'encerrada' : this.aba() === 'canceladas' ? status === 'cancelada' : !this.interacao.fechada(festa);
-  }).sort((a, b) => (a.data + a.horario).localeCompare(b.data + b.horario) * (this.aba() === 'historico' ? -1 : 1)));
+  lista = computed(() =>
+    this.festas()
+      .filter((festa) => {
+        if (!this.interacao.confirmadas().includes(festa.id)) return false;
+        const status = this.interacao.status(festa);
+        return this.aba() === 'historico'
+          ? status === 'encerrada'
+          : this.aba() === 'canceladas'
+            ? status === 'cancelada'
+            : !this.interacao.fechada(festa);
+      })
+      .sort(
+        (a, b) =>
+          (a.data + a.horario).localeCompare(b.data + b.horario) *
+          (this.aba() === 'historico' ? -1 : 1),
+      ),
+  );
 
   constructor() {
-    inject(FestaService).getFestas().pipe(takeUntilDestroyed()).subscribe(festas => this.festas.set(festas));
+    inject(FestaService)
+      .getFestas()
+      .pipe(takeUntilDestroyed())
+      .subscribe((festas) => this.festas.set(festas));
   }
 }

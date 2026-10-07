@@ -1,46 +1,161 @@
 <section class="recurso ingresso">
-  <p class="etiqueta">SEU PASSE PARA O ROLÊ</p><h2>Ingresso fictício</h2>
-  <p>Sem pagamento e sem valor comercial. A emissão reserva sua presença. O check-in pode ser simulado antes da data para apresentar o projeto.</p>
-  <div class="acoes"><button (click)="avisoIngresso = experiencias.emitir(festa())" [disabled]="interacao.fechada(festa())">{{ interacao.ingressos().includes(festa().id) ? 'Validar minha reserva' : 'Emitir ingresso fictício' }}</button></div>
+  <p class="etiqueta">SEU PASSE PARA O ROLÊ</p>
+  <h2>Ingresso fictício</h2>
+  <p>
+    Sem pagamento e sem valor comercial. A emissão reserva sua presença. O check-in pode ser
+    simulado antes da data para apresentar o projeto.
+  </p>
+  <div class="acoes">
+    <button
+      (click)="avisoIngresso = experiencias.emitir(festa())"
+      [disabled]="interacao.fechada(festa())"
+    >
+      {{
+        interacao.ingressos().includes(festa().id)
+          ? 'Validar minha reserva'
+          : 'Emitir ingresso fictício'
+      }}
+    </button>
+  </div>
   @if (interacao.ingressos().includes(festa().id)) {
-    <article><p>FESTOU! · DEMONSTRAÇÃO</p><h3>{{ festa().nome }}</h3><p>{{ festa().data }} · {{ festa().horario }}</p><strong>{{ experiencias.codigo(festa()) }}</strong>
-      <p>{{ interacao.fechada(festa()) ? 'Ingresso indisponível: festa ' + interacao.status(festa()) : experiencias.checkins().includes(festa().id) ? 'Ingresso utilizado · Check-in realizado' : interacao.confirmadas().includes(festa().id) ? 'Reserva confirmada' : 'Presença cancelada · Valide a reserva novamente' }}</p>
-      <div class="acoes"><button (click)="avisoIngresso = experiencias.checkin(festa())" [disabled]="experiencias.checkins().includes(festa().id) || interacao.fechada(festa()) || !interacao.confirmadas().includes(festa().id)">Simular check-in</button></div>
+    <article>
+      <p>FESTOU! · DEMONSTRAÇÃO</p>
+      <h3>{{ festa().nome }}</h3>
+      <p>{{ festa().data }} · {{ festa().horario }}</p>
+      <strong>{{ experiencias.codigo(festa()) }}</strong>
+      <p>
+        {{
+          interacao.fechada(festa())
+            ? 'Ingresso indisponível: festa ' + interacao.status(festa())
+            : experiencias.checkins().includes(festa().id)
+              ? 'Ingresso utilizado · Check-in realizado'
+              : interacao.confirmadas().includes(festa().id)
+                ? 'Reserva confirmada'
+                : 'Presença cancelada · Valide a reserva novamente'
+        }}
+      </p>
+      <div class="acoes">
+        <button
+          (click)="avisoIngresso = experiencias.checkin(festa())"
+          [disabled]="
+            experiencias.checkins().includes(festa().id) ||
+            interacao.fechada(festa()) ||
+            !interacao.confirmadas().includes(festa().id)
+          "
+        >
+          Simular check-in
+        </button>
+      </div>
     </article>
   }
-  @if (avisoIngresso) { <p class="aviso">{{ avisoIngresso }}</p> }
+  @if (avisoIngresso) {
+    <p class="aviso">{{ avisoIngresso }}</p>
+  }
 </section>
 <section class="recurso">
-  <p class="etiqueta">COMO FOI A NOITE?</p><h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
-  <p>{{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o encerramento, apenas para quem participou.</p>
-  <label>Avaliar como (simulação)<select [(ngModel)]="avaliador"><option value="Você">Você</option>@for (pessoa of interacao.amigosNaFesta(festa().id); track pessoa) { <option [value]="pessoa">{{ pessoa }} (fictício)</option> }</select></label>
+  <p class="etiqueta">COMO FOI A NOITE?</p>
+  <h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
+  <p>
+    {{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o
+    encerramento, apenas para quem participou.
+  </p>
+  <label
+    >Avaliar como (simulação)<select [(ngModel)]="avaliador">
+      <option value="Você">Você</option>
+      @for (pessoa of interacao.amigosNaFesta(festa().id); track pessoa) {
+        <option [value]="pessoa">{{ pessoa }} (fictício)</option>
+      }
+    </select></label
+  >
   @if (experiencias.podeAvaliar(festa(), avaliador)) {
-    <label>Nota<select [(ngModel)]="nota"><option [ngValue]="1">1 ★</option><option [ngValue]="2">2 ★</option><option [ngValue]="3">3 ★</option><option [ngValue]="4">4 ★</option><option [ngValue]="5">5 ★</option></select></label>
-    <label>Comentário<textarea [(ngModel)]="comentario" maxlength="500" rows="3" placeholder="O que você achou da festa?"></textarea></label>
+    <label
+      >Nota<select [(ngModel)]="nota">
+        <option [ngValue]="1">1 ★</option>
+        <option [ngValue]="2">2 ★</option>
+        <option [ngValue]="3">3 ★</option>
+        <option [ngValue]="4">4 ★</option>
+        <option [ngValue]="5">5 ★</option>
+      </select></label
+    >
+    <label
+      >Comentário<textarea
+        [(ngModel)]="comentario"
+        maxlength="500"
+        rows="3"
+        placeholder="O que você achou da festa?"
+      ></textarea>
+    </label>
     <div class="acoes"><button (click)="avaliar()">Salvar avaliação</button></div>
   }
-  @if (avisoAvaliacao) { <p class="aviso">{{ avisoAvaliacao }}</p> }
+  @if (avisoAvaliacao) {
+    <p class="aviso">{{ avisoAvaliacao }}</p>
+  }
   @for (avaliacao of experiencias.avaliacoes()[festa().id] || []; track avaliacao.pessoa) {
-    <article><strong>{{ avaliacao.pessoa }} · {{ avaliacao.nota }} ★</strong><p>{{ avaliacao.comentario }}</p></article>
-  } @empty { <p>Ainda não há avaliações.</p> }
+    <article>
+      <strong>{{ avaliacao.pessoa }} · {{ avaliacao.nota }} ★</strong>
+      <p>{{ avaliacao.comentario }}</p>
+    </article>
+  } @empty {
+    <p>Ainda não há avaliações.</p>
+  }
 </section>
 <section class="recurso">
-  <p class="etiqueta">MELHOR COM AMIGOS</p><h2>Convide sua galera</h2>
-  <p>Demonstração: envie um convite e escolha a resposta do amigo fictício. Festas privadas ainda precisam da aprovação do organizador.</p>
-  <label>Amigo<select [(ngModel)]="amigo"><option value="">Escolha um amigo</option>@for (pessoa of interacao.pessoas; track pessoa) { <option [value]="pessoa">{{ pessoa }}</option> }</select></label>
-  <div class="acoes"><button (click)="convidar()" [disabled]="!amigo || interacao.fechada(festa()) || interacao.lotada(festa())">Enviar convite</button></div>
-  @if (avisoConvite) { <p class="aviso">{{ avisoConvite }}</p> }
+  <p class="etiqueta">MELHOR COM AMIGOS</p>
+  <h2>Convide sua galera</h2>
+  <p>
+    Demonstração: envie um convite e escolha a resposta do amigo fictício. Festas privadas ainda
+    precisam da aprovação do organizador.
+  </p>
+  <label
+    >Amigo<select [(ngModel)]="amigo">
+      <option value="">Escolha um amigo</option>
+      @for (pessoa of interacao.pessoas; track pessoa) {
+        <option [value]="pessoa">{{ pessoa }}</option>
+      }
+    </select></label
+  >
+  <div class="acoes">
+    <button
+      (click)="convidar()"
+      [disabled]="!amigo || interacao.fechada(festa()) || interacao.lotada(festa())"
+    >
+      Enviar convite
+    </button>
+  </div>
+  @if (avisoConvite) {
+    <p class="aviso">{{ avisoConvite }}</p>
+  }
   @for (convite of interacao.convites()[festa().id] || []; track convite.pessoa) {
-    <article><strong>{{ convite.pessoa }}</strong><p>{{ convite.status }}</p>
+    <article>
+      <strong>{{ convite.pessoa }}</strong>
+      <p>{{ convite.status }}</p>
       @if (convite.status === 'pendente') {
-        <div class="acoes"><button (click)="interacao.responderConvite(festa(), convite.pessoa, true)" [disabled]="interacao.fechada(festa()) || interacao.lotada(festa())">Simular aceite</button><button (click)="interacao.responderConvite(festa(), convite.pessoa, false)">Simular recusa</button></div>
+        <div class="acoes">
+          <button
+            (click)="interacao.responderConvite(festa(), convite.pessoa, true)"
+            [disabled]="interacao.fechada(festa()) || interacao.lotada(festa())"
+          >
+            Simular aceite</button
+          ><button (click)="interacao.responderConvite(festa(), convite.pessoa, false)">
+            Simular recusa
+          </button>
+        </div>
       }
     </article>
-  } @empty { <p>Nenhum convite enviado para esta festa.</p> }
+  } @empty {
+    <p>Nenhum convite enviado para esta festa.</p>
+  }
 </section>
 <section class="recurso">
-  <p class="etiqueta">CHAME A GALERA</p><h2>Compartilhe esse rolê</h2>
+  <p class="etiqueta">CHAME A GALERA</p>
+  <h2>Compartilhe esse rolê</h2>
   <p>O link é local: não funciona no celular de outra pessoa sem uma versão publicada do site.</p>
-  <div class="acoes"><button (click)="copiar()">Copiar link</button><a [href]="whatsapp()" target="_blank" rel="noopener noreferrer">Abrir no WhatsApp ↗</a></div>
-  @if (mensagem()) { <p class="aviso">{{ mensagem() }}</p><input [value]="link()" readonly> }
+  <div class="acoes">
+    <button (click)="copiar()">Copiar link</button
+    ><a [href]="whatsapp()" target="_blank" rel="noopener noreferrer">Abrir no WhatsApp ↗</a>
+  </div>
+  @if (mensagem()) {
+    <p class="aviso">{{ mensagem() }}</p>
+    <input [value]="link()" readonly />
+  }
 </section>

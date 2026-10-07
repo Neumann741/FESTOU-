@@ -17,17 +17,34 @@ export class Vitrine {
   categoria = signal('');
   limitePreco = signal('');
   comAmigos = signal(false);
-  categorias = computed(() => [...new Set(this.festas().map(festa => festa.categoria))].sort());
-  filtradas = computed(() => this.festas().filter(festa => {
-    const texto = this.normalizar(`${festa.nome} ${festa.cidade} ${festa.local} ${festa.categoria}`);
-    return texto.includes(this.normalizar(this.busca().trim())) &&
-      (!this.categoria() || festa.categoria === this.categoria()) &&
-      (this.limitePreco() === '' || (festa.preco !== undefined && festa.preco <= Number(this.limitePreco()))) &&
-      (!this.comAmigos() || this.interacao.amigosNaFesta(festa.id).length > 0);
-  }));
+  categorias = computed(() => [...new Set(this.festas().map((festa) => festa.categoria))].sort());
+  filtradas = computed(() =>
+    this.festas().filter((festa) => {
+      const texto = this.normalizar(
+        `${festa.nome} ${festa.cidade} ${festa.local} ${festa.categoria}`,
+      );
+      return (
+        texto.includes(this.normalizar(this.busca().trim())) &&
+        (!this.categoria() || festa.categoria === this.categoria()) &&
+        (this.limitePreco() === '' ||
+          (festa.preco !== undefined && festa.preco <= Number(this.limitePreco()))) &&
+        (!this.comAmigos() || this.interacao.amigosNaFesta(festa.id).length > 0)
+      );
+    }),
+  );
 
-  limparFiltros(): void { this.busca.set(''); this.categoria.set(''); this.limitePreco.set(''); this.comAmigos.set(false); }
-  private normalizar(texto: string): string { return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  limparFiltros(): void {
+    this.busca.set('');
+    this.categoria.set('');
+    this.limitePreco.set('');
+    this.comAmigos.set(false);
+  }
+  private normalizar(texto: string): string {
+    return texto
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
   private readonly festaService = inject(FestaService);
   readonly interacao = inject(Interacao);
   private readonly router = inject(Router);
@@ -49,7 +66,8 @@ export class Vitrine {
   }
 
   pedirParticipacao(festa: Festa): void {
-    if (!this.interacao.fechada(festa) && !this.interacao.lotada(festa)) this.interacao.pedirParticipacao(festa.id);
+    if (!this.interacao.fechada(festa) && !this.interacao.lotada(festa))
+      this.interacao.pedirParticipacao(festa.id);
     else this.verDetalhes(festa);
   }
 

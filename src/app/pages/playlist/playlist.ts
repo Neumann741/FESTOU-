@@ -17,7 +17,20 @@ export class PlaylistPage {
   link = '';
   votante = 'Você';
   private readonly rota = inject(ActivatedRoute);
-  constructor() { this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1); }
-  adicionar(): void { this.playlist.adicionar(this.festaId(), { nome: this.nome, artista: this.artista, link: this.link }); this.nome = ''; this.artista = ''; this.link = ''; }
-  remover(indice: number): void { this.playlist.remover(this.festaId(), indice); }
+  constructor() {
+    this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1);
+  }
+  adicionar(): void {
+    this.playlist.adicionar(this.festaId(), {
+      nome: this.nome,
+      artista: this.artista,
+      link: this.link,
+    });
+    this.nome = '';
+    this.artista = '';
+    this.link = '';
+  }
+  remover(indice: number): void {
+    this.playlist.remover(this.festaId(), indice);
+  }
 }
