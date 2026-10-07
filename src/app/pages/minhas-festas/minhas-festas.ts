@@ -24,7 +24,11 @@ export class MinhasFestas {
     this.avisos.adicionar(`${festa.nome}: status alterado para ${status}.`, festa.id);
   }
 
-  constructor() { this.festaService.getFestas().subscribe((festas) => this.festas.set(festas)); }
+  constructor() {
+    this.festaService.getFestas().subscribe((festas) => this.festas.set(festas));
+  }
 
-  excluir(id: number): void { this.festaService.removerFesta(id); }
+  excluir(id: number): void {
+    this.festaService.removerFesta(id);
+  }
 }

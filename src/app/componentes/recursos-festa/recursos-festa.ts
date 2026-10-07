@@ -20,12 +20,23 @@ export class RecursosFesta {
   comentario = '';
   avisoAvaliacao = '';
   avisoIngresso = '';
-  avaliar(): void { this.avisoAvaliacao = this.experiencias.avaliar(this.festa(), this.avaliador, Number(this.nota), this.comentario); }
+  avaliar(): void {
+    this.avisoAvaliacao = this.experiencias.avaliar(
+      this.festa(),
+      this.avaliador,
+      Number(this.nota),
+      this.comentario,
+    );
+  }
   amigo = '';
   avisoConvite = '';
-  convidar(): void { this.avisoConvite = this.interacao.convidar(this.festa(), this.amigo); }
+  convidar(): void {
+    this.avisoConvite = this.interacao.convidar(this.festa(), this.amigo);
+  }
 
-  link(): string { return `${window.location.origin}/festa/${this.festa().id}`; }
+  link(): string {
+    return `${window.location.origin}/festa/${this.festa().id}`;
+  }
   whatsapp(): string {
     return `https://wa.me/?text=${encodeURIComponent('Bora para ' + this.festa().nome + '? ' + this.link() + ' (demonstração local)')}`;
   }
@@ -34,7 +45,9 @@ export class RecursosFesta {
       await navigator.clipboard.writeText(this.link());
       this.mensagem.set('Link copiado!');
     } catch {
-      this.mensagem.set('Não foi possível copiar automaticamente. Selecione o link abaixo e copie.');
+      this.mensagem.set(
+        'Não foi possível copiar automaticamente. Selecione o link abaixo e copie.',
+      );
     }
   }
 }

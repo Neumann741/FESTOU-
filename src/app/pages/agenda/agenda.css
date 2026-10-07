@@ -1,15 +1,83 @@
-.pagina-agenda { min-height: 100vh; padding: 40px max(20px, calc((100% - 1040px) / 2)); color: #f6f3e9; background: #10110e; }
-header { margin: 40px 0 30px; }
-header p, a { color: #f4c928; }
-h1 { font-size: clamp(38px, 7vw, 64px); margin: 12px 0; }
-header span, p, small { color: #b6bda9; }
-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-button { padding: 14px 20px; border: 1px solid #38432d; border-radius: 24px; background: #191d14; color: #f6f3e9; cursor: pointer; }
-button.ativa { background: #f4c928; color: #10110e; border-color: #f4c928; }
-article { display: flex; gap: 24px; align-items: center; margin: 18px 0; padding: 24px; background: #191d14; border: 1px solid #353d2b; border-radius: 16px; }
-.data { display: grid; gap: 6px; text-align: center; color: #f4c928; min-width: 80px; }
-.data strong { font-size: 36px; }
-.informacoes { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-h2 { margin: 10px 0; }
-.vazio { display: block; text-align: center; padding: 48px 24px; }
-@media (max-width: 600px) { article { flex-wrap: wrap; gap: 16px; } article > a { width: 100%; } }
+.pagina-agenda {
+  min-height: 100vh;
+  padding: 40px max(20px, calc((100% - 1040px) / 2));
+  color: #f6f3e9;
+  background: #10110e;
+}
+header {
+  margin: 40px 0 30px;
+}
+header p,
+a {
+  color: #f4c928;
+}
+h1 {
+  font-size: clamp(38px, 7vw, 64px);
+  margin: 12px 0;
+}
+header span,
+p,
+small {
+  color: #b6bda9;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+button {
+  padding: 14px 20px;
+  border: 1px solid #38432d;
+  border-radius: 24px;
+  background: #191d14;
+  color: #f6f3e9;
+  cursor: pointer;
+}
+button.ativa {
+  background: #f4c928;
+  color: #10110e;
+  border-color: #f4c928;
+}
+article {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 18px 0;
+  padding: 24px;
+  background: #191d14;
+  border: 1px solid #353d2b;
+  border-radius: 16px;
+}
+.data {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+  color: #f4c928;
+  min-width: 80px;
+}
+.data strong {
+  font-size: 36px;
+}
+.informacoes {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+h2 {
+  margin: 10px 0;
+}
+.vazio {
+  display: block;
+  text-align: center;
+  padding: 48px 24px;
+}
+@media (max-width: 600px) {
+  article {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  article > a {
+    width: 100%;
+  }
+}
