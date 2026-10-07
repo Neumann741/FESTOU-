@@ -1,86 +1,72 @@
 :host {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 24px;
-  align-items: start;
-  color: #f6f3e9;
+  gap: 0 40px;
+  margin-top: 32px;
+  color: #eee;
 }
 .recurso {
   min-width: 0;
-  padding: clamp(20px, 4vw, 32px);
-  border: 1px solid #363d2c;
-  border-radius: 18px;
-  background: #161b12;
-}
-.etiqueta {
-  color: #f4c928;
-  font-size: 11px;
-  letter-spacing: 2px;
-}
-@media (max-width: 850px) {
-  :host { grid-template-columns: 1fr; }
+  padding: 28px 0;
+  border-top: 1px solid #333;
 }
 h2 {
-  font-size: 30px;
-  margin: 12px 0;
+  font-size: 19px;
+  margin: 0 0 14px;
 }
 p,
 small {
+  color: #999;
+  font-size: 12px;
   line-height: 1.6;
-  color: #b5bca9;
 }
 .acoes {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  margin: 16px 0;
   align-items: center;
-  margin-top: 16px;
 }
 button,
 a {
-  padding: 13px 18px;
-  border: 1px solid #f4c928;
-  border-radius: 10px;
-  background: #f4c928;
-  color: #10110e;
-  font-weight: 700;
-  cursor: pointer;
+  background: #282828;
+  color: #ddd;
+  padding: 9px 12px;
+  border: 1px solid #3b3b3b;
+  border-radius: 5px;
   text-decoration: none;
+  font-size: 12px;
 }
 button:disabled {
-  opacity: 0.45;
-  cursor: default;
+  opacity: 0.4;
+}
+label {
+  display: grid;
+  gap: 8px;
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 16px;
 }
 input,
 select,
 textarea {
   width: 100%;
-  padding: 14px;
-  background: #10140d;
-  border: 1px solid #3d4730;
-  border-radius: 10px;
-  color: #f6f3e9;
-  font: inherit;
-}
-label {
-  display: grid;
-  gap: 10px;
-  margin-top: 18px;
 }
 article {
-  margin-top: 18px;
-  padding: 18px;
-  border: 1px solid #333d2a;
-  border-radius: 12px;
+  border-top: 1px solid #303030;
+  padding: 16px 0;
+  margin-top: 20px;
   overflow-wrap: anywhere;
 }
-.aviso {
-  color: #f4c928;
+article strong {
+  font-size: 13px;
+  font-weight: 500;
 }
-@media (max-width: 520px) {
-  .acoes > * {
-    width: 100%;
-    text-align: center;
+.aviso {
+  color: #bbab7a;
+}
+@media (max-width: 1000px) {
+  :host {
+    grid-template-columns: 1fr;
   }
 }

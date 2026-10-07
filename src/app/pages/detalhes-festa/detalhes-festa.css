@@ -1,11 +1,104 @@
-.detalhes { min-height: 100vh; padding: 32px 8%; color: #f7f7f2; background: #080808; font-family: "Graphik", "Helvetica Neue", Arial, sans-serif; }
-.voltar { color: #f4c928; text-decoration: none; }
-.capa { height: 360px; margin: 24px 0; background-position: center; background-size: cover; border-radius: 18px; overflow: hidden; }
-.fundo { height: 100%; display: flex; flex-direction: column; justify-content: end; padding: 32px; background: linear-gradient(transparent, #080808); }
-h1 { margin: 0; font-size: 52px; } h2 { margin-top: 30px; } .conteudo { max-width: 800px; }
-.botoes, .comentario { display: flex; gap: 12px; flex-wrap: wrap; }
-button, .botoes a { padding: 12px 18px; color: #080808; background: #f4c928; border: 0; border-radius: 8px; font-weight: bold; text-decoration: none; cursor: pointer; }
-input, select { flex: 1; min-width: 220px; padding: 12px; border-radius: 8px; border: 1px solid #4b504d; }
-.amigos { display: flex; gap: 8px; flex-wrap: wrap; }.amigos span, .mensagem { padding: 9px 12px; background: #1d211f; border-radius: 8px; }
-.organizadora { display: inline-block; padding: 8px 12px; color: #080808; background: #f4c928; border-radius: 999px; font-weight: bold; }
-
+.detalhes {
+  min-height: 100vh;
+  max-width: 1240px;
+  margin: auto;
+  padding: 32px 5% 72px;
+  color: #eee;
+  background: #171717;
+}
+.voltar {
+  display: inline-block;
+  color: #999;
+  text-decoration: none;
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+.capa {
+  height: 340px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 6px;
+  position: relative;
+  margin-bottom: 32px;
+}
+.fundo {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 48px 28px 22px;
+  background: linear-gradient(transparent, #000c);
+  border-radius: 0 0 6px 6px;
+}
+.fundo h1 {
+  margin: 7px 0;
+  font-size: 34px;
+}
+.fundo p {
+  font-size: 12px;
+  color: #ddd;
+  margin: 6px 0;
+}
+.conteudo > p {
+  color: #aaa;
+  font-size: 13px;
+}
+.conteudo > h2 {
+  margin: 32px 0 12px;
+  font-size: 19px;
+}
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 0 24px;
+  border-bottom: 1px solid #333;
+}
+button,
+.botoes a {
+  padding: 10px 14px;
+  border: 1px solid #3b3b3b;
+  border-radius: 5px;
+  background: #252525;
+  color: #ddd;
+  font-size: 12px;
+  text-decoration: none;
+}
+.botoes > button:first-child {
+  background: #edca49;
+  color: #171717;
+  border-color: #edca49;
+}
+.amigos {
+  display: flex;
+  gap: 16px;
+  margin: 14px 0;
+  color: #ccc;
+  font-size: 13px;
+}
+.comentario {
+  display: flex;
+  gap: 10px;
+  max-width: 680px;
+}
+.comentario input {
+  flex: 1;
+}
+.mensagem {
+  padding: 14px 0;
+  border-bottom: 1px solid #292929;
+  color: #aaa;
+  font-size: 13px;
+}
+@media (max-width: 550px) {
+  .detalhes {
+    padding: 24px 20px;
+  }
+  .capa {
+    height: 280px;
+  }
+  .fundo {
+    padding: 36px 18px 18px;
+  }
+  .comentario {
+    flex-direction: column;
+  }
+}

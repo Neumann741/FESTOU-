@@ -2,6 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Playlist } from '../../services/playlist';
+import { Festa } from '../../models/festa';
+import { FestaService } from '../../services/festa.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [FormsModule, RouterLink],
@@ -10,6 +13,7 @@ import { Playlist } from '../../services/playlist';
   templateUrl: './playlist.html',
 })
 export class PlaylistPage {
+  readonly festa = signal<Festa | undefined>(undefined);
   readonly playlist = inject(Playlist);
   festaId = signal(1);
   nome = '';
@@ -19,6 +23,10 @@ export class PlaylistPage {
   private readonly rota = inject(ActivatedRoute);
   constructor() {
     this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1);
+    inject(FestaService)
+      .getFestas()
+      .pipe(takeUntilDestroyed())
+      .subscribe((festas) => this.festa.set(festas.find((festa) => festa.id === this.festaId())));
   }
   adicionar(): void {
     this.playlist.adicionar(this.festaId(), {

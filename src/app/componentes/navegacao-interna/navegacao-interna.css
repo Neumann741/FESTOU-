@@ -1,0 +1,146 @@
+.navegacao-interna {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 224px;
+  padding: 32px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #292929;
+  background: #121212;
+  color: #ededed;
+  z-index: 1100;
+  font-family: 'Graphik', Arial, sans-serif;
+}
+.marca {
+  display: block;
+  margin: 0 16px 44px;
+  color: #f1cb45;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-decoration: none;
+}
+nav {
+  display: grid;
+  gap: 6px;
+}
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 46px;
+  padding: 12px;
+  color: #a8a8a8;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+nav a:hover,
+nav a.ativo {
+  color: #fff;
+  background: #242424;
+}
+svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  flex-shrink: 0;
+}
+nav .criar {
+  margin-top: 24px;
+  justify-content: center;
+  background: #edca49;
+  color: #141414;
+  font-weight: 600;
+}
+nav .criar:hover {
+  background: #f7d765;
+  color: #141414;
+}
+.contador {
+  margin-left: auto;
+  font-size: 11px;
+  color: #f1cb45;
+}
+.conta {
+  margin-top: auto;
+  padding: 16px 10px 0;
+  border-top: 1px solid #292929;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #eee;
+  text-decoration: none;
+  min-width: 0;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #35312a;
+  color: #e8d9b9;
+}
+.conta strong {
+  display: block;
+  max-width: 126px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+.conta small {
+  display: block;
+  color: #888;
+  font-size: 11px;
+  margin-top: 5px;
+}
+.abrir-menu {
+  display: none;
+}
+@media (max-width: 850px) {
+  .navegacao-interna {
+    inset: 0 0 auto;
+    width: auto;
+    padding: 14px 20px;
+    display: block;
+    border-right: 0;
+    border-bottom: 1px solid #292929;
+  }
+  .topo-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .marca {
+    margin: 0;
+    font-size: 29px;
+  }
+  .abrir-menu {
+    display: block;
+    border: 1px solid #3b3b3b;
+    color: #ddd;
+    background: transparent;
+    padding: 8px 13px;
+    border-radius: 5px;
+  }
+  nav {
+    display: none;
+    padding: 18px 0;
+  }
+  nav.aberto {
+    display: grid;
+  }
+  nav .criar {
+    margin-top: 8px;
+  }
+  .conta {
+    display: none;
+  }
+}

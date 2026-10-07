@@ -1,10 +1,6 @@
 <section class="recurso ingresso">
-  <p class="etiqueta">SEU PASSE PARA O ROLÊ</p>
   <h2>Ingresso fictício</h2>
-  <p>
-    Sem pagamento e sem valor comercial. A emissão reserva sua presença. O check-in pode ser
-    simulado antes da data para apresentar o projeto.
-  </p>
+  <p>Demonstração sem cobrança. Emitir o ingresso confirma sua presença.</p>
   <div class="acoes">
     <button
       (click)="avisoIngresso = experiencias.emitir(festa())"
@@ -19,7 +15,7 @@
   </div>
   @if (interacao.ingressos().includes(festa().id)) {
     <article>
-      <p>FESTOU! · DEMONSTRAÇÃO</p>
+      <p>Ingresso de demonstração</p>
       <h3>{{ festa().nome }}</h3>
       <p>{{ festa().data }} · {{ festa().horario }}</p>
       <strong>{{ experiencias.codigo(festa()) }}</strong>
@@ -53,7 +49,6 @@
   }
 </section>
 <section class="recurso">
-  <p class="etiqueta">COMO FOI A NOITE?</p>
   <h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
   <p>
     {{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o
@@ -100,8 +95,7 @@
   }
 </section>
 <section class="recurso">
-  <p class="etiqueta">MELHOR COM AMIGOS</p>
-  <h2>Convide sua galera</h2>
+  <h2>Convidar amigos</h2>
   <p>
     Demonstração: envie um convite e escolha a resposta do amigo fictício. Festas privadas ainda
     precisam da aprovação do organizador.
@@ -147,8 +141,7 @@
   }
 </section>
 <section class="recurso">
-  <p class="etiqueta">CHAME A GALERA</p>
-  <h2>Compartilhe esse rolê</h2>
+  <h2>Compartilhar</h2>
   <p>O link é local: não funciona no celular de outra pessoa sem uma versão publicada do site.</p>
   <div class="acoes">
     <button (click)="copiar()">Copiar link</button

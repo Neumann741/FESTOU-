@@ -1,42 +1,185 @@
-.pagina-avisos {
+.pagina-agenda,
+.pagina-avisos,
+.minhas-festas {
   min-height: 100vh;
-  padding: 40px max(22px, calc((100% - 900px) / 2));
-  background: #10110e;
-  color: #f6f3e9;
+  max-width: 1160px;
+  margin: auto;
+  padding: 40px 5% 72px;
+  background: #171717;
+  color: #eee;
+}
+a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 12px;
 }
 header {
-  margin: 40px 0;
-}
-header p,
-a {
-  color: #f4c928;
+  margin: 28px 0 32px;
 }
 h1 {
-  font-size: clamp(36px, 7vw, 60px);
-  margin: 12px 0;
+  margin: 0 0 12px;
 }
-article {
-  padding: 24px;
-  margin: 18px 0;
-  border: 1px solid #35382b;
-  border-radius: 16px;
-  background: #191c15;
+header span,
+p,
+small {
+  color: #999;
 }
-article.novo {
-  border-left: 4px solid #f4c928;
-}
-small,
-header span {
-  color: #b1b5a6;
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
 }
 button {
-  padding: 14px 20px;
-  border: 0;
-  border-radius: 10px;
-  background: #f4c928;
-  cursor: pointer;
+  background: #262626;
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  color: #ccc;
+  padding: 10px 15px;
+  font-size: 12px;
 }
-button:disabled {
-  opacity: 0.5;
-  cursor: default;
+nav button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 12px 0;
+  background: none;
+}
+nav .ativa {
+  border-color: #eee;
+  color: #fff;
+}
+article {
+  padding: 22px 0;
+  border-bottom: 1px solid #303030;
+}
+article.novo {
+  border-left: 2px solid #b7a465;
+  padding-left: 18px;
+}
+article h2 {
+  font-size: 17px;
+  margin: 6px 0;
+}
+article p {
+  font-size: 13px;
+  margin: 8px 0;
+}
+article small {
+  font-size: 11px;
+}
+.pagina-agenda article {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.data {
+  width: 64px;
+  flex-shrink: 0;
+  text-align: center;
+  display: grid;
+  color: #b7aa84;
+}
+.data strong {
+  font-size: 28px;
+  font-weight: 500;
+}
+.data span {
+  font-size: 11px;
+  color: #888;
+}
+.informacoes {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.vazio {
+  display: block;
+  padding: 40px 0;
+}
+.minhas-festas header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.minhas-festas header > a {
+  padding: 10px 15px;
+  background: #edca49;
+  color: #171717;
+  border-radius: 5px;
+}
+.gerenciamento {
+  margin-top: 28px;
+  border-bottom: 1px solid #363636;
+  padding-bottom: 20px;
+}
+.festa {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border: 0;
+}
+.capa-gerenciamento {
+  width: 72px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.festa > div:first-of-type {
+  flex: 1;
+}
+.festa span {
+  color: #888;
+  font-size: 11px;
+}
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.acoes button {
+  background: none;
+  border: 0;
+  color: #b98079;
+}
+.pedidos {
+  padding: 12px 0 8px 92px;
+}
+.pedidos h3 {
+  font-weight: 500;
+  font-size: 13px;
+}
+.pedidos p {
+  font-size: 12px;
+}
+.pedidos select {
+  margin-left: 12px;
+}
+.pedidos button {
+  margin: 4px 8px 4px 0;
+}
+.pedidos .recusar {
+  background: transparent;
+  color: #b98079;
+}
+@media (max-width: 600px) {
+  .pagina-agenda,
+  .pagina-avisos,
+  .minhas-festas {
+    padding: 28px 20px;
+  }
+  .festa,
+  .pagina-agenda article {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .festa .acoes {
+    width: 100%;
+  }
+  .pedidos {
+    padding-left: 0;
+  }
 }
