@@ -1,6 +1,5 @@
 <section class="recurso ingresso">
   <h2>Ingresso fictício</h2>
-  <p>Demonstração sem cobrança. Emitir o ingresso confirma sua presença.</p>
 
   <div class="acoes">
     <button (click)="emitirIngresso()" [disabled]="interacao.fechada(festa())">
@@ -10,7 +9,6 @@
 
   @if (interacao.ingressos().includes(festa().id)) {
     <article>
-      <p>Ingresso de demonstração</p>
       <h3>{{ festa().nome }}</h3>
       <p>{{ festa().data }} · {{ festa().horario }}</p>
       <strong>{{ experiencias.codigo(festa()) }}</strong>
@@ -31,10 +29,6 @@
 
 <section class="recurso">
   <h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
-  <p>
-    {{ experiencias.avaliacoesDaFesta(festa().id).length }} avaliações. Disponíveis após o
-    encerramento, apenas para quem participou.
-  </p>
 
   <label>
     Avaliar como
@@ -89,7 +83,6 @@
 
 <section class="recurso">
   <h2>Convidar amigos</h2>
-  <p>Envie um convite e escolha a resposta do amigo fictício.</p>
 
   <label>
     Amigo
@@ -135,7 +128,6 @@
 
 <section class="recurso">
   <h2>Compartilhar</h2>
-  <p>O link é local e funciona neste computador.</p>
 
   <div class="acoes">
     <button (click)="copiar()">Copiar link</button>

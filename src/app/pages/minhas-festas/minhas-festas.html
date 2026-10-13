@@ -3,14 +3,10 @@
 
   <header>
     <div>
-      <p>PAINEL DO ORGANIZADOR</p>
       <h1>Minhas festas</h1>
     </div>
     <a routerLink="/criar-festa">+ Criar festa</a>
   </header>
-
-  <p>Gerencie as festas fictícias criadas neste computador.</p>
-
   <section class="lista-festas">
     @for (festa of festas(); track festa.id) {
       <div class="gerenciamento">
