@@ -32,7 +32,7 @@ export class Experiencias {
     if (!this.interacao.ingressos().includes(festa.id)) {
       this.interacao.comprarIngresso(festa.id);
       this.avisos.adicionar(
-        `Ingresso fictício emitido para ${festa.nome}. Nenhuma cobrança realizada.`,
+        `Ingresso emitido para ${festa.nome}.`,
         festa.id,
       );
     }
@@ -49,8 +49,8 @@ export class Experiencias {
       return 'É necessário ter ingresso e presença confirmada em uma festa ativa.';
     this.checkins.update((lista) => [...lista, festa.id]);
     salvarDados('festou-checkins', this.checkins());
-    this.avisos.adicionar(`Check-in simulado em ${festa.nome}.`, festa.id);
-    return 'Entrada confirmada na simulação!';
+    this.avisos.adicionar(`Check-in confirmado em ${festa.nome}.`, festa.id);
+    return 'Entrada confirmada.';
   }
   avaliacoes = signal<Avaliacao[]>(lerAvaliacoes());
 

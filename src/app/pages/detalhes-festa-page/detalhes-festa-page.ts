@@ -53,12 +53,12 @@ export class DetalhesFestaPage {
 
   textoFavorito(festa: Festa): string {
     if (this.interacao.favoritos().includes(festa.id)) return '♥ Salva';
-    return '♡ Salvar festa';
+    return 'Salvar festa';
   }
 
   textoIngresso(festa: Festa): string {
     if (this.interacao.ingressos().includes(festa.id)) return 'Ingresso adquirido';
-    return 'Comprar ingresso fictício';
+    return 'Comprar ingresso';
   }
 
   textoListaEspera(festa: Festa): string {

@@ -69,8 +69,8 @@ export class ListaFestas {
 
   amigos(festa: Festa): string {
     const amigos = this.interacao.amigosNaFesta(festa.id);
-    if (amigos.length === 1) return '👥 ' + amigos.join(', ') + ' vai';
-    return '👥 ' + amigos.join(', ') + ' vão';
+    if (amigos.length === 1) return amigos.join(', ') + ' vai';
+    return amigos.join(', ') + ' vão';
   }
 
   participacaoDesabilitada(festa: Festa): boolean {

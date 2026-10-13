@@ -58,8 +58,8 @@ export class PerfilPage {
   }
 
   textoDaFesta(): string {
-    if (this.aba() === 'confirmadas') return '✓ Presença confirmada';
-    return '♡ Na sua lista';
+    if (this.aba() === 'confirmadas') return 'Presença confirmada';
+    return 'Festa salva';
   }
 
   textoVazio(): string {

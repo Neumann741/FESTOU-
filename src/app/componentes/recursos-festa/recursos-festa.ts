@@ -39,7 +39,7 @@ export class RecursosFesta {
     if (this.interacao.ingressos().includes(this.festa().id)) {
       return 'Validar minha reserva';
     }
-    return 'Emitir ingresso fictício';
+    return 'Emitir ingresso';
   }
 
   situacaoIngresso(): string {

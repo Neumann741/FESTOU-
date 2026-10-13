@@ -53,7 +53,7 @@ export class PlaylistPage {
     let quantidade = 0;
     if (votos) quantidade = votos.length;
     if (this.votou(votos)) return '♥ ' + quantidade + ' votos';
-    return '♡ ' + quantidade + ' votos';
+    return quantidade + ' votos';
   }
 
   adicionar(): void {

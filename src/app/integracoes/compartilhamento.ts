@@ -4,7 +4,7 @@ export function linkDaFesta(id: number): string {
 }
 
 export function linkDoWhatsapp(nome: string, link: string): string {
-  const texto = 'Bora para ' + nome + '? ' + link + ' (demonstração local)';
+  const texto = 'Bora para ' + nome + '? ' + link;
   return 'https://wa.me/?text=' + encodeURIComponent(texto);
 }
 

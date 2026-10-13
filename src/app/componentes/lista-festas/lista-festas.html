@@ -2,7 +2,7 @@
   <section class="destaques">
     <header class="titulo-container">
       <h1>Em destaque</h1>
-      <button class="ver-todas" type="button" (click)="verTodasNoMapa()">Ver todas →</button>
+      <button class="ver-todas" type="button" (click)="verTodasNoMapa()">Ver todas</button>
     </header>
 
     <section class="filtros-festas">
@@ -40,13 +40,13 @@
           <div class="imagem-container" [style.background-image]="imagem(festa)">
             <span class="data">{{ dataLabel(festa.data) }}</span>
             @if (festa.tipo === 'privada') { <span class="tipo-festa">Privada</span> }
-            <button class="abrir-no-mapa" type="button" (click)="abrirNoMapa(festa)">Ver no mapa ↗</button>
+            <button class="abrir-no-mapa" type="button" (click)="abrirNoMapa(festa)">Ver no mapa</button>
           </div>
           <div class="card-conteudo">
             <h2>{{ festa.nome }}</h2>
             <p class="situacao-festa">{{ interacao.status(festa) }}</p>
-            <p class="informacao">♫ {{ festa.categoria }}</p>
-            <p class="informacao">⌖ {{ festa.local }} · {{ festa.cidade }}</p>
+            <p class="informacao">{{ festa.categoria }}</p>
+            <p class="informacao">{{ festa.local }} · {{ festa.cidade }}</p>
             @if (interacao.amigosNaFesta(festa.id).length) {
               <p class="amigos-festa">{{ amigos(festa) }}</p>
             }

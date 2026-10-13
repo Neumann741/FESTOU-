@@ -82,7 +82,7 @@
               <span>{{ festa.pessoasConfirmadas }} pessoas vão</span>
 
               @if (festa.distancia !== undefined) {
-                <span class="distance">⌖ {{ formatarDistancia(festa.distancia) }} de você</span>
+                <span class="distance">{{ formatarDistancia(festa.distancia) }} de você</span>
               }
 
               <b>{{ preco(festa) }}</b>
@@ -91,7 +91,7 @@
         } @empty {
           @if (!carregando()) {
             <div class="empty">
-              <span>⌖</span>
+              <span>Local</span>
               <h3>{{ tituloVazio() }}</h3>
               <p>{{ textoVazio() }}</p>
               <button (click)="verTodas()">VER TODAS AS FESTAS</button>

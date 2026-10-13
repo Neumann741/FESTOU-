@@ -18,7 +18,7 @@ export class LocationService {
   getCurrentLocation(): Promise<Localizacao> {
     return new Promise((resolve, reject) => {
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
-        reject(new Error('Seu navegador não oferece localização. Explore as festas pelo mapa.'));
+        reject(new Error('Seu navegador não oferece localização. Use o mapa para buscar festas.'));
         return;
       }
       navigator.geolocation.getCurrentPosition(
