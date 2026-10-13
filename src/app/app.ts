@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavegacaoInterna } from './componentes/navegacao-interna/navegacao-interna';
 
 @Component({
@@ -20,9 +19,8 @@ export class App {
       this.paginaSemMenu.set(pagina === '/home-page' || pagina === '/login' || pagina === '/');
     };
     atualizar(this.router.url);
-    this.router.events.pipe(takeUntilDestroyed()).subscribe((evento) => {
+    this.router.events.subscribe((evento) => {
       if (evento instanceof NavigationEnd) atualizar(evento.urlAfterRedirects);
     });
   }
-  protected readonly title = signal('festou');
 }

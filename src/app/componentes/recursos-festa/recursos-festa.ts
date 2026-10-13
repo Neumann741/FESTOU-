@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Interacao } from '../../services/interacao';
 import { Experiencias } from '../../services/experiencias';
@@ -12,7 +12,7 @@ import { copiarLink, linkDaFesta, linkDoWhatsapp } from '../../integracoes/compa
   templateUrl: './recursos-festa.html',
 })
 export class RecursosFesta {
-  festa = input.required<Festa>();
+  @Input() festa!: Festa;
   mensagem = signal('');
   readonly interacao = inject(Interacao);
   readonly experiencias = inject(Experiencias);
@@ -23,7 +23,7 @@ export class RecursosFesta {
   avisoIngresso = '';
   avaliar(): void {
     this.avisoAvaliacao = this.experiencias.avaliar(
-      this.festa(),
+      this.festa,
       this.avaliador,
       Number(this.nota),
       this.comentario,
@@ -32,18 +32,18 @@ export class RecursosFesta {
   amigo = '';
   avisoConvite = '';
   convidar(): void {
-    this.avisoConvite = this.interacao.convidar(this.festa(), this.amigo);
+    this.avisoConvite = this.interacao.convidar(this.festa, this.amigo);
   }
 
   textoBotaoIngresso(): string {
-    if (this.interacao.ingressos().includes(this.festa().id)) {
+    if (this.interacao.ingressos().includes(this.festa.id)) {
       return 'Validar minha reserva';
     }
     return 'Emitir ingresso';
   }
 
   situacaoIngresso(): string {
-    const festa = this.festa();
+    const festa = this.festa;
     if (this.interacao.fechada(festa)) {
       return 'Ingresso indisponível: festa ' + this.interacao.status(festa);
     }
@@ -55,7 +55,7 @@ export class RecursosFesta {
   }
 
   checkinDesabilitado(): boolean {
-    const festa = this.festa();
+    const festa = this.festa;
     if (this.experiencias.checkins().includes(festa.id)) return true;
     if (this.interacao.fechada(festa)) return true;
     return !this.interacao.confirmadas().includes(festa.id);
@@ -63,23 +63,23 @@ export class RecursosFesta {
 
   conviteDesabilitado(): boolean {
     if (!this.amigo) return true;
-    if (this.interacao.fechada(this.festa())) return true;
-    return this.interacao.lotada(this.festa());
+    if (this.interacao.fechada(this.festa)) return true;
+    return this.interacao.lotada(this.festa);
   }
 
   emitirIngresso(): void {
-    this.avisoIngresso = this.experiencias.emitir(this.festa());
+    this.avisoIngresso = this.experiencias.emitir(this.festa);
   }
 
   fazerCheckin(): void {
-    this.avisoIngresso = this.experiencias.checkin(this.festa());
+    this.avisoIngresso = this.experiencias.checkin(this.festa);
   }
 
   link(): string {
-    return linkDaFesta(this.festa().id);
+    return linkDaFesta(this.festa.id);
   }
   whatsapp(): string {
-    return linkDoWhatsapp(this.festa().nome, this.link());
+    return linkDoWhatsapp(this.festa.nome, this.link());
   }
   async copiar(): Promise<void> {
     const mensagem = await copiarLink(this.link());

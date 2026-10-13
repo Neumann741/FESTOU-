@@ -2,16 +2,16 @@
   <h2>Ingresso</h2>
 
   <div class="acoes">
-    <button (click)="emitirIngresso()" [disabled]="interacao.fechada(festa())">
+    <button (click)="emitirIngresso()" [disabled]="interacao.fechada(festa)">
       {{ textoBotaoIngresso() }}
     </button>
   </div>
 
-  @if (interacao.ingressos().includes(festa().id)) {
+  @if (interacao.ingressos().includes(festa.id)) {
     <article>
-      <h3>{{ festa().nome }}</h3>
-      <p>{{ festa().data }} · {{ festa().horario }}</p>
-      <strong>{{ experiencias.codigo(festa()) }}</strong>
+      <h3>{{ festa.nome }}</h3>
+      <p>{{ festa.data }} · {{ festa.horario }}</p>
+      <strong>{{ experiencias.codigo(festa) }}</strong>
       <p>{{ situacaoIngresso() }}</p>
 
       <div class="acoes">
@@ -28,19 +28,19 @@
 </section>
 
 <section class="recurso">
-  <h2>Avaliações · nota {{ experiencias.media(festa().id) }}</h2>
+  <h2>Avaliações · nota {{ experiencias.media(festa.id) }}</h2>
 
   <label>
     Avaliar como
     <select [(ngModel)]="avaliador">
       <option value="Você">Você</option>
-      @for (pessoa of interacao.amigosNaFesta(festa().id); track pessoa) {
+      @for (pessoa of interacao.amigosNaFesta(festa.id); track pessoa) {
         <option [value]="pessoa">{{ pessoa }}</option>
       }
     </select>
   </label>
 
-  @if (experiencias.podeAvaliar(festa(), avaliador)) {
+  @if (experiencias.podeAvaliar(festa, avaliador)) {
     <label>
       Nota
       <select [(ngModel)]="nota">
@@ -71,7 +71,7 @@
     <p class="aviso">{{ avisoAvaliacao }}</p>
   }
 
-  @for (avaliacao of experiencias.avaliacoesDaFesta(festa().id); track avaliacao.pessoa) {
+  @for (avaliacao of experiencias.avaliacoesDaFesta(festa.id); track avaliacao.pessoa) {
     <article>
       <strong>{{ avaliacao.pessoa }} · nota {{ avaliacao.nota }}</strong>
       <p>{{ avaliacao.comentario }}</p>
@@ -102,7 +102,7 @@
     <p class="aviso">{{ avisoConvite }}</p>
   }
 
-  @for (convite of interacao.convitesDaFesta(festa().id); track convite.pessoa) {
+  @for (convite of interacao.convitesDaFesta(festa.id); track convite.pessoa) {
     <article>
       <strong>{{ convite.pessoa }}</strong>
       <p>{{ convite.status }}</p>
@@ -110,12 +110,12 @@
       @if (convite.status === 'pendente') {
         <div class="acoes">
           <button
-            (click)="interacao.responderConvite(festa(), convite.pessoa, true)"
-            [disabled]="interacao.fechada(festa()) || interacao.lotada(festa())"
+            (click)="interacao.responderConvite(festa, convite.pessoa, true)"
+            [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
           >
             Aceitar
           </button>
-          <button (click)="interacao.responderConvite(festa(), convite.pessoa, false)">
+          <button (click)="interacao.responderConvite(festa, convite.pessoa, false)">
             Recusar
           </button>
         </div>
