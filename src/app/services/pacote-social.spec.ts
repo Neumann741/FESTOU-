@@ -182,11 +182,12 @@ describe('Pacote social da Festou', () => {
     const servico = new FestaService();
     const criada = servico.criarFesta(festa);
     servico.atualizarFesta({ ...criada, status: 'cancelada' });
-    new FestaService().getFestas().subscribe((lista) => {
+    const lista = new FestaService().festas();
+    {
       expect(lista.find((item) => item.id === criada.id)).toEqual({
         ...criada,
         status: 'cancelada',
       });
-    });
+    }
   });
 });

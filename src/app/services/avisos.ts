@@ -1,4 +1,4 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export interface Aviso {
   id: number;
@@ -11,7 +11,15 @@ export interface Aviso {
 @Injectable({ providedIn: 'root' })
 export class Avisos {
   lista = signal<Aviso[]>(JSON.parse(localStorage.getItem('festou-avisos') || '[]'));
-  naoLidos = computed(() => this.lista().filter((aviso) => !aviso.lido).length);
+  naoLidos(): number {
+    let quantidade = 0;
+    for (const aviso of this.lista()) {
+      if (!aviso.lido) {
+        quantidade++;
+      }
+    }
+    return quantidade;
+  }
 
   adicionar(texto: string, festaId: number): void {
     const id = Math.max(Date.now(), ...this.lista().map((aviso) => aviso.id + 1));

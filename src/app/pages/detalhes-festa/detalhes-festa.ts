@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Festa } from '../../models/festa';
@@ -14,7 +14,6 @@ import { Experiencias } from '../../services/experiencias';
   templateUrl: './detalhes-festa.html',
 })
 export class DetalhesFesta {
-  festa = signal<Festa | undefined>(undefined);
   comentario = '';
   amigoEscolhido = '';
   readonly interacao = inject(Interacao);
@@ -23,9 +22,9 @@ export class DetalhesFesta {
   private readonly rota = inject(ActivatedRoute);
   private readonly festaService = inject(FestaService);
 
-  constructor() {
+  festa(): Festa | undefined {
     const id = Number(this.rota.snapshot.paramMap.get('id'));
-    this.festaService.getFestas().subscribe((festas) => this.festa.set(festas.find((festa) => festa.id === id)));
+    return this.festaService.festas().find((festa) => festa.id === id);
   }
 
   confirmar(): void {
@@ -35,9 +34,19 @@ export class DetalhesFesta {
     if (!confirmada && (festa.tipo === 'privada' || this.interacao.lotada(festa))) return;
     this.interacao.confirmar(festa.id);
   }
-  pedirParticipacao(): void { const festa = this.festa(); if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa)) this.interacao.pedirParticipacao(festa.id); }
-  comprarIngresso(): void { const festa = this.festa(); if (festa) this.avisoIngresso = this.experiencias.emitir(festa); }
-  favoritar(): void { const festa = this.festa(); if (festa) this.interacao.favoritar(festa.id); }
+  pedirParticipacao(): void {
+    const festa = this.festa();
+    if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa))
+      this.interacao.pedirParticipacao(festa.id);
+  }
+  comprarIngresso(): void {
+    const festa = this.festa();
+    if (festa) this.avisoIngresso = this.experiencias.emitir(festa);
+  }
+  favoritar(): void {
+    const festa = this.festa();
+    if (festa) this.interacao.favoritar(festa.id);
+  }
   enviarComentario(): void {
     const festa = this.festa();
     if (!festa) return;

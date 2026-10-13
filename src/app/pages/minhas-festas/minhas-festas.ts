@@ -14,7 +14,7 @@ import { Avisos } from '../../services/avisos';
 })
 export class MinhasFestas {
   readonly interacao = inject(Interacao);
-  festas = signal<Festa[]>([]);
+  readonly festas = inject(FestaService).festas;
   private readonly festaService = inject(FestaService);
   private readonly avisos = inject(Avisos);
 
@@ -22,10 +22,6 @@ export class MinhasFestas {
     if (!status || festa.status === status) return;
     this.festaService.atualizarFesta({ ...festa, status });
     this.avisos.adicionar(`${festa.nome}: status alterado para ${status}.`, festa.id);
-  }
-
-  constructor() {
-    this.festaService.getFestas().subscribe((festas) => this.festas.set(festas));
   }
 
   excluir(id: number): void {

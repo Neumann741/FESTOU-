@@ -9,6 +9,11 @@ export interface Avaliacao {
   comentario: string;
 }
 
+// Avaliações agrupadas como já estão gravadas no navegador.
+interface AvaliacoesPorFesta {
+  [festaId: number]: Avaliacao[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class Experiencias {
   private readonly avisos = inject(Avisos);
@@ -50,17 +55,18 @@ export class Experiencias {
     this.avisos.adicionar(`Check-in simulado em ${festa.nome}.`, festa.id);
     return 'Entrada confirmada na simulação!';
   }
-  avaliacoes = signal<Record<number, Avaliacao[]>>(
+  avaliacoes = signal<AvaliacoesPorFesta>(
     JSON.parse(localStorage.getItem('festou-avaliacoes') || '{}'),
   );
 
   podeAvaliar(festa: Festa, pessoa: string): boolean {
-    return (
-      this.interacao.status(festa) === 'encerrada' &&
-      (pessoa === 'Você'
-        ? this.interacao.confirmadas().includes(festa.id)
-        : this.interacao.amigosNaFesta(festa.id).includes(pessoa))
-    );
+    if (this.interacao.status(festa) !== 'encerrada') {
+      return false;
+    }
+    if (pessoa === 'Você') {
+      return this.interacao.confirmadas().includes(festa.id);
+    }
+    return this.interacao.amigosNaFesta(festa.id).includes(pessoa);
   }
 
   avaliar(festa: Festa, pessoa: string, nota: number, comentario: string): string {
@@ -78,8 +84,13 @@ export class Experiencias {
 
   media(id: number): string {
     const lista = this.avaliacoes()[id] || [];
-    return lista.length
-      ? (lista.reduce((soma, item) => soma + item.nota, 0) / lista.length).toFixed(1)
-      : '—';
+    if (lista.length === 0) {
+      return '—';
+    }
+    let soma = 0;
+    for (const avaliacao of lista) {
+      soma += avaliacao.nota;
+    }
+    return (soma / lista.length).toFixed(1);
   }
 }

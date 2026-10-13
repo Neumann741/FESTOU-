@@ -60,19 +60,26 @@ export class CriarFesta {
   constructor() {
     const id = inject(ActivatedRoute).snapshot.paramMap.get('id');
     if (!id) return;
-    this.festaService.getFestas().subscribe(festas => {
-      if (this.original) return;
-      const festa = festas.find(item => item.id === Number(id));
-      if (!festa) { this.indisponivel = true; return; }
-      this.original = festa;
-      this.dados.set({ nome: festa.nome, categoria: festa.categoria, data: festa.data,
-        horario: festa.horario, local: festa.local, preco: String(festa.preco ?? 0), tipo: festa.tipo,
-        limite: festa.limiteParticipantes ? String(festa.limiteParticipantes) : '' });
-      this.latitude = festa.latitude;
-      this.longitude = festa.longitude;
-      this.cidade = festa.cidade;
-      this.enderecoEncontrado = festa.local;
+    const festa = this.festaService.festas().find((item) => item.id === Number(id));
+    if (!festa) {
+      this.indisponivel = true;
+      return;
+    }
+    this.original = festa;
+    this.dados.set({
+      nome: festa.nome,
+      categoria: festa.categoria,
+      data: festa.data,
+      horario: festa.horario,
+      local: festa.local,
+      preco: String(festa.preco ?? 0),
+      tipo: festa.tipo,
+      limite: festa.limiteParticipantes ? String(festa.limiteParticipantes) : '',
     });
+    this.latitude = festa.latitude;
+    this.longitude = festa.longitude;
+    this.cidade = festa.cidade;
+    this.enderecoEncontrado = festa.local;
   }
 
   protected criarFesta(event: SubmitEvent): void {
@@ -107,14 +114,25 @@ export class CriarFesta {
       tipo: dados.tipo,
     };
     let festa: Festa;
-    if (dados.limite && (!Number.isInteger(Number(dados.limite)) || Number(dados.limite) < 1 ||
-        (this.original && Number(dados.limite) < this.interacao.total(this.original)))) {
-      this.mensagem.set('O limite deve ser um número inteiro positivo, sem ficar abaixo das presenças confirmadas.');
+    if (
+      dados.limite &&
+      (!Number.isInteger(Number(dados.limite)) ||
+        Number(dados.limite) < 1 ||
+        (this.original && Number(dados.limite) < this.interacao.total(this.original)))
+    ) {
+      this.mensagem.set(
+        'O limite deve ser um número inteiro positivo, sem ficar abaixo das presenças confirmadas.',
+      );
       return;
     }
     if (this.original) {
-      festa = { ...this.original, ...valores, imagem: this.original.imagem,
-        descricao: this.original.descricao, pessoasConfirmadas: this.original.pessoasConfirmadas };
+      festa = {
+        ...this.original,
+        ...valores,
+        imagem: this.original.imagem,
+        descricao: this.original.descricao,
+        pessoasConfirmadas: this.original.pessoasConfirmadas,
+      };
       this.festaService.atualizarFesta(festa);
     } else {
       festa = this.festaService.criarFesta(valores);
