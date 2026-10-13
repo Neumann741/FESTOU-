@@ -63,7 +63,7 @@ export class Main {
     });
   }
 
-  private readonly scheduleUpdate = (): void => {
+  private readonly scheduleUpdate = () => {
     if (this.frame) return;
     this.frame = window.requestAnimationFrame(() => {
       this.frame = 0;
@@ -71,7 +71,7 @@ export class Main {
     });
   };
 
-  private updateCards(): void {
+  private updateCards() {
     const section = this.story().nativeElement;
     const cards = section.querySelectorAll<HTMLElement>('.story-card');
     if (this.staticMode()) {

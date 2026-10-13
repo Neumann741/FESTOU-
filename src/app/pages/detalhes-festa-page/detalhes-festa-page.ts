@@ -71,33 +71,33 @@ export class DetalhesFestaPage {
     return '· Sem limite definido';
   }
 
-  confirmar(): void {
+  confirmar() {
     const festa = this.festa();
     if (!festa || this.interacao.fechada(festa)) return;
     const confirmada = this.interacao.confirmadas().includes(festa.id);
     if (!confirmada && (festa.tipo === 'privada' || this.interacao.lotada(festa))) return;
     this.interacao.confirmar(festa.id);
   }
-  pedirParticipacao(): void {
+  pedirParticipacao() {
     const festa = this.festa();
     if (festa && !this.interacao.fechada(festa) && !this.interacao.lotada(festa))
       this.interacao.pedirParticipacao(festa.id);
   }
-  comprarIngresso(): void {
+  comprarIngresso() {
     const festa = this.festa();
     if (festa) this.avisoIngresso = this.experiencias.emitir(festa);
   }
-  favoritar(): void {
+  favoritar() {
     const festa = this.festa();
     if (festa) this.interacao.favoritar(festa.id);
   }
-  enviarComentario(): void {
+  enviarComentario() {
     const festa = this.festa();
     if (!festa) return;
     this.interacao.comentar(festa.id, this.comentario);
     this.comentario = '';
   }
-  adicionarAmigo(): void {
+  adicionarAmigo() {
     const festa = this.festa();
     if (!festa) return;
     this.interacao.adicionarAmigo(festa.id, this.amigoEscolhido);

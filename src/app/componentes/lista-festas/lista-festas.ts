@@ -45,21 +45,21 @@ export class ListaFestas {
     return resultado;
   }
 
-  limparFiltros(): void {
+  limparFiltros() {
     this.busca.set('');
     this.categoria.set('');
     this.limitePreco.set('');
     this.comAmigos.set(false);
   }
 
-  abrirNoMapa(festa: Festa): void {
-    void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
+  abrirNoMapa(festa: Festa) {
+    this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
   }
 
-  verTodasNoMapa(): void { void this.router.navigate(['/mapa-page']); }
-  verDetalhes(festa: Festa): void { void this.router.navigate(['/festa', festa.id]); }
+  verTodasNoMapa() { this.router.navigate(['/mapa-page']); }
+  verDetalhes(festa: Festa) { this.router.navigate(['/festa', festa.id]); }
 
-  pedirParticipacao(festa: Festa): void {
+  pedirParticipacao(festa: Festa) {
     if (!this.interacao.fechada(festa) && !this.interacao.lotada(festa)) {
       this.interacao.pedirParticipacao(festa.id);
     } else {

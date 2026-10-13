@@ -15,7 +15,7 @@ export class EditarPerfilPage {
   dados = { ...this.usuario.perfil() };
   mensagem = '';
 
-  salvar(): void {
+  salvar() {
     const nome = this.dados.nome.trim();
     const foto = this.dados.foto.trim();
     if (nome.length < 3 || nome.length > 60) {
@@ -36,6 +36,6 @@ export class EditarPerfilPage {
       bio: this.dados.bio.trim().slice(0, 180),
       estilos: this.dados.estilos.trim().slice(0, 120),
     });
-    void this.router.navigate(['/perfil']);
+    this.router.navigate(['/perfil']);
   }
 }

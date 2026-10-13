@@ -53,7 +53,7 @@ export class PerfilPage {
     return this.salvas();
   }
 
-  mudarAba(nome: string): void {
+  mudarAba(nome: string) {
     this.aba.set(nome);
   }
 

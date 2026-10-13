@@ -17,7 +17,7 @@ export function lerDados<T>(chave: string, padrao: T): T {
   return JSON.parse(dados);
 }
 
-export function salvarDados(chave: string, dados: unknown): void {
+export function salvarDados(chave: string, dados: unknown) {
   localStorage.setItem(chave, JSON.stringify(dados));
 }
 
@@ -36,7 +36,7 @@ function lerGrupos<T extends { festaId: number }>(
   return lista;
 }
 
-function salvarGrupos<T extends { festaId: number }>(chave: string, lista: T[]): void {
+function salvarGrupos<T extends { festaId: number }>(chave: string, lista: T[]) {
   const grupos: { [id: number]: object[] } = {};
   for (const item of lista) {
     const { festaId, ...dados } = item;
@@ -52,7 +52,7 @@ export function lerConvites(): Convite[] {
   return lerGrupos<Convite>('festou-convites');
 }
 
-export function salvarConvites(lista: Convite[]): void {
+export function salvarConvites(lista: Convite[]) {
   salvarGrupos('festou-convites', lista);
 }
 
@@ -63,7 +63,7 @@ export function lerComentarios(): Comentario[] {
   });
 }
 
-export function salvarComentarios(lista: Comentario[]): void {
+export function salvarComentarios(lista: Comentario[]) {
   salvarGrupos('festou-comentarios', lista);
 }
 
@@ -71,7 +71,7 @@ export function lerAvaliacoes(): Avaliacao[] {
   return lerGrupos<Avaliacao>('festou-avaliacoes');
 }
 
-export function salvarAvaliacoes(lista: Avaliacao[]): void {
+export function salvarAvaliacoes(lista: Avaliacao[]) {
   salvarGrupos('festou-avaliacoes', lista);
 }
 
@@ -79,7 +79,7 @@ export function lerMusicas(): MusicaDaFesta[] {
   return lerGrupos<MusicaDaFesta>('festou-playlist');
 }
 
-export function salvarMusicas(lista: MusicaDaFesta[]): void {
+export function salvarMusicas(lista: MusicaDaFesta[]) {
   salvarGrupos('festou-playlist', lista);
 }
 
@@ -92,7 +92,7 @@ export function lerRespostas(): Resposta[] {
   return lista;
 }
 
-export function salvarRespostas(lista: Resposta[]): void {
+export function salvarRespostas(lista: Resposta[]) {
   const dados: { [id: number]: string } = {};
   for (const resposta of lista) {
     dados[resposta.festaId] = resposta.status;
@@ -115,7 +115,7 @@ export function lerAmigos(): AmigoNaFesta[] {
   return lista;
 }
 
-export function salvarAmigos(lista: AmigoNaFesta[]): void {
+export function salvarAmigos(lista: AmigoNaFesta[]) {
   const dados: { [id: number]: string[] } = {};
   for (const amigo of lista) {
     if (!dados[amigo.festaId]) {

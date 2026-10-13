@@ -17,7 +17,7 @@ export class Playlist {
     return resultado;
   }
 
-  adicionar(festaId: number, musica: Musica): void {
+  adicionar(festaId: number, musica: Musica) {
     if (!musica.nome.trim()) {
       return;
     }
@@ -26,7 +26,7 @@ export class Playlist {
     salvarMusicas(this.musicas());
   }
 
-  remover(festaId: number, indice: number): void {
+  remover(festaId: number, indice: number) {
     const musica = this.daFesta(festaId)[indice];
     const lista: MusicaDaFesta[] = [];
     for (const item of this.musicas()) {
@@ -38,7 +38,7 @@ export class Playlist {
     salvarMusicas(lista);
   }
 
-  votar(festaId: number, indice: number, pessoa: string): void {
+  votar(festaId: number, indice: number, pessoa: string) {
     if (!this.votantes.includes(pessoa)) {
       return;
     }

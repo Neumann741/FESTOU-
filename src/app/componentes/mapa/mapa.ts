@@ -113,7 +113,7 @@ export class Mapa {
     });
   }
 
-  filtrar(): void {
+  filtrar() {
     const normalizar = (texto: string) =>
       texto
         .normalize('NFD')
@@ -162,12 +162,12 @@ export class Mapa {
     this.atualizarMarkers();
   }
 
-  buscar(texto: string): void {
+  buscar(texto: string) {
     this.busca.set(texto);
     this.filtrar();
   }
 
-  mudarCategoria(categoria: string): void {
+  mudarCategoria(categoria: string) {
     this.categoria.set(categoria);
     this.filtrar();
   }
@@ -188,7 +188,7 @@ export class Mapa {
     return 'Tente outro nome, lugar ou categoria.';
   }
 
-  mudarPeriodo(periodo: string): void {
+  mudarPeriodo(periodo: string) {
     this.periodo.set(this.periodo() === periodo ? '' : periodo);
     this.filtrar();
   }
@@ -206,7 +206,7 @@ export class Mapa {
         : festa.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
-  selecionar(festa: Festa): void {
+  selecionar(festa: Festa) {
     this.selecionada.set(festa.id);
     this.destacar(festa.id);
     this.map?.flyTo([festa.latitude, festa.longitude], this.config.zoomFesta, {
@@ -215,7 +215,7 @@ export class Mapa {
     this.markers.get(festa.id)?.openPopup();
   }
 
-  destacar(id: number | null): void {
+  destacar(id: number | null) {
     this.markers.forEach((marker, key) => {
       const ativo = key === id || key === this.selecionada();
       marker.getElement()?.classList.toggle('is-active', ativo);
@@ -223,7 +223,7 @@ export class Mapa {
     });
   }
 
-  async alternarPerto(): Promise<void> {
+  async alternarPerto() {
     if (this.carregandoLocal()) return;
     if (this.perto()) {
       this.desativarPerto();
@@ -265,7 +265,7 @@ export class Mapa {
     }
   }
 
-  desativarPerto(): void {
+  desativarPerto() {
     this.perto.set(false);
     this.circulo?.remove();
     this.usuarioMarker?.remove();
@@ -273,14 +273,14 @@ export class Mapa {
     this.map?.setView(this.config.centro, this.config.zoom);
   }
 
-  verTodas(): void {
+  verTodas() {
     this.busca.set('');
     this.periodo.set('');
     this.categoria.set('');
     this.desativarPerto();
   }
 
-  private atualizarMarkers(): void {
+  private atualizarMarkers() {
     if (!this.map) return;
     const ids = new Set(this.festas().map((festa) => festa.id));
     this.markers.forEach((marker, id) => {
@@ -321,7 +321,7 @@ export class Mapa {
     this.destacar(null);
   }
 
-  private selecionarFestaDaUrl(): void {
+  private selecionarFestaDaUrl() {
     if (!this.map || !this.festaInicial) return;
     const festa = this.todos.find((item) => item.id === this.festaInicial);
     if (!festa) return;
@@ -353,7 +353,7 @@ export class Mapa {
     button.type = 'button';
     button.textContent = 'VER FESTA';
     button.addEventListener('click', () => {
-      if (this.config.detalhesDisponiveis) void this.router.navigate(['/festa', festa.id]);
+      if (this.config.detalhesDisponiveis) this.router.navigate(['/festa', festa.id]);
       else this.mensagem.set('A página de detalhes da festa estará disponível em breve.');
     });
     content.append(button);
