@@ -15,6 +15,7 @@ interface DadosFesta {
   local: string;
   preco: string;
   limite: string;
+  imagem: string;
   tipo: 'publica' | 'privada';
 }
 
@@ -33,6 +34,7 @@ export class CriarFesta {
     local: '',
     preco: '',
     limite: '',
+    imagem: '',
     tipo: 'publica',
   });
 
@@ -92,6 +94,7 @@ export class CriarFesta {
       preco: String(festa.preco ?? 0),
       tipo: festa.tipo,
       limite: festa.limiteParticipantes ? String(festa.limiteParticipantes) : '',
+      imagem: festa.imagem || '',
     });
     this.latitude = festa.latitude;
     this.longitude = festa.longitude;
@@ -124,7 +127,7 @@ export class CriarFesta {
       local: dados.local,
       cidade: this.cidade,
       preco: dados.preco ? Number(dados.preco) : 0,
-      imagem: 'assets/img1.jpg',
+      imagem: dados.imagem.trim() || 'assets/img1.jpg',
       latitude: this.latitude,
       longitude: this.longitude,
       pessoasConfirmadas: 0,
@@ -135,7 +138,6 @@ export class CriarFesta {
       festa = {
         ...this.original,
         ...valores,
-        imagem: this.original.imagem,
         descricao: this.original.descricao,
         pessoasConfirmadas: this.original.pessoasConfirmadas,
       };

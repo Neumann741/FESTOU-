@@ -12,6 +12,15 @@
     @for (item of galeria.fotosDaFesta(festaId()); track $index) {
       <article>
         <img [src]="item.link" /><span>Enviado por {{ item.pessoa }}</span>
+        @if (fotoEditando === $index) {
+          <input [(ngModel)]="novoLink" placeholder="Novo link da imagem" />
+          <div class="acoes-foto">
+            <button (click)="salvarEdicao()">Salvar</button>
+            <button (click)="cancelarEdicao()">Cancelar</button>
+          </div>
+        } @else {
+          <button (click)="iniciarEdicao($index, item.link)">Editar foto</button>
+        }
       </article>
     } @empty {
       <div class="vazio-interno">
