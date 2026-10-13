@@ -63,6 +63,9 @@ export class FestaService {
       for (const item of normalizadas) {
         if (item.id === festa.id) {
           existe = true;
+          if (!item.imagem || item.imagem.startsWith('assets/img')) {
+            item.imagem = festa.imagem;
+          }
         }
       }
       if (!existe) {

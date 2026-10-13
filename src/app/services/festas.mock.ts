@@ -185,13 +185,8 @@ export function criarFestasMock(hoje = new Date()): Festa[] {
     },
   ];
 
-  let numeroImagem = 1;
   for (const festa of festas) {
-    festa.imagem = 'assets/img' + numeroImagem + '.jpg';
-    numeroImagem++;
-    if (numeroImagem > 6) {
-      numeroImagem = 1;
-    }
+    festa.imagem = 'assets/festas/festa-' + festa.id + '.png';
   }
 
   return festas;
