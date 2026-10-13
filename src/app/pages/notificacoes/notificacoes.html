@@ -2,7 +2,6 @@
   <a routerLink="/perfil">← Meu perfil</a>
   <header>
     <h1>Notificações</h1>
-    <span>Pedidos e novidades da sua comunidade local.</span>
   </header>
   <button (click)="avisos.marcarLidos()" [disabled]="!avisos.naoLidos()">
     Marcar todas como lidas ({{ avisos.naoLidos() }})
@@ -17,7 +16,6 @@
     } @empty {
       <article>
         <h2>Nenhuma notificação</h2>
-        <p>Quando você pedir para participar ou receber uma resposta, o aviso aparecerá aqui.</p>
       </article>
     }
   </section>

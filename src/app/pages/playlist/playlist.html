@@ -9,7 +9,6 @@
     </div>
 
     <div class="apresentacao">
-      <p>Playlist colaborativa</p>
       <h1>{{ nomeDaFesta() }}</h1>
       <span class="contador">{{ playlist.daFesta(festaId()).length }} músicas</span>
     </div>
@@ -25,8 +24,6 @@
           }
         </select>
       </label>
-
-      <p class="instrucao-voto">Clique novamente no voto para retirá-lo.</p>
 
       <div class="titulo-lista">
         <h2>Músicas</h2>
@@ -62,14 +59,12 @@
       } @empty {
         <div class="vazio">
           <h3>Nenhuma música adicionada</h3>
-          <p>Adicione uma música pelo formulário.</p>
         </div>
       }
     </section>
 
     <aside class="painel">
       <h2>Adicionar música</h2>
-      <p>Adicione uma faixa à seleção da festa.</p>
 
       <form class="formulario" (ngSubmit)="adicionar()">
         <label>Nome da música <input name="musica" [(ngModel)]="nome" /></label>
@@ -77,8 +72,6 @@
         <label>Link para ouvir <input name="link" [(ngModel)]="link" /></label>
         <button type="submit" [disabled]="!nome.trim()">Adicionar</button>
       </form>
-
-      <p class="observacao">Os links abrem no serviço de música escolhido.</p>
     </aside>
   </div>
 </main>
