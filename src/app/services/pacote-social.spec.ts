@@ -6,7 +6,7 @@ import { Experiencias } from './experiencias';
 import { Playlist } from './playlist';
 import { FestaService } from './festa.service';
 import { ListaFestas } from '../componentes/lista-festas/lista-festas';
-import { Agenda } from '../pages/agenda/agenda';
+import { AgendaPage } from '../pages/agenda-page/agenda-page';
 import { RecursosFesta } from '../componentes/recursos-festa/recursos-festa';
 
 describe('Pacote social da Festou', () => {
@@ -151,7 +151,7 @@ describe('Pacote social da Festou', () => {
   });
 
   it('agenda separa próximas, encerradas e canceladas', () => {
-    const componente = TestBed.createComponent(Agenda).componentInstance;
+    const componente = TestBed.createComponent(AgendaPage).componentInstance;
     componente.festas.set([
       festa,
       { ...festa, id: 901, status: 'encerrada' },
