@@ -61,7 +61,6 @@
 
                 <div class="rodape-social">
                   <span>{{ textoDaFesta() }}</span>
-                  <b>↗</b>
                 </div>
               </div>
             </a>
@@ -69,16 +68,16 @@
             <div class="vazio-social">
               <h2>Nenhuma festa nesta lista</h2>
               <p>{{ textoVazio() }}</p>
-              <a routerLink="/vitrine">Descobrir festas →</a>
+              <a routerLink="/vitrine">Ver festas</a>
             </div>
           }
         </div>
       </section>
 
       <aside class="lateral-social">
-        <a class="mapa-social" routerLink="/agenda">Minha agenda e histórico →</a>
+        <a class="mapa-social" routerLink="/agenda">Minha agenda e histórico</a>
         <a class="mapa-social" routerLink="/notificacoes">
-          Notificações · {{ avisos.naoLidos() }} novas →
+          Notificações · {{ avisos.naoLidos() }} novas
         </a>
 
         <section class="amigos-social">
@@ -106,7 +105,7 @@
         </section>
 
         <a class="gerenciar-social" routerLink="/minhas-festas">Gerenciar minhas festas</a>
-        <a class="mapa-social" routerLink="/mapa-page">⌖ Explorar o mapa →</a>
+        <a class="mapa-social" routerLink="/mapa-page">Ver mapa</a>
       </aside>
     </div>
   </div>

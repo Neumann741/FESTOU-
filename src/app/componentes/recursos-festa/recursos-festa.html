@@ -1,5 +1,5 @@
 <section class="recurso ingresso">
-  <h2>Ingresso fictício</h2>
+  <h2>Ingresso</h2>
 
   <div class="acoes">
     <button (click)="emitirIngresso()" [disabled]="interacao.fechada(festa())">
@@ -16,7 +16,7 @@
 
       <div class="acoes">
         <button (click)="fazerCheckin()" [disabled]="checkinDesabilitado()">
-          Simular check-in
+          Fazer check-in
         </button>
       </div>
     </article>
@@ -28,7 +28,7 @@
 </section>
 
 <section class="recurso">
-  <h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
+  <h2>Avaliações · nota {{ experiencias.media(festa().id) }}</h2>
 
   <label>
     Avaliar como
@@ -44,11 +44,11 @@
     <label>
       Nota
       <select [(ngModel)]="nota">
-        <option [ngValue]="1">1 ★</option>
-        <option [ngValue]="2">2 ★</option>
-        <option [ngValue]="3">3 ★</option>
-        <option [ngValue]="4">4 ★</option>
-        <option [ngValue]="5">5 ★</option>
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
       </select>
     </label>
 
@@ -73,7 +73,7 @@
 
   @for (avaliacao of experiencias.avaliacoesDaFesta(festa().id); track avaliacao.pessoa) {
     <article>
-      <strong>{{ avaliacao.pessoa }} · {{ avaliacao.nota }} ★</strong>
+      <strong>{{ avaliacao.pessoa }} · nota {{ avaliacao.nota }}</strong>
       <p>{{ avaliacao.comentario }}</p>
     </article>
   } @empty {
@@ -113,10 +113,10 @@
             (click)="interacao.responderConvite(festa(), convite.pessoa, true)"
             [disabled]="interacao.fechada(festa()) || interacao.lotada(festa())"
           >
-            Simular aceite
+            Aceitar
           </button>
           <button (click)="interacao.responderConvite(festa(), convite.pessoa, false)">
-            Simular recusa
+            Recusar
           </button>
         </div>
       }
@@ -131,7 +131,7 @@
 
   <div class="acoes">
     <button (click)="copiar()">Copiar link</button>
-    <a [href]="whatsapp()" target="_blank">Abrir no WhatsApp ↗</a>
+    <a [href]="whatsapp()" target="_blank">Abrir no WhatsApp</a>
   </div>
 
   @if (mensagem()) {

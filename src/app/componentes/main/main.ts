@@ -22,7 +22,6 @@ export class Main {
   readonly staticMode = signal(false);
   readonly reducedMotion = signal(false);
   readonly showRegistration = signal(false);
-  // Conecte este evento à futura tela de cadastro.
   readonly registerRequested = output<void>();
   readonly cards = [
     { label: 'Encontre', title: 'ENCONTRA', accent: 'SUA FESTA.', image: 'assets/img.card1.jpg' },
@@ -43,7 +42,6 @@ export class Main {
   private frame = 0;
   private motionQuery?: MediaQueryList;
   private manualStatic = false;
-  // Cinco entradas, uma breve leitura do sexto card, transformação e pausa final.
   private readonly timeline = 6.6;
 
   constructor() {

@@ -174,8 +174,8 @@ export class Mapa {
 
   textoBotaoPerto(): string {
     if (this.carregandoLocal()) return 'Buscando localização…';
-    if (this.perto()) return '✓ FESTAS EM ATÉ ' + this.config.raioKm + ' KM';
-    return '⌖ FESTAS PERTO DE MIM';
+    if (this.perto()) return 'FESTAS EM ATÉ ' + this.config.raioKm + ' KM';
+    return 'FESTAS PERTO DE MIM';
   }
 
   tituloVazio(): string {
@@ -184,7 +184,7 @@ export class Mapa {
   }
 
   textoVazio(): string {
-    if (this.perto()) return 'Explore festas mais longe ou confira os filtros.';
+    if (this.perto()) return 'Aumente a distância ou altere os filtros.';
     return 'Tente outro nome, lugar ou categoria.';
   }
 

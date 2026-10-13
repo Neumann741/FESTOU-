@@ -11,7 +11,7 @@
       <article [class.novo]="!aviso.lido">
         <small>{{ aviso.data }} · {{ situacao(aviso.lido) }}</small>
         <p>{{ aviso.texto }}</p>
-        <a [routerLink]="['/festa', aviso.festaId]">Ver festa →</a>
+        <a [routerLink]="['/festa', aviso.festaId]">Ver festa</a>
       </article>
     } @empty {
       <article>
