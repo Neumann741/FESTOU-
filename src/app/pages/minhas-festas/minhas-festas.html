@@ -1,95 +1,13 @@
 <main class="minhas-festas">
   <a class="voltar-interno" routerLink="/perfil">← Voltar ao perfil</a>
-
   <header>
-    <div>
-      <h1>Minhas festas</h1>
-    </div>
+    <h1>Minhas festas</h1>
     <a routerLink="/criar-festa">+ Criar festa</a>
   </header>
+
   <section class="lista-festas">
     @for (festa of festas(); track festa.id) {
-      <div class="gerenciamento">
-        <article class="festa">
-          <img class="capa-gerenciamento" [src]="festa.imagem" />
-
-          <div>
-            <h2>{{ festa.nome }}</h2>
-            <p>{{ festa.data }} · {{ festa.horario }} · {{ festa.local }}</p>
-            <span>{{ festa.categoria }} · {{ tipoDaFesta(festa) }}</span>
-          </div>
-
-          <div class="acoes">
-            <a [routerLink]="['/editar-festa', festa.id]">Editar</a>
-            <a [routerLink]="['/festa', festa.id]">Ver festa ↗</a>
-            <button (click)="excluir(festa.id)">Excluir</button>
-          </div>
-        </article>
-
-        @if (festa.tipo === 'privada') {
-          <section class="pedidos">
-            <h3>Pedidos de participação</h3>
-
-            @for (convite of interacao.convitesDaFesta(festa.id); track convite.pessoa) {
-              @if (convite.status === 'aguardando aprovação') {
-                <p>{{ convite.pessoa }} aguarda aprovação.</p>
-                <button
-                  (click)="interacao.aprovarConvite(festa, convite.pessoa, true)"
-                  [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
-                >
-                  Aprovar {{ convite.pessoa }}
-                </button>
-                <button (click)="interacao.aprovarConvite(festa, convite.pessoa, false)">
-                  Recusar
-                </button>
-              }
-            }
-
-            @if (interacao.pedidos().includes(festa.id)) {
-              <p>Você pediu para participar.</p>
-              <button
-                (click)="interacao.responderPedido(festa, true)"
-                [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
-              >
-                Aprovar
-              </button>
-              <button class="recusar" (click)="interacao.responderPedido(festa, false)">
-                Recusar
-              </button>
-
-              @if (semVagas(festa)) {
-                <p>Sem vagas para aprovar. Aumente o limite de participantes.</p>
-              }
-            } @else {
-              <p>Nenhum pedido pendente.</p>
-            }
-          </section>
-        }
-
-        @if (interacao.espera().includes(festa.id)) {
-          <section class="pedidos">
-            <h3>Lista de espera</h3>
-            <p>Você está aguardando uma vaga nesta festa.</p>
-          </section>
-        }
-
-        <section class="pedidos">
-          <label>
-            Status da festa
-            <select
-              [ngModel]="festa.status || 'publicada'"
-              (ngModelChange)="alterarStatus(festa, $event)"
-            >
-              <option value="publicada">Publicada</option>
-              <option value="esgotada">Esgotada</option>
-              <option value="cancelada">Cancelada</option>
-              <option value="encerrada">Encerrada</option>
-            </select>
-          </label>
-
-          <p>Status atual: {{ interacao.status(festa) }}</p>
-        </section>
-      </div>
+      <app-card-gerenciamento [festa]="festa" />
     } @empty {
       <p>Nenhuma festa criada ainda.</p>
     }

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { FestaService } from './festa.service';
 import { Perfil } from '../pages/perfil/perfil';
-import { Vitrine } from '../pages/vitrine/vitrine';
+import { ListaFestas } from '../componentes/lista-festas/lista-festas';
 import { DetalhesFesta } from '../pages/detalhes-festa/detalhes-festa';
 import { PlaylistPage } from '../pages/playlist/playlist';
 
@@ -25,7 +25,7 @@ describe('Lista de festas compartilhada', () => {
   it('atualiza perfil e destaques usando a mesma lista do serviço', () => {
     const servico = TestBed.inject(FestaService);
     const perfil = TestBed.createComponent(Perfil).componentInstance;
-    const vitrine = TestBed.createComponent(Vitrine).componentInstance;
+    const vitrine = TestBed.createComponent(ListaFestas).componentInstance;
     const festa = servico.festas()[0];
 
     servico.atualizarFesta({ ...festa, nome: 'Nome atualizado' });
@@ -52,7 +52,7 @@ describe('Lista de festas compartilhada', () => {
   });
 
   it('mantém categorias sem repetição e ordenadas', () => {
-    const vitrine = TestBed.createComponent(Vitrine).componentInstance;
+    const vitrine = TestBed.createComponent(ListaFestas).componentInstance;
     const festa = vitrine.festas()[0];
     vitrine.festas.set([
       { ...festa, categoria: 'Rock' },
