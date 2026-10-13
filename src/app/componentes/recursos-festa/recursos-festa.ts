@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Interacao } from '../../services/interacao';
 import { Experiencias } from '../../services/experiencias';
 import { Festa } from '../../models/festa';
+import { copiarLink, linkDaFesta, linkDoWhatsapp } from '../../integracoes/compartilhamento';
 
 @Component({
   imports: [FormsModule],
@@ -35,19 +36,13 @@ export class RecursosFesta {
   }
 
   link(): string {
-    return `${window.location.origin}/festa/${this.festa().id}`;
+    return linkDaFesta(this.festa().id);
   }
   whatsapp(): string {
-    return `https://wa.me/?text=${encodeURIComponent('Bora para ' + this.festa().nome + '? ' + this.link() + ' (demonstração local)')}`;
+    return linkDoWhatsapp(this.festa().nome, this.link());
   }
   async copiar(): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(this.link());
-      this.mensagem.set('Link copiado!');
-    } catch {
-      this.mensagem.set(
-        'Não foi possível copiar automaticamente. Selecione o link abaixo e copie.',
-      );
-    }
+    const mensagem = await copiarLink(this.link());
+    this.mensagem.set(mensagem);
   }
 }

@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormField, form, minLength, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Festa } from '../../models/festa';
+import { CadastroFesta } from '../../models/cadastro-festa';
 import { Interacao } from '../../services/interacao';
 import { FestaService } from '../../services/festa.service';
 import { Localizacao } from '../../services/localizacao';
@@ -93,11 +94,11 @@ export class CriarFesta {
     }
 
     const dados = this.dados();
-    if (Number(dados.preco) < 0 || !Number.isFinite(Number(dados.preco))) {
-      this.mensagem.set('Informe um preço válido, a partir de zero.');
+    if (!this.validarPreco() || !this.validarLimite()) {
       return;
     }
-    const valores = {
+
+    const valores: CadastroFesta = {
       limiteParticipantes: dados.limite ? Number(dados.limite) : undefined,
       nome: dados.nome,
       descricao: '',
@@ -114,17 +115,6 @@ export class CriarFesta {
       tipo: dados.tipo,
     };
     let festa: Festa;
-    if (
-      dados.limite &&
-      (!Number.isInteger(Number(dados.limite)) ||
-        Number(dados.limite) < 1 ||
-        (this.original && Number(dados.limite) < this.interacao.total(this.original)))
-    ) {
-      this.mensagem.set(
-        'O limite deve ser um número inteiro positivo, sem ficar abaixo das presenças confirmadas.',
-      );
-      return;
-    }
     if (this.original) {
       festa = {
         ...this.original,
@@ -139,6 +129,36 @@ export class CriarFesta {
     }
 
     void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
+  }
+
+  private validarPreco(): boolean {
+    const preco = Number(this.dados().preco);
+    if (preco < 0 || !Number.isFinite(preco)) {
+      this.mensagem.set('Informe um preço válido, a partir de zero.');
+      return false;
+    }
+    return true;
+  }
+
+  private validarLimite(): boolean {
+    if (!this.dados().limite) {
+      return true;
+    }
+
+    const limite = Number(this.dados().limite);
+    const aviso =
+      'O limite deve ser um número inteiro positivo, sem ficar abaixo das presenças confirmadas.';
+
+    if (!Number.isInteger(limite) || limite < 1) {
+      this.mensagem.set(aviso);
+      return false;
+    }
+
+    if (this.original && limite < this.interacao.total(this.original)) {
+      this.mensagem.set(aviso);
+      return false;
+    }
+    return true;
   }
 
   protected cancelar(): void {
