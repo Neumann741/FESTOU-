@@ -27,6 +27,50 @@ export class DetalhesFesta {
     return this.festaService.festas().find((festa) => festa.id === id);
   }
 
+  imagemDaCapa(festa: Festa): string {
+    return 'url(' + festa.imagem + ')';
+  }
+
+  preco(festa: Festa): string {
+    if (festa.preco === 0) return 'Grátis';
+    return 'Ingresso R$ ' + festa.preco;
+  }
+
+  textoEspera(festa: Festa): string {
+    if (this.interacao.espera().includes(festa.id)) return 'Sair da lista de espera';
+    return 'Festa lotada · Entrar na lista de espera';
+  }
+
+  textoPedido(festa: Festa): string {
+    if (this.interacao.pedidos().includes(festa.id)) return 'Pedido enviado';
+    return 'Pedir para participar';
+  }
+
+  textoPresenca(festa: Festa): string {
+    if (this.interacao.confirmadas().includes(festa.id)) return 'Cancelar presença';
+    return 'Confirmar presença';
+  }
+
+  textoFavorito(festa: Festa): string {
+    if (this.interacao.favoritos().includes(festa.id)) return '♥ Salva';
+    return '♡ Salvar festa';
+  }
+
+  textoIngresso(festa: Festa): string {
+    if (this.interacao.ingressos().includes(festa.id)) return 'Ingresso adquirido';
+    return 'Comprar ingresso fictício';
+  }
+
+  textoListaEspera(festa: Festa): string {
+    if (this.interacao.lotada(festa)) return 'A festa ainda está lotada.';
+    return 'Há vagas! Confirme presença ou peça aprovação se a festa for privada.';
+  }
+
+  textoLimite(festa: Festa): string {
+    if (festa.limiteParticipantes) return '· Limite: ' + festa.limiteParticipantes;
+    return '· Sem limite definido';
+  }
+
   confirmar(): void {
     const festa = this.festa();
     if (!festa || this.interacao.fechada(festa)) return;

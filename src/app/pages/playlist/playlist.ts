@@ -27,6 +27,35 @@ export class PlaylistPage {
     return this.festaService.festas().find((festa) => festa.id === this.festaId());
   }
 
+  imagemDaFesta(): string {
+    const festa = this.festa();
+    if (festa && festa.imagem) return festa.imagem;
+    return 'assets/img1.jpg';
+  }
+
+  nomeDaFesta(): string {
+    const festa = this.festa();
+    if (festa) return festa.nome;
+    return 'Playlist da festa';
+  }
+
+  artistaDaMusica(artista: string): string {
+    if (artista) return artista;
+    return 'Artista não informado';
+  }
+
+  votou(votos: string[] | undefined): boolean {
+    if (!votos) return false;
+    return votos.includes(this.votante);
+  }
+
+  textoVoto(votos: string[] | undefined): string {
+    let quantidade = 0;
+    if (votos) quantidade = votos.length;
+    if (this.votou(votos)) return '♥ ' + quantidade + ' votos';
+    return '♡ ' + quantidade + ' votos';
+  }
+
   adicionar(): void {
     this.playlist.adicionar(this.festaId(), {
       nome: this.nome,

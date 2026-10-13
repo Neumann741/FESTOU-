@@ -13,4 +13,9 @@ export class NavegacaoInterna {
   readonly usuario = inject(Usuario);
   readonly avisos = inject(Avisos);
   menuAberto = false;
+
+  textoMenu(): string {
+    if (this.menuAberto) return 'Fechar';
+    return 'Menu';
+  }
 }

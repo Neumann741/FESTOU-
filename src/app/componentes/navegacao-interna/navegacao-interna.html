@@ -2,7 +2,7 @@
   <div class="topo-menu">
     <a class="marca" routerLink="/main-page">festou!</a
     ><button class="abrir-menu" (click)="menuAberto = !menuAberto">
-      {{ menuAberto ? 'Fechar' : 'Menu' }}
+      {{ textoMenu() }}
     </button>
   </div>
   <nav [class.aberto]="menuAberto" (click)="menuAberto = false">

@@ -53,6 +53,22 @@ export class Perfil {
     return this.salvas();
   }
 
+  mudarAba(nome: string): void {
+    this.aba.set(nome);
+  }
+
+  textoDaFesta(): string {
+    if (this.aba() === 'confirmadas') return '✓ Presença confirmada';
+    return '♡ Na sua lista';
+  }
+
+  textoVazio(): string {
+    if (this.aba() === 'confirmadas') {
+      return 'Confirme presença em uma festa para encontrá-la aqui.';
+    }
+    return 'Salve as festas que você quer conhecer.';
+  }
+
   readonly amigos = [
     { nome: 'Ana', estilo: 'Pagode e funk' },
     { nome: 'João', estilo: 'Eletrônica' },
