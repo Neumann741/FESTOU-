@@ -8,7 +8,13 @@ export class Playlist {
   musicas = signal<MusicaDaFesta[]>(lerMusicas());
 
   daFesta(id: number): MusicaDaFesta[] {
-    return this.musicas().filter((musica) => musica.festaId === id);
+    const resultado: MusicaDaFesta[] = [];
+    for (const musica of this.musicas()) {
+      if (musica.festaId === id) {
+        resultado.push(musica);
+      }
+    }
+    return resultado;
   }
 
   adicionar(festaId: number, musica: Musica): void {
@@ -22,8 +28,14 @@ export class Playlist {
 
   remover(festaId: number, indice: number): void {
     const musica = this.daFesta(festaId)[indice];
-    this.musicas.update((lista) => lista.filter((item) => item !== musica));
-    salvarMusicas(this.musicas());
+    const lista: MusicaDaFesta[] = [];
+    for (const item of this.musicas()) {
+      if (item !== musica) {
+        lista.push(item);
+      }
+    }
+    this.musicas.set(lista);
+    salvarMusicas(lista);
   }
 
   votar(festaId: number, indice: number, pessoa: string): void {
@@ -37,17 +49,25 @@ export class Playlist {
 
     let votos = musica.votos || [];
     if (votos.includes(pessoa)) {
-      votos = votos.filter((nome) => nome !== pessoa);
+      const votosRestantes: string[] = [];
+      for (const nome of votos) {
+        if (nome !== pessoa) {
+          votosRestantes.push(nome);
+        }
+      }
+      votos = votosRestantes;
     } else {
       votos = [...votos, pessoa];
     }
 
-    const lista = this.musicas().map((item) => {
+    const lista: MusicaDaFesta[] = [];
+    for (const item of this.musicas()) {
       if (item === musica) {
-        return { ...item, votos };
+        lista.push({ ...item, votos });
+      } else {
+        lista.push(item);
       }
-      return item;
-    });
+    }
     this.musicas.set(lista);
     salvarMusicas(lista);
   }

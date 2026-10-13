@@ -37,7 +37,12 @@ export class Avisos {
   }
 
   marcarLidos(): void {
-    this.lista.update((lista) => lista.map((aviso) => ({ ...aviso, lido: true })));
+    const lista: Aviso[] = [];
+    for (const aviso of this.lista()) {
+      aviso.lido = true;
+      lista.push(aviso);
+    }
+    this.lista.set(lista);
     this.salvar();
   }
 

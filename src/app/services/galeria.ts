@@ -19,6 +19,12 @@ export class Galeria {
   }
 
   fotosDaFesta(id: number): FotoGaleria[] {
-    return this.fotos().filter((foto) => foto.festaId === id);
+    const resultado: FotoGaleria[] = [];
+    for (const foto of this.fotos()) {
+      if (foto.festaId === id) {
+        resultado.push(foto);
+      }
+    }
+    return resultado;
   }
 }

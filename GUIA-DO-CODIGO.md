@@ -54,3 +54,11 @@ Visual, rotas e funcionalidades foram mantidos. Convites privados ainda precisam
 
 - `npm test -- --watch=false`: testes dos componentes, funcionalidades e compatibilidade dos dados antigos.
 - `npm run build`: compilação do projeto.
+
+## Services
+
+Os services seguem o padrão dos exercícios: recebem os dados, percorrem listas com `for`, verificam regras com `if` e atualizam os `signal` com `set` ou `update`.
+
+Não é necessário entender `map`, `filter`, `find`, `some` ou `reduce` para acompanhar os cadastros. Quando é preciso buscar ou retirar um item, o código cria uma lista auxiliar e percorre os elementos passo a passo.
+
+As funções importadas de `integracoes/armazenamento.ts` são a exceção responsável por carregar e salvar os dados. Os services apenas enviam ou recebem listas prontas.
