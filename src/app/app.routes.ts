@@ -1,35 +1,34 @@
 import { Routes } from '@angular/router';
-import { Agenda } from './pages/agenda/agenda';
-import { Notificacoes } from './pages/notificacoes/notificacoes';
-import { EditarPerfil } from './pages/editar-perfil/editar-perfil';
+import { AgendaPage } from './pages/agenda-page/agenda-page';
+import { NotificacoesPage } from './pages/notificacoes-page/notificacoes-page';
+import { EditarPerfilPage } from './pages/editar-perfil-page/editar-perfil-page';
 import { HomePage } from './pages/home-page/home-page';
 import { MainPage } from './pages/main-page/main-page';
-import { Vitrine } from './pages/vitrine/vitrine';
-import { Login } from './componentes/login/login';
-import { CriarFesta } from './pages/criar-festa/criar-festa';
-import { DetalhesFesta } from './pages/detalhes-festa/detalhes-festa';
-import { Perfil } from './pages/perfil/perfil';
-import { MinhasFestas } from './pages/minhas-festas/minhas-festas';
-import { GaleriaPage } from './pages/galeria/galeria';
-import { PlaylistPage } from './pages/playlist/playlist';
+import { VitrinePage } from './pages/vitrine-page/vitrine-page';
+import { LoginPage } from './pages/login-page/login-page';
+import { CriarFestaPage } from './pages/criar-festa-page/criar-festa-page';
+import { DetalhesFestaPage } from './pages/detalhes-festa-page/detalhes-festa-page';
+import { PerfilPage } from './pages/perfil-page/perfil-page';
+import { MinhasFestasPage } from './pages/minhas-festas-page/minhas-festas-page';
+import { GaleriaPage } from './pages/galeria-page/galeria-page';
+import { PlaylistPage } from './pages/playlist-page/playlist-page';
 
 export const routes: Routes = [
-  { path: 'agenda', component: Agenda },
-  { path: 'notificacoes', component: Notificacoes },
+  { path: 'agenda', component: AgendaPage },
+  { path: 'notificacoes', component: NotificacoesPage },
   { path: 'mapa', loadComponent: () => import('./componentes/mapa/mapa').then(m => m.Mapa) },
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomePage },
   { path: 'main-page', component: MainPage },
-  {path: 'vitrine', component: Vitrine},
-  { path: 'criar-festa', component: CriarFesta },
-  { path: 'editar-festa/:id', component: CriarFesta },
-  { path: 'festa/:id', component: DetalhesFesta },
-  { path: 'perfil', component: Perfil },
-  { path: 'editar-perfil', component: EditarPerfil },
-  { path: 'minhas-festas', component: MinhasFestas },
+  { path: 'vitrine', component: VitrinePage },
+  { path: 'criar-festa', component: CriarFestaPage },
+  { path: 'editar-festa/:id', component: CriarFestaPage },
+  { path: 'festa/:id', component: DetalhesFestaPage },
+  { path: 'perfil', component: PerfilPage },
+  { path: 'editar-perfil', component: EditarPerfilPage },
+  { path: 'minhas-festas', component: MinhasFestasPage },
   { path: 'galeria/:id', component: GaleriaPage },
   { path: 'playlist/:id', component: PlaylistPage },
-  { path: 'login', component: Login },
-  { path: 'login', component: Login },
+  { path: 'login', component: LoginPage },
   { path: 'mapa-page', loadComponent: () => import('./pages/mapa-page/mapa-page').then(m => m.MapaPage) }
 ];

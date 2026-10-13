@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { FestaService } from './festa.service';
-import { Perfil } from '../pages/perfil/perfil';
+import { PerfilPage } from '../pages/perfil-page/perfil-page';
 import { ListaFestas } from '../componentes/lista-festas/lista-festas';
-import { DetalhesFesta } from '../pages/detalhes-festa/detalhes-festa';
-import { PlaylistPage } from '../pages/playlist/playlist';
+import { DetalhesFestaPage } from '../pages/detalhes-festa-page/detalhes-festa-page';
+import { PlaylistPage } from '../pages/playlist-page/playlist-page';
 
 describe('Lista de festas compartilhada', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('Lista de festas compartilhada', () => {
 
   it('atualiza perfil e destaques usando a mesma lista do serviço', () => {
     const servico = TestBed.inject(FestaService);
-    const perfil = TestBed.createComponent(Perfil).componentInstance;
+    const perfil = TestBed.createComponent(PerfilPage).componentInstance;
     const vitrine = TestBed.createComponent(ListaFestas).componentInstance;
     const festa = servico.festas()[0];
 
@@ -38,7 +38,7 @@ describe('Lista de festas compartilhada', () => {
 
   it('atualiza detalhes e playlist depois de editar a festa', () => {
     const servico = TestBed.inject(FestaService);
-    const detalhes = TestBed.createComponent(DetalhesFesta).componentInstance;
+    const detalhes = TestBed.createComponent(DetalhesFestaPage).componentInstance;
     const playlist = TestBed.createComponent(PlaylistPage).componentInstance;
     const festa = servico.festas()[0];
 
@@ -63,7 +63,7 @@ describe('Lista de festas compartilhada', () => {
   });
 
   it('monta iniciais e estilos sem depender de computed', () => {
-    const perfil = TestBed.createComponent(Perfil).componentInstance;
+    const perfil = TestBed.createComponent(PerfilPage).componentInstance;
     perfil.usuario.salvar({
       nome: '  Ana   Maria Silva ',
       foto: '',
