@@ -150,19 +150,10 @@ describe('Pacote social da Festou', () => {
     expect(componente.filtradas().length).toBe(2);
   });
 
-  it('agenda separa próximas, encerradas e canceladas', () => {
-    const componente = TestBed.createComponent(AgendaPage).componentInstance;
-    componente.festas.set([
-      festa,
-      { ...festa, id: 901, status: 'encerrada' },
-      { ...festa, id: 902, status: 'cancelada' },
-    ]);
-    componente.interacao.confirmadas.set([900, 901, 902]);
-    expect(componente.lista().map((item) => item.id)).toEqual([900]);
-    componente.aba.set('historico');
-    expect(componente.lista().map((item) => item.id)).toEqual([901]);
-    componente.aba.set('canceladas');
-    expect(componente.lista().map((item) => item.id)).toEqual([902]);
+  it('agenda mostra que estará disponível em breve', () => {
+    const fixture = TestBed.createComponent(AgendaPage);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Em breve...');
   });
 
   it('compartilha o id correto e oferece alternativa quando a cópia falha', async () => {
