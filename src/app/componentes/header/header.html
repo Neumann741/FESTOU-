@@ -1,5 +1,5 @@
 <header id="inicio">
-  <nav aria-label="Navegação principal">
+  <nav>
     <a class="brand" routerLink="/home-page">festou!</a>
     <span class="nav-caption"></span>
     <div class="auth-actions">
@@ -7,22 +7,24 @@
       <button class="auth-button login-button" type="button" routerLink="/login">Entrar</button>
     </div>
   </nav>
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero">
     <div class="eyebrow"></div>
-    <h1 id="hero-title">A VIDA PEDE<span>FESTOU!</span></h1>
-    <div class="intro">
-
-    </div>
-    <div class="gallery" role="img" aria-label="Festas em destaque">
+    <h1>A VIDA PEDE<span>FESTOU!</span></h1>
+    <div class="intro"></div>
+    <div class="gallery">
       @for (row of rows; track $index; let index = $index) {
         <div class="marquee" [class.reverse]="index === 1">
           <div class="track">
             @for (copy of copies; track copy) {
-              <div class="group" aria-hidden="true">
+              <div class="group">
                 @for (card of row; track card.id) {
-                  <div class="card" [class.olive]="card.tone === 'olive'" [class.warm]="card.tone === 'warm'">
+                  <div
+                    class="card"
+                    [class.olive]="card.tone === 'olive'"
+                    [class.warm]="card.tone === 'warm'"
+                  >
                     @if (card.image) {
-                      <img [src]="card.image" alt="" loading="lazy" draggable="false">
+                      <img [src]="card.image" loading="lazy" draggable="false" />
                     }
                   </div>
                 }
@@ -32,8 +34,6 @@
         </div>
       }
     </div>
-    <div class="gallery-footer">
-
-    </div>
+    <div class="gallery-footer"></div>
   </section>
 </header>

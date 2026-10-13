@@ -16,7 +16,6 @@ import { PlaylistPage } from './pages/playlist-page/playlist-page';
 export const routes: Routes = [
   { path: 'agenda', component: AgendaPage },
   { path: 'notificacoes', component: NotificacoesPage },
-  { path: 'mapa', loadComponent: () => import('./componentes/mapa/mapa').then(m => m.Mapa) },
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomePage },
   { path: 'main-page', component: MainPage },
@@ -30,5 +29,8 @@ export const routes: Routes = [
   { path: 'galeria/:id', component: GaleriaPage },
   { path: 'playlist/:id', component: PlaylistPage },
   { path: 'login', component: LoginPage },
-  { path: 'mapa-page', loadComponent: () => import('./pages/mapa-page/mapa-page').then(m => m.MapaPage) }
+  {
+    path: 'mapa-page',
+    loadComponent: () => import('./pages/mapa-page/mapa-page').then((m) => m.MapaPage),
+  },
 ];

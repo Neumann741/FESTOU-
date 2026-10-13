@@ -340,7 +340,6 @@ export class Mapa {
     if (festa.imagem) {
       const img = document.createElement('img');
       img.src = festa.imagem;
-      img.alt = festa.nome;
       content.append(img);
     }
     for (const [tag, texto] of [

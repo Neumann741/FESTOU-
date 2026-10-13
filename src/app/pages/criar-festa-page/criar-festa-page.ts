@@ -120,7 +120,6 @@ export class CriarFestaPage {
     const valores: CadastroFesta = {
       limiteParticipantes: dados.limite ? Number(dados.limite) : undefined,
       nome: dados.nome,
-      descricao: '',
       categoria: dados.categoria,
       data: dados.data,
       horario: dados.horario,
@@ -138,7 +137,6 @@ export class CriarFestaPage {
       festa = {
         ...this.original,
         ...valores,
-        descricao: this.original.descricao,
         pessoasConfirmadas: this.original.pessoasConfirmadas,
       };
       this.festaService.atualizarFesta(festa);

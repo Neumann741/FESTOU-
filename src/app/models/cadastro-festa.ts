@@ -1,6 +1,5 @@
 export interface CadastroFesta {
   nome: string;
-  descricao?: string;
   latitude: number;
   longitude: number;
   local: string;

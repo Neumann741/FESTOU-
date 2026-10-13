@@ -187,8 +187,6 @@ export function criarFestasMock(hoje = new Date()): Festa[] {
 
   let numeroImagem = 1;
   for (const festa of festas) {
-    festa.descricao =
-      'Uma noite para celebrar e encontrar amigos.';
     festa.imagem = 'assets/img' + numeroImagem + '.jpg';
     numeroImagem++;
     if (numeroImagem > 6) {
