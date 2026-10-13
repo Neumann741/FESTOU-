@@ -21,7 +21,7 @@ export class RecursosFesta {
   comentario = '';
   avisoAvaliacao = '';
   avisoIngresso = '';
-  avaliar(): void {
+  avaliar() {
     this.avisoAvaliacao = this.experiencias.avaliar(
       this.festa,
       this.avaliador,
@@ -31,7 +31,7 @@ export class RecursosFesta {
   }
   amigo = '';
   avisoConvite = '';
-  convidar(): void {
+  convidar() {
     this.avisoConvite = this.interacao.convidar(this.festa, this.amigo);
   }
 
@@ -67,11 +67,11 @@ export class RecursosFesta {
     return this.interacao.lotada(this.festa);
   }
 
-  emitirIngresso(): void {
+  emitirIngresso() {
     this.avisoIngresso = this.experiencias.emitir(this.festa);
   }
 
-  fazerCheckin(): void {
+  fazerCheckin() {
     this.avisoIngresso = this.experiencias.checkin(this.festa);
   }
 
@@ -81,7 +81,7 @@ export class RecursosFesta {
   whatsapp(): string {
     return linkDoWhatsapp(this.festa.nome, this.link());
   }
-  async copiar(): Promise<void> {
+  async copiar() {
     const mensagem = await copiarLink(this.link());
     this.mensagem.set(mensagem);
   }

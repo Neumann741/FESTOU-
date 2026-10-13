@@ -11,14 +11,14 @@ export interface FotoGaleria {
 export class Galeria {
   fotos = signal<FotoGaleria[]>(lerDados('festou-galeria', []));
 
-  adicionar(festaId: number, link: string): void {
+  adicionar(festaId: number, link: string) {
     if (!link.trim()) return;
     const fotos = [...this.fotos(), { festaId, link, pessoa: 'Você' }];
     this.fotos.set(fotos);
     salvarDados('festou-galeria', fotos);
   }
 
-  editar(festaId: number, indice: number, link: string): void {
+  editar(festaId: number, indice: number, link: string) {
     if (!link.trim()) return;
 
     const fotos = [...this.fotos()];

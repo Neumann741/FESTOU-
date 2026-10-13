@@ -18,19 +18,19 @@ export class GaleriaPage {
   private readonly rota = inject(ActivatedRoute);
 
   constructor() { this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1); }
-  publicar(): void { this.galeria.adicionar(this.festaId(), this.foto); this.foto = ''; }
+  publicar() { this.galeria.adicionar(this.festaId(), this.foto); this.foto = ''; }
 
-  iniciarEdicao(indice: number, link: string): void {
+  iniciarEdicao(indice: number, link: string) {
     this.fotoEditando = indice;
     this.novoLink = link;
   }
 
-  salvarEdicao(): void {
+  salvarEdicao() {
     this.galeria.editar(this.festaId(), this.fotoEditando, this.novoLink);
     this.cancelarEdicao();
   }
 
-  cancelarEdicao(): void {
+  cancelarEdicao() {
     this.fotoEditando = -1;
     this.novoLink = '';
   }

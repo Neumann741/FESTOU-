@@ -102,7 +102,7 @@ export class CriarFestaPage {
     this.enderecoEncontrado = festa.local;
   }
 
-  protected criarFesta(event: SubmitEvent): void {
+  protected criarFesta(event: SubmitEvent) {
     event.preventDefault();
 
     if (this.formulario().invalid() || this.indisponivel || this.buscando()) return;
@@ -146,7 +146,7 @@ export class CriarFestaPage {
       festa = this.festaService.criarFesta(valores);
     }
 
-    void this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
+    this.router.navigate(['/mapa-page'], { queryParams: { festa: festa.id } });
   }
 
   private validarPreco(): boolean {
@@ -179,11 +179,11 @@ export class CriarFestaPage {
     return true;
   }
 
-  protected cancelar(): void {
-    void this.router.navigate(['/main-page']);
+  protected cancelar() {
+    this.router.navigate(['/main-page']);
   }
 
-  protected buscarLocalizacao(): void {
+  protected buscarLocalizacao() {
     const endereco = this.dados().local;
     if (!endereco) {
       this.mensagem.set('Digite o endereço primeiro.');

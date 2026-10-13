@@ -77,7 +77,7 @@ export class Interacao {
     return 'Convite enviado! Simule a resposta abaixo.';
   }
 
-  responderConvite(festa: Festa, pessoa: string, aceitar: boolean): void {
+  responderConvite(festa: Festa, pessoa: string, aceitar: boolean) {
     const convite = this.buscarConvite(festa.id, pessoa);
     if (!convite || convite.status !== 'pendente') {
       return;
@@ -96,7 +96,7 @@ export class Interacao {
     this.atualizarConvite(festa, pessoa, status);
   }
 
-  aprovarConvite(festa: Festa, pessoa: string, aprovar: boolean): void {
+  aprovarConvite(festa: Festa, pessoa: string, aprovar: boolean) {
     const convite = this.buscarConvite(festa.id, pessoa);
     if (!convite || convite.status !== 'aguardando aprovação') {
       return;
@@ -112,7 +112,7 @@ export class Interacao {
     this.atualizarConvite(festa, pessoa, status);
   }
 
-  private atualizarConvite(festa: Festa, pessoa: string, status: string): void {
+  private atualizarConvite(festa: Festa, pessoa: string, status: string) {
     const lista: Convite[] = [];
     for (const convite of this.convites()) {
       if (convite.festaId === festa.id && convite.pessoa === pessoa) {
@@ -168,7 +168,7 @@ export class Interacao {
     return status === 'cancelada' || status === 'encerrada';
   }
 
-  alternarEspera(festa: Festa): void {
+  alternarEspera(festa: Festa) {
     if (this.fechada(festa) || this.confirmadas().includes(festa.id)) {
       return;
     }
@@ -186,12 +186,12 @@ export class Interacao {
     }
   }
 
-  private removerEspera(id: number): void {
+  private removerEspera(id: number) {
     this.espera.set(this.removerNumero(this.espera(), id));
     salvarDados('festou-espera', this.espera());
   }
 
-  favoritar(id: number): void {
+  favoritar(id: number) {
     if (this.favoritos().includes(id)) {
       this.favoritos.set(this.removerNumero(this.favoritos(), id));
     } else {
@@ -200,7 +200,7 @@ export class Interacao {
     salvarDados('festou-favoritos', this.favoritos());
   }
 
-  confirmar(id: number): void {
+  confirmar(id: number) {
     if (this.confirmadas().includes(id)) {
       this.confirmadas.set(this.removerNumero(this.confirmadas(), id));
     } else {
@@ -210,7 +210,7 @@ export class Interacao {
     this.removerEspera(id);
   }
 
-  private salvarResposta(id: number, status: string): void {
+  private salvarResposta(id: number, status: string) {
     const lista: Resposta[] = [];
     for (const resposta of this.respostas()) {
       if (resposta.festaId !== id) {
@@ -221,7 +221,7 @@ export class Interacao {
     salvarRespostas(this.respostas());
   }
 
-  pedirParticipacao(id: number): void {
+  pedirParticipacao(id: number) {
     if (this.pedidos().includes(id) || this.confirmadas().includes(id)) {
       return;
     }
@@ -231,7 +231,7 @@ export class Interacao {
     this.avisos.adicionar('Seu pedido de participação foi enviado.', id);
   }
 
-  responderPedido(festa: Festa, aprovar: boolean): void {
+  responderPedido(festa: Festa, aprovar: boolean) {
     if (!this.pedidos().includes(festa.id) || festa.tipo !== 'privada') {
       return;
     }
@@ -252,14 +252,14 @@ export class Interacao {
     this.avisos.adicionar('Seu pedido para ' + festa.nome + ' foi ' + status + '.', festa.id);
   }
 
-  comprarIngresso(id: number): void {
+  comprarIngresso(id: number) {
     if (!this.ingressos().includes(id)) {
       this.ingressos.update((lista) => [...lista, id]);
       salvarDados('festou-ingressos', this.ingressos());
     }
   }
 
-  comentar(id: number, texto: string): void {
+  comentar(id: number, texto: string) {
     if (!texto.trim()) {
       return;
     }
@@ -268,7 +268,7 @@ export class Interacao {
     salvarComentarios(this.comentarios());
   }
 
-  adicionarAmigo(id: number, pessoa: string): void {
+  adicionarAmigo(id: number, pessoa: string) {
     if (!pessoa) {
       return;
     }

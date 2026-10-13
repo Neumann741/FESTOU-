@@ -55,7 +55,7 @@ export class PlaylistPage {
     return quantidade + ' votos';
   }
 
-  adicionar(): void {
+  adicionar() {
     this.playlist.adicionar(this.festaId(), {
       nome: this.nome,
       artista: this.artista,
@@ -65,7 +65,7 @@ export class PlaylistPage {
     this.artista = '';
     this.link = '';
   }
-  remover(indice: number): void {
+  remover(indice: number) {
     this.playlist.remover(this.festaId(), indice);
   }
 }

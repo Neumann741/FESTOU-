@@ -18,13 +18,13 @@ export class CardGerenciamento {
   private readonly festaService = inject(FestaService);
   private readonly avisos = inject(Avisos);
 
-  alterarStatus(status: Festa['status']): void {
+  alterarStatus(status: Festa['status']) {
     if (!status || this.festa.status === status) return;
     this.festaService.atualizarFesta({ ...this.festa, status });
     this.avisos.adicionar(`${this.festa.nome}: status alterado para ${status}.`, this.festa.id);
   }
 
-  excluir(): void { this.festaService.removerFesta(this.festa.id); }
+  excluir() { this.festaService.removerFesta(this.festa.id); }
 
   tipoDaFesta(): string {
     if (this.festa.tipo === 'privada') return 'Privada';

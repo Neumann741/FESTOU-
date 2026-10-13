@@ -19,7 +19,7 @@ export class Usuario {
     },
   );
 
-  salvar(perfil: DadosPerfil): void {
+  salvar(perfil: DadosPerfil) {
     this.perfil.set(perfil);
     salvarDados('festou-perfil', perfil);
   }

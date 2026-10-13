@@ -22,7 +22,7 @@ export class Avisos {
     return quantidade;
   }
 
-  adicionar(texto: string, festaId: number): void {
+  adicionar(texto: string, festaId: number) {
     let id = Date.now();
     for (const aviso of this.lista()) {
       if (aviso.id >= id) {
@@ -36,7 +36,7 @@ export class Avisos {
     this.salvar();
   }
 
-  marcarLidos(): void {
+  marcarLidos() {
     const lista: Aviso[] = [];
     for (const aviso of this.lista()) {
       aviso.lido = true;
@@ -46,7 +46,7 @@ export class Avisos {
     this.salvar();
   }
 
-  private salvar(): void {
+  private salvar() {
     salvarDados('festou-avisos', this.lista());
   }
 }

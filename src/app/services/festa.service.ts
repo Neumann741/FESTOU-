@@ -21,7 +21,7 @@ export class FestaService {
     return festa;
   }
 
-  removerFesta(id: number): void {
+  removerFesta(id: number) {
     const lista: Festa[] = [];
     for (const festa of this.festas()) {
       if (festa.id !== id) {
@@ -32,7 +32,7 @@ export class FestaService {
     this.festas.set(lista);
   }
 
-  atualizarFesta(festaAtualizada: Festa): void {
+  atualizarFesta(festaAtualizada: Festa) {
     const lista: Festa[] = [];
     for (const festa of this.festas()) {
       if (festa.id === festaAtualizada.id) {
@@ -72,7 +72,7 @@ export class FestaService {
     return normalizadas;
   }
 
-  private salvarFestas(festas: Festa[]): void {
+  private salvarFestas(festas: Festa[]) {
     salvarDados(this.chave, festas);
   }
 }
