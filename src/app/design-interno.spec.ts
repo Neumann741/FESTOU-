@@ -10,6 +10,7 @@ describe('Navegação do design interno', () => {
   it('mantém a Home sem o menu e sem os estilos internos', async () => {
     TestBed.configureTestingModule({ providers: [provideRouter([
       { path: 'home-page', component: TelaTeste },
+      { path: 'login', component: TelaTeste },
       { path: 'perfil', component: TelaTeste },
     ])] });
     const fixture = TestBed.createComponent(App);
@@ -27,6 +28,11 @@ describe('Navegação do design interno', () => {
     await router.navigateByUrl('/home-page');
     await fixture.whenStable();
     fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.area-interna')).toBeNull();
+    await router.navigateByUrl('/login');
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-navegacao-interna')).toBeNull();
     expect(fixture.nativeElement.querySelector('.area-interna')).toBeNull();
   });
 });

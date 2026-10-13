@@ -12,11 +12,13 @@ import { NavegacaoInterna } from './componentes/navegacao-interna/navegacao-inte
 })
 export class App {
   private readonly router = inject(Router);
-  readonly home = signal(true);
+  readonly paginaSemMenu = signal(true);
 
   constructor() {
-    const atualizar = (url: string) =>
-      this.home.set(url.split(/[?#]/)[0] === '/home-page' || url === '/');
+    const atualizar = (url: string) => {
+      const pagina = url.split(/[?#]/)[0];
+      this.paginaSemMenu.set(pagina === '/home-page' || pagina === '/login' || pagina === '/');
+    };
     atualizar(this.router.url);
     this.router.events.pipe(takeUntilDestroyed()).subscribe((evento) => {
       if (evento instanceof NavigationEnd) atualizar(evento.urlAfterRedirects);
