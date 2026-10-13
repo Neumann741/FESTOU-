@@ -25,10 +25,15 @@ describe('Edição de festas', () => {
     const servico = TestBed.inject(FestaService);
     const atualizar = vi.spyOn(servico, 'atualizarFesta');
     vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
-    componente['dados'].update((dados) => ({ ...dados, nome: 'Nome editado' }));
+    componente['dados'].update((dados) => ({
+      ...dados,
+      nome: 'Nome editado',
+      imagem: 'https://exemplo.com/nova-capa.jpg',
+    }));
     componente['criarFesta'](new Event('submit') as SubmitEvent);
     expect(atualizar).toHaveBeenCalledOnce();
     expect(atualizar.mock.calls[0][0].nome).toBe('Nome editado');
+    expect(atualizar.mock.calls[0][0].imagem).toBe('https://exemplo.com/nova-capa.jpg');
     expect(atualizar.mock.calls[0][0].id).toBe(1);
   });
 

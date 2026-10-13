@@ -36,5 +36,15 @@ describe('GaleriaPage', () => {
   it('deve renderizar o conteúdo', () => {
     expect(fixture.nativeElement.textContent.trim().length).toBeGreaterThan(0);
   });
+
+  it('deve editar o link de uma foto', () => {
+    componente.galeria.adicionar(1, 'foto-antiga.jpg');
+    componente.iniciarEdicao(0, 'foto-antiga.jpg');
+    componente.novoLink = 'foto-nova.jpg';
+    componente.salvarEdicao();
+
+    expect(componente.galeria.fotosDaFesta(1)[0].link).toBe('foto-nova.jpg');
+    expect(componente.fotoEditando).toBe(-1);
+  });
 });
 

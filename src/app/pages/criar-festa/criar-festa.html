@@ -51,6 +51,18 @@
       </div>
 
       <div class="grupo">
+        <label>Link da foto de capa</label>
+        <input
+          type="text"
+          [formField]="formulario.imagem"
+          placeholder="https://... ou assets/img1.jpg"
+        />
+        @if (dados().imagem) {
+          <img class="foto-capa" [src]="dados().imagem" />
+        }
+      </div>
+
+      <div class="grupo">
         <label>Limite de participantes (opcional)</label>
         <input
           type="number"

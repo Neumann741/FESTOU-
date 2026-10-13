@@ -18,6 +18,25 @@ export class Galeria {
     salvarDados('festou-galeria', fotos);
   }
 
+  editar(festaId: number, indice: number, link: string): void {
+    if (!link.trim()) return;
+
+    const fotos = [...this.fotos()];
+    let posicaoNaFesta = 0;
+
+    for (let i = 0; i < fotos.length; i++) {
+      if (fotos[i].festaId === festaId) {
+        if (posicaoNaFesta === indice) {
+          fotos[i] = { ...fotos[i], link };
+          this.fotos.set(fotos);
+          salvarDados('festou-galeria', fotos);
+          return;
+        }
+        posicaoNaFesta++;
+      }
+    }
+  }
+
   fotosDaFesta(id: number): FotoGaleria[] {
     const resultado: FotoGaleria[] = [];
     for (const foto of this.fotos()) {
