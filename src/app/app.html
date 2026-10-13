@@ -1,6 +1,6 @@
-<div [class.area-interna]="!home()">
-  @if (!home()) {
+<div [class.area-interna]="!paginaSemMenu()">
+  @if (!paginaSemMenu()) {
     <app-navegacao-interna />
   }
-  <div [class.conteudo-interno]="!home()"><router-outlet /></div>
+  <div [class.conteudo-interno]="!paginaSemMenu()"><router-outlet /></div>
 </div>
