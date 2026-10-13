@@ -8,81 +8,85 @@
           {{ iniciais() }}
         }
       </div>
+
       <div class="nome-social">
         <h1>{{ usuario.perfil().nome }}</h1>
         <p class="bio-social">{{ usuario.perfil().bio }}</p>
+
         <div class="gostos-social">
           @for (estilo of estilos(); track $index) {
             <span>{{ estilo }}</span>
           }
         </div>
       </div>
+
       <a class="editar-social" routerLink="/editar-perfil">Editar perfil</a>
     </section>
+
     <div class="resumo-social">
-      <button (click)="aba.set('confirmadas')">
+      <button (click)="mudarAba('confirmadas')">
         <strong>{{ confirmadas().length }}</strong> confirmadas
       </button>
-      <button (click)="aba.set('salvas')">
+      <button (click)="mudarAba('salvas')">
         <strong>{{ salvas().length }}</strong> salvas
       </button>
       <span
         ><strong>{{ amigos.length }}</strong> amigos</span
       >
     </div>
+
     <div class="corpo-social">
       <section class="colecao-social">
         <div class="abas-social">
-          <button [class.selecionada]="aba() === 'confirmadas'" (click)="aba.set('confirmadas')">
+          <button [class.selecionada]="aba() === 'confirmadas'" (click)="mudarAba('confirmadas')">
             Confirmadas <span>{{ confirmadas().length }}</span>
           </button>
-          <button [class.selecionada]="aba() === 'salvas'" (click)="aba.set('salvas')">
+          <button [class.selecionada]="aba() === 'salvas'" (click)="mudarAba('salvas')">
             Salvas <span>{{ salvas().length }}</span>
           </button>
         </div>
+
         <div class="grade-social">
           @for (festa of exibidas(); track festa.id) {
             <a class="evento-social" [routerLink]="['/festa', festa.id]">
               <div class="imagem-social">
-                <img [src]="festa.imagem" /><span>{{ festa.categoria }}</span>
+                <img [src]="festa.imagem" />
+                <span>{{ festa.categoria }}</span>
               </div>
+
               <div class="info-social">
                 <p>{{ festa.data }} · {{ festa.horario }}</p>
                 <h2>{{ festa.nome }}</h2>
                 <span>{{ festa.local }} · {{ festa.cidade }}</span>
+
                 <div class="rodape-social">
-                  <span>{{
-                    aba() === 'confirmadas' ? '✓ Presença confirmada' : '♡ Na sua lista'
-                  }}</span
-                  ><b>↗</b>
+                  <span>{{ textoDaFesta() }}</span>
+                  <b>↗</b>
                 </div>
               </div>
             </a>
           } @empty {
             <div class="vazio-social">
               <h2>Nenhuma festa nesta lista</h2>
-              <p>
-                {{
-                  aba() === 'confirmadas'
-                    ? 'Confirme presença em uma festa para encontrá-la aqui.'
-                    : 'Salve as festas que você quer conhecer.'
-                }}
-              </p>
+              <p>{{ textoVazio() }}</p>
               <a routerLink="/vitrine">Descobrir festas →</a>
             </div>
           }
         </div>
       </section>
+
       <aside class="lateral-social">
         <a class="mapa-social" routerLink="/agenda">Minha agenda e histórico →</a>
-        <a class="mapa-social" routerLink="/notificacoes"
-          >Notificações · {{ avisos.naoLidos() }} novas →</a
-        >
+        <a class="mapa-social" routerLink="/notificacoes">
+          Notificações · {{ avisos.naoLidos() }} novas →
+        </a>
+
         <section class="amigos-social">
           <div class="titulo-social">
             <h2>Amigos</h2>
             <span>{{ amigos.length }}</span>
           </div>
+
           @for (amigo of amigos; track amigo.nome; let i = $index) {
             <div class="pessoa-social">
               <span
@@ -90,8 +94,9 @@
                 [class.tom-rosa]="i === 1"
                 [class.tom-verde]="i === 2"
                 [class.tom-azul]="i === 3"
-                >{{ amigo.nome[0] }}</span
               >
+                {{ amigo.nome[0] }}
+              </span>
               <div>
                 <strong>{{ amigo.nome }}</strong>
                 <p>{{ amigo.estilo }}</p>
@@ -99,6 +104,7 @@
             </div>
           }
         </section>
+
         <a class="gerenciar-social" routerLink="/minhas-festas">Gerenciar minhas festas</a>
         <a class="mapa-social" routerLink="/mapa-page">⌖ Explorar o mapa →</a>
       </aside>

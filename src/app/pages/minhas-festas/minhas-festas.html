@@ -1,5 +1,6 @@
 <main class="minhas-festas">
   <a class="voltar-interno" routerLink="/perfil">← Voltar ao perfil</a>
+
   <header>
     <div>
       <p>PAINEL DO ORGANIZADOR</p>
@@ -7,34 +8,35 @@
     </div>
     <a routerLink="/criar-festa">+ Criar festa</a>
   </header>
-  <p>
-    Demonstração local: você pode gerenciar as festas fictícias e testar as respostas aos seus
-    próprios pedidos.
-  </p>
+
+  <p>Gerencie as festas fictícias criadas neste computador.</p>
+
   <section class="lista-festas">
     @for (festa of festas(); track festa.id) {
       <div class="gerenciamento">
         <article class="festa">
           <img class="capa-gerenciamento" [src]="festa.imagem" />
+
           <div>
             <h2>{{ festa.nome }}</h2>
             <p>{{ festa.data }} · {{ festa.horario }} · {{ festa.local }}</p>
-            <span
-              >{{ festa.categoria }} · {{ festa.tipo === 'privada' ? 'Privada' : 'Pública' }}</span
-            >
+            <span>{{ festa.categoria }} · {{ tipoDaFesta(festa) }}</span>
           </div>
+
           <div class="acoes">
-            <a [routerLink]="['/editar-festa', festa.id]">Editar</a
-            ><a [routerLink]="['/festa', festa.id]">Ver festa ↗</a
-            ><button (click)="excluir(festa.id)">Excluir</button>
+            <a [routerLink]="['/editar-festa', festa.id]">Editar</a>
+            <a [routerLink]="['/festa', festa.id]">Ver festa ↗</a>
+            <button (click)="excluir(festa.id)">Excluir</button>
           </div>
         </article>
+
         @if (festa.tipo === 'privada') {
           <section class="pedidos">
             <h3>Pedidos de participação</h3>
+
             @for (convite of interacao.convitesDaFesta(festa.id); track convite.pessoa) {
               @if (convite.status === 'aguardando aprovação') {
-                <p>{{ convite.pessoa }} aceitou seu convite e aguarda aprovação.</p>
+                <p>{{ convite.pessoa }} aguarda aprovação.</p>
                 <button
                   (click)="interacao.aprovarConvite(festa, convite.pessoa, true)"
                   [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
@@ -46,8 +48,9 @@
                 </button>
               }
             }
+
             @if (interacao.pedidos().includes(festa.id)) {
-              <p>Você (participante da demonstração) pediu para participar.</p>
+              <p>Você pediu para participar.</p>
               <button
                 (click)="interacao.responderPedido(festa, true)"
                 [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
@@ -57,9 +60,8 @@
               <button class="recusar" (click)="interacao.responderPedido(festa, false)">
                 Recusar
               </button>
-              @if (
-                festa.limiteParticipantes && festa.pessoasConfirmadas >= festa.limiteParticipantes
-              ) {
+
+              @if (semVagas(festa)) {
                 <p>Sem vagas para aprovar. Aumente o limite de participantes.</p>
               }
             } @else {
@@ -67,18 +69,17 @@
             }
           </section>
         }
+
         @if (interacao.espera().includes(festa.id)) {
           <section class="pedidos">
             <h3>Lista de espera</h3>
-            <p>
-              Você está aguardando uma vaga nesta festa. Edite o limite para disponibilizar mais
-              vagas.
-            </p>
+            <p>Você está aguardando uma vaga nesta festa.</p>
           </section>
         }
+
         <section class="pedidos">
-          <label
-            >Status da festa
+          <label>
+            Status da festa
             <select
               [ngModel]="festa.status || 'publicada'"
               (ngModelChange)="alterarStatus(festa, $event)"
@@ -89,10 +90,8 @@
               <option value="encerrada">Encerrada</option>
             </select>
           </label>
-          <p>
-            Status atual: {{ interacao.status(festa) }}. A lotação e o fim da data da festa também
-            atualizam o status automaticamente.
-          </p>
+
+          <p>Status atual: {{ interacao.status(festa) }}</p>
         </section>
       </div>
     } @empty {

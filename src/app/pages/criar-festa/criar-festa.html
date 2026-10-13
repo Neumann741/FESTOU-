@@ -1,6 +1,6 @@
 <main class="pagina-criar">
   <section class="caixa-formulario">
-    <h1>{{ original ? 'Editar festa' : 'Criar festa' }}</h1>
+    <h1>{{ titulo() }}</h1>
     @if (indisponivel) {
       <p class="mensagem">Festa não encontrada. Volte e escolha outra festa.</p>
     }
@@ -112,12 +112,8 @@
 
       <div class="botoes">
         <button class="botao-cancelar" type="button" (click)="cancelar()">Cancelar</button>
-        <button
-          class="botao-publicar"
-          type="submit"
-          [disabled]="formulario().invalid() || buscando() || indisponivel"
-        >
-          {{ original ? 'Salvar alterações' : 'Publicar festa' }}
+        <button class="botao-publicar" type="submit" [disabled]="formularioDesabilitado()">
+          {{ textoBotao() }}
         </button>
       </div>
     </form>

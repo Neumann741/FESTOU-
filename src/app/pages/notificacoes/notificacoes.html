@@ -10,7 +10,7 @@
   <section>
     @for (aviso of avisos.lista(); track aviso.id) {
       <article [class.novo]="!aviso.lido">
-        <small>{{ aviso.data }} · {{ aviso.lido ? 'Lida' : 'Nova' }}</small>
+        <small>{{ aviso.data }} · {{ situacao(aviso.lido) }}</small>
         <p>{{ aviso.texto }}</p>
         <a [routerLink]="['/festa', aviso.festaId]">Ver festa →</a>
       </article>

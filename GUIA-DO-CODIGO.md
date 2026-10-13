@@ -27,6 +27,12 @@ As duas primeiras linhas são a lógica do cadastro. A última pede à integraç
 5. `src/app/pages/criar-festa/criar-festa.ts`: formulário e validações separadas de preço e limite.
 6. `src/app/services/interacao.ts`: regras de participação, convites e amigos.
 
+## HTML das páginas
+
+Os templates usam somente a estrutura visual, `@if`, `@for`, bindings, eventos e `ngModel`, como nos exercícios.
+
+Textos que dependem de várias condições ficam em métodos com nomes simples no arquivo `.ts`. Por exemplo, o HTML chama `textoPresenca(festa)` em vez de montar três respostas diferentes dentro de `{{ }}`. Isso mantém o HTML fácil de ler sem alterar as classes CSS nem o visual.
+
 As festas ficam em um único `signal` no serviço. Perfil, agenda, destaques e minhas festas consultam essa mesma lista.
 
 ## O que continua fora dos exercícios

@@ -58,6 +58,22 @@ export class CriarFesta {
   private enderecoEncontrado = '';
   protected indisponivel = false;
 
+  protected titulo(): string {
+    if (this.original) return 'Editar festa';
+    return 'Criar festa';
+  }
+
+  protected textoBotao(): string {
+    if (this.original) return 'Salvar alterações';
+    return 'Publicar festa';
+  }
+
+  protected formularioDesabilitado(): boolean {
+    if (this.formulario().invalid()) return true;
+    if (this.buscando()) return true;
+    return this.indisponivel;
+  }
+
   constructor() {
     const id = inject(ActivatedRoute).snapshot.paramMap.get('id');
     if (!id) return;

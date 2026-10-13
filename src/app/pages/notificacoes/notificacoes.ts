@@ -10,4 +10,9 @@ import { Avisos } from '../../services/avisos';
 })
 export class Notificacoes {
   readonly avisos = inject(Avisos);
+
+  situacao(lido: boolean): string {
+    if (lido) return 'Lida';
+    return 'Nova';
+  }
 }

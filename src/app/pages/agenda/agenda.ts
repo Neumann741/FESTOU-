@@ -15,6 +15,10 @@ export class Agenda {
   readonly interacao = inject(Interacao);
   readonly festas = inject(FestaService).festas;
   aba = signal('proximas');
+
+  mudarAba(nome: string): void {
+    this.aba.set(nome);
+  }
   lista(): Festa[] {
     const resultado: Festa[] = [];
 

@@ -87,6 +87,29 @@ export class Vitrine {
     else this.verDetalhes(festa);
   }
 
+  amigos(festa: Festa): string {
+    const amigos = this.interacao.amigosNaFesta(festa.id);
+    if (amigos.length === 1) return '👥 ' + amigos.join(', ') + ' vai';
+    return '👥 ' + amigos.join(', ') + ' vão';
+  }
+
+  participacaoDesabilitada(festa: Festa): boolean {
+    return (
+      this.interacao.pedidos().includes(festa.id) || this.interacao.confirmadas().includes(festa.id)
+    );
+  }
+
+  textoParticipacao(festa: Festa): string {
+    if (this.interacao.confirmadas().includes(festa.id)) return 'Participação aprovada';
+    if (this.interacao.pedidos().includes(festa.id)) return 'Pedido enviado';
+    return 'Pedir para participar';
+  }
+
+  imagem(festa: Festa): string {
+    if (festa.imagem) return 'url(' + festa.imagem + ')';
+    return '';
+  }
+
   dataLabel(data: string): string {
     return new Date(`${data}T00:00:00`)
       .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })

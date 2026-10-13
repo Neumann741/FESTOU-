@@ -27,4 +27,14 @@ export class MinhasFestas {
   excluir(id: number): void {
     this.festaService.removerFesta(id);
   }
+
+  tipoDaFesta(festa: Festa): string {
+    if (festa.tipo === 'privada') return 'Privada';
+    return 'Pública';
+  }
+
+  semVagas(festa: Festa): boolean {
+    if (!festa.limiteParticipantes) return false;
+    return festa.pessoasConfirmadas >= festa.limiteParticipantes;
+  }
 }

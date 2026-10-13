@@ -1,40 +1,96 @@
 @if (festa(); as evento) {
   <main class="detalhes">
     <a class="voltar" routerLink="/mapa-page">← Voltar ao mapa</a>
-    <section class="capa" [style.background-image]="'url(' + evento.imagem + ')'">
-      <div class="fundo"><p>{{ evento.categoria }}</p><h1>{{ evento.nome }}</h1><p>{{ evento.local }} · {{ evento.cidade }}</p></div>
+
+    <section class="capa" [style.background-image]="imagemDaCapa(evento)">
+      <div class="fundo">
+        <p>{{ evento.categoria }}</p>
+        <h1>{{ evento.nome }}</h1>
+        <p>{{ evento.local }} · {{ evento.cidade }}</p>
+      </div>
     </section>
+
     <section class="conteudo">
-      @if (evento.eventoGrande) { <p class="organizadora">Evento por {{ evento.organizadora }}</p> }
+      @if (evento.eventoGrande) {
+        <p class="organizadora">Evento por {{ evento.organizadora }}</p>
+      }
+
       <p>{{ evento.data }} às {{ evento.horario }}</p>
-      <h2>{{ evento.preco === 0 ? 'Grátis' : 'Ingresso ' + evento.preco }}</h2>
+      <h2>{{ preco(evento) }}</h2>
+
       <div class="botoes">
-        @if (interacao.fechada(evento)) { <p class="mensagem">Festa {{ interacao.status(evento) }} · Participações encerradas.</p>
+        @if (interacao.fechada(evento)) {
+          <p class="mensagem">Festa {{ interacao.status(evento) }} · Participações encerradas.</p>
         } @else if (interacao.lotada(evento) && !interacao.confirmadas().includes(evento.id)) {
-          <button (click)="interacao.alternarEspera(evento)">{{ interacao.espera().includes(evento.id) ? 'Sair da lista de espera' : 'Festa lotada · Entrar na lista de espera' }}</button>
+          <button (click)="interacao.alternarEspera(evento)">{{ textoEspera(evento) }}</button>
         } @else if (evento.tipo === 'privada' && !interacao.confirmadas().includes(evento.id)) {
-          <button (click)="pedirParticipacao()" [disabled]="interacao.pedidos().includes(evento.id)">{{ interacao.pedidos().includes(evento.id) ? 'Pedido enviado' : 'Pedir para participar' }}</button>
-        } @else { <button (click)="confirmar()">{{ interacao.confirmadas().includes(evento.id) ? 'Cancelar presença' : 'Confirmar presença' }}</button> }
-        <button (click)="favoritar()">{{ interacao.favoritos().includes(evento.id) ? '♥ Salva' : '♡ Salvar festa' }}</button>
+          <button
+            (click)="pedirParticipacao()"
+            [disabled]="interacao.pedidos().includes(evento.id)"
+          >
+            {{ textoPedido(evento) }}
+          </button>
+        } @else {
+          <button (click)="confirmar()">{{ textoPresenca(evento) }}</button>
+        }
+
+        <button (click)="favoritar()">{{ textoFavorito(evento) }}</button>
         <a [routerLink]="['/galeria', evento.id]">Ver galeria</a>
         <a [routerLink]="['/playlist', evento.id]">Montar playlist</a>
-        @if (evento.eventoGrande) { <button (click)="comprarIngresso()" [disabled]="interacao.fechada(evento)">{{ interacao.ingressos().includes(evento.id) ? 'Ingresso adquirido' : 'Comprar ingresso fictício' }}</button> }
+
+        @if (evento.eventoGrande) {
+          <button (click)="comprarIngresso()" [disabled]="interacao.fechada(evento)">
+            {{ textoIngresso(evento) }}
+          </button>
+        }
       </div>
-      @if (interacao.respostaDaFesta(evento.id) === 'recusado') { <p class="mensagem">Seu pedido foi recusado. Você pode enviar um novo pedido.</p> }
-      @if (interacao.espera().includes(evento.id)) { <p class="mensagem">Você está na lista de espera. {{ interacao.lotada(evento) ? 'A festa ainda está lotada.' : 'Há vagas! Confirme presença ou peça aprovação se a festa for privada.' }}</p> }
-      <h2>Quem vai</h2><p>{{ interacao.total(evento) }} pessoas confirmadas {{ evento.limiteParticipantes ? '· Limite: ' + evento.limiteParticipantes : '· Sem limite definido' }}</p>
-      @if (avisoIngresso) { <p class="mensagem">{{ avisoIngresso }}</p> }
+
+      @if (interacao.respostaDaFesta(evento.id) === 'recusado') {
+        <p class="mensagem">Seu pedido foi recusado. Você pode enviar um novo pedido.</p>
+      }
+
+      @if (interacao.espera().includes(evento.id)) {
+        <p class="mensagem">Você está na lista de espera. {{ textoListaEspera(evento) }}</p>
+      }
+
+      <h2>Quem vai</h2>
+      <p>{{ interacao.total(evento) }} pessoas confirmadas {{ textoLimite(evento) }}</p>
+
+      @if (avisoIngresso) {
+        <p class="mensagem">{{ avisoIngresso }}</p>
+      }
+
       @if (interacao.amigosNaFesta(evento.id).length) {
         <p>Seus amigos que vão:</p>
-        <div class="amigos">@for (pessoa of interacao.amigosNaFesta(evento.id); track pessoa) { <span>{{ pessoa }}</span> }</div>
-      } @else { <p>Nenhum amigo confirmou presença ainda.</p> }
-      <p>Use a seção “Convide sua galera” abaixo para chamar amigos fictícios.</p>
+        <div class="amigos">
+          @for (pessoa of interacao.amigosNaFesta(evento.id); track pessoa) {
+            <span>{{ pessoa }}</span>
+          }
+        </div>
+      } @else {
+        <p>Nenhum amigo confirmou presença ainda.</p>
+      }
+
+      <p>Use a seção “Convidar amigos” abaixo para chamar amigos fictícios.</p>
+
       <h2>Comentários</h2>
-      <div class="comentario"><input [(ngModel)]="comentario" placeholder="Escreva um comentário"><button (click)="enviarComentario()">Enviar</button></div>
-      @for (item of interacao.comentariosDaFesta(evento.id); track $index) { <p class="mensagem"><strong>{{ item.pessoa }}:</strong> {{ item.texto }}</p> }
+      <div class="comentario">
+        <input [(ngModel)]="comentario" placeholder="Escreva um comentário" />
+        <button (click)="enviarComentario()">Enviar</button>
+      </div>
+
+      @for (item of interacao.comentariosDaFesta(evento.id); track $index) {
+        <p class="mensagem">
+          <strong>{{ item.pessoa }}:</strong> {{ item.texto }}
+        </p>
+      }
     </section>
+
     <app-recursos-festa [festa]="evento" />
   </main>
 } @else {
-  <main class="detalhes"><h1>Festa não encontrada</h1><a routerLink="/vitrine">Explorar outras festas</a></main>
+  <main class="detalhes">
+    <h1>Festa não encontrada</h1>
+    <a routerLink="/vitrine">Explorar outras festas</a>
+  </main>
 }
