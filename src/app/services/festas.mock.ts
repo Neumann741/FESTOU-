@@ -185,10 +185,16 @@ export function criarFestasMock(hoje = new Date()): Festa[] {
     },
   ];
 
-  return festas.map((festa, index) => ({
-    ...festa,
-    cidade: 'Blumenau',
-    descricao: 'Uma noite para celebrar e encontrar amigos. Evento fictício para demonstração.',
-    imagem: `assets/img${(index % 6) + 1}.jpg`,
-  }));
+  let numeroImagem = 1;
+  for (const festa of festas) {
+    festa.descricao =
+      'Uma noite para celebrar e encontrar amigos. Evento fictício para demonstração.';
+    festa.imagem = 'assets/img' + numeroImagem + '.jpg';
+    numeroImagem++;
+    if (numeroImagem > 6) {
+      numeroImagem = 1;
+    }
+  }
+
+  return festas;
 }

@@ -55,7 +55,13 @@ export class Experiencias {
   avaliacoes = signal<Avaliacao[]>(lerAvaliacoes());
 
   avaliacoesDaFesta(id: number): Avaliacao[] {
-    return this.avaliacoes().filter((avaliacao) => avaliacao.festaId === id);
+    const resultado: Avaliacao[] = [];
+    for (const avaliacao of this.avaliacoes()) {
+      if (avaliacao.festaId === id) {
+        resultado.push(avaliacao);
+      }
+    }
+    return resultado;
   }
 
   podeAvaliar(festa: Festa, pessoa: string): boolean {
@@ -78,9 +84,14 @@ export class Experiencias {
       nota,
       comentario: comentario.trim().slice(0, 500),
     };
-    const anteriores = this.avaliacoes().filter((item) => {
-      return item.festaId !== festa.id || item.pessoa !== pessoa;
-    });
+    const anteriores: Avaliacao[] = [];
+    for (const item of this.avaliacoes()) {
+      const mesmaFesta = item.festaId === festa.id;
+      const mesmaPessoa = item.pessoa === pessoa;
+      if (!mesmaFesta || !mesmaPessoa) {
+        anteriores.push(item);
+      }
+    }
     this.avaliacoes.set([...anteriores, avaliacao]);
     salvarAvaliacoes(this.avaliacoes());
     return 'Avaliação salva! Uma nova avaliação substitui a anterior da mesma pessoa.';

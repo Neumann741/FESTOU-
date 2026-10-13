@@ -22,18 +22,25 @@ export class FestaService {
   }
 
   removerFesta(id: number): void {
-    const lista = this.festas().filter((festa) => festa.id !== id);
+    const lista: Festa[] = [];
+    for (const festa of this.festas()) {
+      if (festa.id !== id) {
+        lista.push(festa);
+      }
+    }
     this.salvarFestas(lista);
     this.festas.set(lista);
   }
 
   atualizarFesta(festaAtualizada: Festa): void {
-    const lista = this.festas().map((festa) => {
+    const lista: Festa[] = [];
+    for (const festa of this.festas()) {
       if (festa.id === festaAtualizada.id) {
-        return festaAtualizada;
+        lista.push(festaAtualizada);
+      } else {
+        lista.push(festa);
       }
-      return festa;
-    });
+    }
     this.salvarFestas(lista);
     this.festas.set(lista);
   }
@@ -52,7 +59,12 @@ export class FestaService {
       normalizadas.push(festa);
     }
     for (const festa of padrao) {
-      const existe = normalizadas.some((item) => item.id === festa.id);
+      let existe = false;
+      for (const item of normalizadas) {
+        if (item.id === festa.id) {
+          existe = true;
+        }
+      }
       if (!existe) {
         normalizadas.push(festa);
       }
