@@ -95,12 +95,13 @@ describe('Funcionalidades locais da Festou', () => {
     const servico = new FestaService();
     const criada = servico.criarFesta({ ...festa, imagem: 'assets/img1.jpg' });
     servico.atualizarFesta({ ...criada, nome: 'Nome atualizado' });
-    new FestaService().getFestas().subscribe((lista) => {
+    const lista = new FestaService().festas();
+    {
       expect(lista.filter((item) => item.id === criada.id).length).toBe(1);
       expect(lista.find((item) => item.id === criada.id)).toEqual({
         ...criada,
         nome: 'Nome atualizado',
       });
-    });
+    }
   });
 });

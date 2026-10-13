@@ -1,5 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Festa } from '../../models/festa';
@@ -14,30 +13,35 @@ import { Interacao } from '../../services/interacao';
 })
 export class Agenda {
   readonly interacao = inject(Interacao);
-  festas = signal<Festa[]>([]);
+  readonly festas = inject(FestaService).festas;
   aba = signal('proximas');
-  lista = computed(() =>
-    this.festas()
-      .filter((festa) => {
-        if (!this.interacao.confirmadas().includes(festa.id)) return false;
-        const status = this.interacao.status(festa);
-        return this.aba() === 'historico'
-          ? status === 'encerrada'
-          : this.aba() === 'canceladas'
-            ? status === 'cancelada'
-            : !this.interacao.fechada(festa);
-      })
-      .sort(
-        (a, b) =>
-          (a.data + a.horario).localeCompare(b.data + b.horario) *
-          (this.aba() === 'historico' ? -1 : 1),
-      ),
-  );
+  lista(): Festa[] {
+    const resultado: Festa[] = [];
 
-  constructor() {
-    inject(FestaService)
-      .getFestas()
-      .pipe(takeUntilDestroyed())
-      .subscribe((festas) => this.festas.set(festas));
+    for (const festa of this.festas()) {
+      if (!this.interacao.confirmadas().includes(festa.id)) {
+        continue;
+      }
+
+      const status = this.interacao.status(festa);
+      if (this.aba() === 'historico' && status === 'encerrada') {
+        resultado.push(festa);
+      } else if (this.aba() === 'canceladas' && status === 'cancelada') {
+        resultado.push(festa);
+      } else if (this.aba() === 'proximas' && !this.interacao.fechada(festa)) {
+        resultado.push(festa);
+      }
+    }
+
+    resultado.sort((primeira, segunda) => {
+      const ordem = (primeira.data + primeira.horario).localeCompare(
+        segunda.data + segunda.horario,
+      );
+      if (this.aba() === 'historico') {
+        return -ordem;
+      }
+      return ordem;
+    });
+    return resultado;
   }
 }

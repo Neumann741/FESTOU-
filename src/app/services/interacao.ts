@@ -11,15 +11,32 @@ export interface Convite {
   status: 'pendente' | 'aguardando aprovação' | 'confirmado' | 'recusado';
 }
 
+// Estes objetos preservam os dados já salvos no localStorage.
+interface RespostasPorFesta {
+  [festaId: number]: string;
+}
+
+interface ConvitesPorFesta {
+  [festaId: number]: Convite[];
+}
+
+interface AmigosPorFesta {
+  [festaId: number]: string[];
+}
+
+interface ComentariosPorFesta {
+  [festaId: number]: Comentario[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class Interacao {
   private readonly avisos = inject(Avisos);
   favoritos = signal<number[]>(this.ler('festou-favoritos', [2, 5]));
   confirmadas = signal<number[]>(this.ler('festou-confirmadas', [1, 4]));
   pedidos = signal<number[]>(this.ler('festou-pedidos', []));
-  respostas = signal<Record<number, string>>(this.ler('festou-respostas', {}));
+  respostas = signal<RespostasPorFesta>(this.ler('festou-respostas', {}));
   espera = signal<number[]>(this.ler('festou-espera', []));
-  convites = signal<Record<number, Convite[]>>(this.ler('festou-convites', {}));
+  convites = signal<ConvitesPorFesta>(this.ler('festou-convites', {}));
 
   convidar(festa: Festa, pessoa: string): string {
     if (!this.pessoas.includes(pessoa)) return 'Escolha um amigo.';
@@ -42,11 +59,14 @@ export class Interacao {
     const convite = (this.convites()[festa.id] || []).find((item) => item.pessoa === pessoa);
     if (!convite || convite.status !== 'pendente') return;
     if (aceitar && (this.fechada(festa) || this.lotada(festa))) return;
-    this.atualizarConvite(
-      festa,
-      pessoa,
-      aceitar ? (festa.tipo === 'privada' ? 'aguardando aprovação' : 'confirmado') : 'recusado',
-    );
+    let status: Convite['status'] = 'recusado';
+    if (aceitar) {
+      status = 'confirmado';
+      if (festa.tipo === 'privada') {
+        status = 'aguardando aprovação';
+      }
+    }
+    this.atualizarConvite(festa, pessoa, status);
   }
 
   aprovarConvite(festa: Festa, pessoa: string, aprovar: boolean): void {
@@ -68,11 +88,16 @@ export class Interacao {
   }
 
   total(festa: Festa): number {
-    return (
-      festa.pessoasConfirmadas +
-      (this.confirmadas().includes(festa.id) ? 1 : 0) +
-      (this.convites()[festa.id] || []).filter((item) => item.status === 'confirmado').length
-    );
+    let quantidade = festa.pessoasConfirmadas;
+    if (this.confirmadas().includes(festa.id)) {
+      quantidade++;
+    }
+    for (const convite of this.convites()[festa.id] || []) {
+      if (convite.status === 'confirmado') {
+        quantidade++;
+      }
+    }
+    return quantidade;
   }
 
   lotada(festa: Festa): boolean {
@@ -114,14 +139,14 @@ export class Interacao {
   }
   ingressos = signal<number[]>(this.ler('festou-ingressos', []));
   pessoas = ['Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
-  amigosPorFesta = signal<Record<number, string[]>>(
+  amigosPorFesta = signal<AmigosPorFesta>(
     this.ler('festou-amigos-festas', {
       1: ['Ana', 'João'],
       2: ['Lívia'],
       5: ['Pedro', 'Marina'],
     }),
   );
-  comentarios = signal<Record<number, Comentario[]>>(
+  comentarios = signal<ComentariosPorFesta>(
     this.ler('festou-comentarios', {
       1: [{ pessoa: 'Ana', texto: 'Eu vou! Vai ser demais.' }],
       2: [{ pessoa: 'João', texto: 'Já chamei toda a galera.' }],
@@ -130,14 +155,24 @@ export class Interacao {
 
   favoritar(id: number): void {
     const lista = this.favoritos();
-    const favoritos = lista.includes(id) ? lista.filter((festa) => festa !== id) : [...lista, id];
+    let favoritos: number[];
+    if (lista.includes(id)) {
+      favoritos = lista.filter((festa) => festa !== id);
+    } else {
+      favoritos = [...lista, id];
+    }
     this.favoritos.set(favoritos);
     this.salvar('festou-favoritos', favoritos);
   }
 
   confirmar(id: number): void {
     const lista = this.confirmadas();
-    const confirmadas = lista.includes(id) ? lista.filter((festa) => festa !== id) : [...lista, id];
+    let confirmadas: number[];
+    if (lista.includes(id)) {
+      confirmadas = lista.filter((festa) => festa !== id);
+    } else {
+      confirmadas = [...lista, id];
+    }
     this.confirmadas.set(confirmadas);
     this.salvar('festou-confirmadas', confirmadas);
     this.removerEspera(id);
@@ -194,14 +229,18 @@ export class Interacao {
   }
 
   amigosNaFesta(id: number): string[] {
-    return [
-      ...new Set([
-        ...(this.amigosPorFesta()[id] || []),
-        ...(this.convites()[id] || [])
-          .filter((item) => item.status === 'confirmado')
-          .map((item) => item.pessoa),
-      ]),
-    ];
+    const amigos: string[] = [];
+    for (const pessoa of this.amigosPorFesta()[id] || []) {
+      if (!amigos.includes(pessoa)) {
+        amigos.push(pessoa);
+      }
+    }
+    for (const convite of this.convites()[id] || []) {
+      if (convite.status === 'confirmado' && !amigos.includes(convite.pessoa)) {
+        amigos.push(convite.pessoa);
+      }
+    }
+    return amigos;
   }
 
   private ler<T>(chave: string, padrao: T): T {

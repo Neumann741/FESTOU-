@@ -1,4 +1,4 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { afterNextRender, effect, untracked, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as L from 'leaflet';
@@ -49,9 +49,15 @@ export class Mapa {
       this.festaInicial = Number.isInteger(id) && id > 0 ? id : undefined;
       this.selecionarFestaDaUrl();
     });
-    this.service.getFestas().pipe(takeUntilDestroyed()).subscribe({
-      next: festas => { this.todos = festas; this.carregando.set(false); this.filtrar(); this.selecionarFestaDaUrl(); },
-      error: () => { this.carregando.set(false); this.mensagem.set('Não conseguimos carregar as festas. Tente recarregar a página.'); },
+    // Exceção do mapa: atualiza os marcadores quando a lista de festas muda.
+    effect(() => {
+      const festas = this.service.festas();
+      untracked(() => {
+        this.todos = festas;
+        this.carregando.set(false);
+        this.filtrar();
+        this.selecionarFestaDaUrl();
+      });
     });
     afterNextRender(() => {
       this.map = L.map(this.container().nativeElement).setView(this.config.centro, this.config.zoom);
