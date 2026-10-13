@@ -46,21 +46,6 @@
   border-top: 1px solid #333;
   padding-top: 24px;
 }
-.votante {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #aaa;
-  font-size: 12px;
-}
-.votante select {
-  padding: 7px 10px;
-}
-.instrucao-voto {
-  font-size: 11px;
-  color: #777;
-  margin: 12px 0 28px;
-}
 .titulo-lista {
   display: flex;
   justify-content: space-between;

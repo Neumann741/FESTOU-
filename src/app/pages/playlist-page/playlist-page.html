@@ -16,15 +16,6 @@
 
   <div class="conteudo">
     <section class="lista">
-      <label class="votante">
-        Votar como
-        <select [(ngModel)]="votante">
-          @for (pessoa of playlist.votantes; track pessoa) {
-            <option [value]="pessoa">{{ pessoa }}</option>
-          }
-        </select>
-      </label>
-
       <div class="titulo-lista">
         <h2>Músicas</h2>
         <span>{{ playlist.daFesta(festaId()).length }}</span>
@@ -44,7 +35,7 @@
               type="button"
               class="votar"
               [class.votada]="votou(musica.votos)"
-              (click)="playlist.votar(festaId(), $index, votante)"
+              (click)="playlist.votar(festaId(), $index, 'Você')"
             >
               {{ textoVoto(musica.votos) }}
             </button>

@@ -18,7 +18,6 @@ export class PlaylistPage {
   nome = '';
   artista = '';
   link = '';
-  votante = 'Você';
   private readonly rota = inject(ActivatedRoute);
   constructor() {
     this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1);
@@ -46,7 +45,7 @@ export class PlaylistPage {
 
   votou(votos: string[] | undefined): boolean {
     if (!votos) return false;
-    return votos.includes(this.votante);
+    return votos.includes('Você');
   }
 
   textoVoto(votos: string[] | undefined): string {
