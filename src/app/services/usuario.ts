@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { lerDados, salvarDados } from '../integracoes/armazenamento';
 
 export interface DadosPerfil {
   nome: string;
@@ -10,7 +11,7 @@ export interface DadosPerfil {
 @Injectable({ providedIn: 'root' })
 export class Usuario {
   perfil = signal<DadosPerfil>(
-    JSON.parse(localStorage.getItem('festou-perfil') || 'null') || {
+    lerDados<DadosPerfil | null>('festou-perfil', null) || {
       nome: 'Lucas Festou',
       foto: '',
       bio: 'Blumenau, SC · Música boa e a galera por perto.',
@@ -20,6 +21,6 @@ export class Usuario {
 
   salvar(perfil: DadosPerfil): void {
     this.perfil.set(perfil);
-    localStorage.setItem('festou-perfil', JSON.stringify(perfil));
+    salvarDados('festou-perfil', perfil);
   }
 }

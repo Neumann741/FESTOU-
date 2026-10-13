@@ -48,9 +48,9 @@ describe('Funcionalidades locais da Festou', () => {
     interacao.pedirParticipacao(festa.id);
     interacao.responderPedido(festa, false);
     expect(interacao.confirmadas()).not.toContain(festa.id);
-    expect(interacao.respostas()[festa.id]).toBe('recusado');
+    expect(interacao.respostaDaFesta(festa.id)).toBe('recusado');
     interacao.pedirParticipacao(festa.id);
-    expect(interacao.respostas()[festa.id]).toBe('pendente');
+    expect(interacao.respostaDaFesta(festa.id)).toBe('pendente');
   });
 
   it('impede aprovação quando não existem vagas', () => {

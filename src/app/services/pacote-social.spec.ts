@@ -49,7 +49,7 @@ describe('Pacote social da Festou', () => {
     const interacao = TestBed.inject(Interacao);
     interacao.convidar(festa, 'Ana');
     interacao.convidar(festa, 'Ana');
-    expect(interacao.convites()[festa.id].length).toBe(1);
+    expect(interacao.convitesDaFesta(festa.id).length).toBe(1);
     interacao.responderConvite(festa, 'Ana', true);
     interacao.responderConvite(festa, 'Ana', true);
     expect(interacao.total(festa)).toBe(1);
@@ -63,7 +63,7 @@ describe('Pacote social da Festou', () => {
     interacao.convidar(privada, 'Ana');
     interacao.responderConvite(privada, 'Ana', true);
     expect(interacao.total(privada)).toBe(0);
-    expect(interacao.convites()[festa.id][0].status).toBe('aguardando aprovação');
+    expect(interacao.convitesDaFesta(festa.id)[0].status).toBe('aguardando aprovação');
     interacao.aprovarConvite(privada, 'Ana', true);
     expect(interacao.total(privada)).toBe(1);
     TestBed.resetTestingModule();
@@ -75,9 +75,9 @@ describe('Pacote social da Festou', () => {
     interacao.convidar(festa, 'Ana');
     interacao.responderConvite({ ...festa, status: 'cancelada' }, 'Ana', true);
     interacao.responderConvite({ ...festa, pessoasConfirmadas: 1 }, 'Ana', true);
-    expect(interacao.convites()[festa.id][0].status).toBe('pendente');
+    expect(interacao.convitesDaFesta(festa.id)[0].status).toBe('pendente');
     interacao.responderConvite(festa, 'Ana', false);
-    expect(interacao.convites()[festa.id][0].status).toBe('recusado');
+    expect(interacao.convitesDaFesta(festa.id)[0].status).toBe('recusado');
     expect(interacao.total(festa)).toBe(0);
   });
 
@@ -108,7 +108,7 @@ describe('Pacote social da Festou', () => {
     experiencias.interacao.confirmar(festa.id);
     experiencias.interacao.adicionarAmigo(festa.id, 'Ana');
     experiencias.avaliar(festa, 'Você', 5, 'Ainda não aconteceu');
-    expect(experiencias.avaliacoes()[festa.id]).toBeUndefined();
+    expect(experiencias.avaliacoesDaFesta(festa.id)).toEqual([]);
     const encerrada: Festa = { ...festa, status: 'encerrada' };
     experiencias.avaliar(encerrada, 'Você', 5, 'Ótima');
     experiencias.avaliar(encerrada, 'Ana', 3, 'Boa');
@@ -116,7 +116,7 @@ describe('Pacote social da Festou', () => {
     experiencias.avaliar(encerrada, 'Você', 1, 'Atualizei');
     experiencias.avaliar(encerrada, 'Intruso', 5, 'Não participei');
     experiencias.avaliar(encerrada, 'Ana', 6, 'Inválida');
-    expect(experiencias.avaliacoes()[festa.id].length).toBe(2);
+    expect(experiencias.avaliacoesDaFesta(festa.id).length).toBe(2);
     expect(experiencias.media(festa.id)).toBe('2.0');
     TestBed.resetTestingModule();
     expect(TestBed.inject(Experiencias).media(festa.id)).toBe('2.0');
