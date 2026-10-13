@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Galeria } from '../../services/galeria';
@@ -14,11 +14,17 @@ export class GaleriaPage {
   foto = '';
   fotoEditando = -1;
   novoLink = '';
-  festaId = signal(1);
+  festaId = 1;
   private readonly rota = inject(ActivatedRoute);
 
-  constructor() { this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1); }
-  publicar() { this.galeria.adicionar(this.festaId(), this.foto); this.foto = ''; }
+  constructor() {
+    this.festaId = Number(this.rota.snapshot.paramMap.get('id')) || 1;
+  }
+
+  publicar() {
+    this.galeria.adicionar(this.festaId, this.foto);
+    this.foto = '';
+  }
 
   iniciarEdicao(indice: number, link: string) {
     this.fotoEditando = indice;
@@ -26,7 +32,7 @@ export class GaleriaPage {
   }
 
   salvarEdicao() {
-    this.galeria.editar(this.festaId(), this.fotoEditando, this.novoLink);
+    this.galeria.editar(this.festaId, this.fotoEditando, this.novoLink);
     this.cancelarEdicao();
   }
 

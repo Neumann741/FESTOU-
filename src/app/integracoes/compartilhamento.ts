@@ -1,4 +1,3 @@
-// Exceção: a área de transferência depende da API do navegador.
 export function linkDaFesta(id: number): string {
   return window.location.origin + '/festa/' + id;
 }

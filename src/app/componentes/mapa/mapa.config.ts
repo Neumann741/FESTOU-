@@ -4,8 +4,7 @@ export const MAPA_CONFIG = {
   zoomFesta: 16,
   raioKm: 5,
   tiles: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   maxZoom: 19,
-  // Ativar somente quando a página /festa/:id existir.
-  detalhesDisponiveis: true,
 };

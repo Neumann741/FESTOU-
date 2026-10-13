@@ -4,7 +4,6 @@ import { lerMusicas, salvarMusicas } from '../integracoes/armazenamento';
 
 @Injectable({ providedIn: 'root' })
 export class Playlist {
-  readonly votantes = ['Você', 'Ana', 'João', 'Lívia', 'Pedro', 'Marina', 'Caio'];
   musicas = signal<MusicaDaFesta[]>(lerMusicas());
 
   daFesta(id: number): MusicaDaFesta[] {
@@ -39,9 +38,6 @@ export class Playlist {
   }
 
   votar(festaId: number, indice: number, pessoa: string) {
-    if (!this.votantes.includes(pessoa)) {
-      return;
-    }
     const musica = this.daFesta(festaId)[indice];
     if (!musica) {
       return;
