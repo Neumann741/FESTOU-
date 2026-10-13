@@ -9,7 +9,6 @@ import { SobreNos } from '../../componentes/sobre-nos/sobre-nos';
 @Component({
   imports: [HeaderMain, Footer, ListaFestas, Mapa, GaleriaGeral, SobreNos],
   selector: 'app-main-page',
-  styleUrl: './main-page.css',
   templateUrl: './main-page.html',
 })
 export class MainPage {}
