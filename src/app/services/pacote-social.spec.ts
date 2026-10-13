@@ -5,7 +5,7 @@ import { Interacao } from './interacao';
 import { Experiencias } from './experiencias';
 import { Playlist } from './playlist';
 import { FestaService } from './festa.service';
-import { Vitrine } from '../pages/vitrine/vitrine';
+import { ListaFestas } from '../componentes/lista-festas/lista-festas';
 import { Agenda } from '../pages/agenda/agenda';
 import { RecursosFesta } from '../componentes/recursos-festa/recursos-festa';
 
@@ -136,7 +136,7 @@ describe('Pacote social da Festou', () => {
   });
 
   it('combina busca sem acentos, categoria, preço e amigos', () => {
-    const componente = TestBed.createComponent(Vitrine).componentInstance;
+    const componente = TestBed.createComponent(ListaFestas).componentInstance;
     componente.festas.set([festa, { ...festa, id: 901, preco: 60 }]);
     componente.interacao.adicionarAmigo(900, 'Ana');
     componente.busca.set('eletronica');
