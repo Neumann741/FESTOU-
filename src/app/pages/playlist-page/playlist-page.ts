@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Playlist } from '../../services/playlist';
@@ -14,16 +14,16 @@ import { FestaService } from '../../services/festa.service';
 export class PlaylistPage {
   private readonly festaService = inject(FestaService);
   readonly playlist = inject(Playlist);
-  festaId = signal(1);
+  festaId = 1;
   nome = '';
   artista = '';
   link = '';
   private readonly rota = inject(ActivatedRoute);
   constructor() {
-    this.festaId.set(Number(this.rota.snapshot.paramMap.get('id')) || 1);
+    this.festaId = Number(this.rota.snapshot.paramMap.get('id')) || 1;
   }
   festa(): Festa | undefined {
-    return this.festaService.festas().find((festa) => festa.id === this.festaId());
+    return this.festaService.festas().find((festa) => festa.id === this.festaId);
   }
 
   imagemDaFesta(): string {
@@ -56,7 +56,7 @@ export class PlaylistPage {
   }
 
   adicionar() {
-    this.playlist.adicionar(this.festaId(), {
+    this.playlist.adicionar(this.festaId, {
       nome: this.nome,
       artista: this.artista,
       link: this.link,
@@ -66,6 +66,6 @@ export class PlaylistPage {
     this.link = '';
   }
   remover(indice: number) {
-    this.playlist.remover(this.festaId(), indice);
+    this.playlist.remover(this.festaId, indice);
   }
 }

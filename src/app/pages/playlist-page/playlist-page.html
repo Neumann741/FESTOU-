@@ -1,6 +1,6 @@
 <main class="pagina-playlist">
   <nav class="navegacao">
-    <a [routerLink]="['/festa', festaId()]">← Voltar à festa</a>
+    <a [routerLink]="['/festa', festaId]">← Voltar à festa</a>
   </nav>
 
   <header class="cabecalho">
@@ -10,7 +10,7 @@
 
     <div class="apresentacao">
       <h1>{{ nomeDaFesta() }}</h1>
-      <span class="contador">{{ playlist.daFesta(festaId()).length }} músicas</span>
+      <span class="contador">{{ playlist.daFesta(festaId).length }} músicas</span>
     </div>
   </header>
 
@@ -18,10 +18,10 @@
     <section class="lista">
       <div class="titulo-lista">
         <h2>Músicas</h2>
-        <span>{{ playlist.daFesta(festaId()).length }}</span>
+        <span>{{ playlist.daFesta(festaId).length }}</span>
       </div>
 
-      @for (musica of playlist.daFesta(festaId()); track $index) {
+      @for (musica of playlist.daFesta(festaId); track $index) {
         <article class="faixa">
           <span class="numero">{{ $index + 1 }}</span>
 
@@ -35,7 +35,7 @@
               type="button"
               class="votar"
               [class.votada]="votou(musica.votos)"
-              (click)="playlist.votar(festaId(), $index, 'Você')"
+              (click)="playlist.votar(festaId, $index, 'Você')"
             >
               {{ textoVoto(musica.votos) }}
             </button>

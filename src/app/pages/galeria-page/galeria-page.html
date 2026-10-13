@@ -1,5 +1,5 @@
 <main class="galeria-pagina">
-  <a [routerLink]="['/festa', festaId()]">← Voltar à festa</a>
+  <a [routerLink]="['/festa', festaId]">← Voltar à festa</a>
   <h1>Fotos da festa</h1>
   <div class="enviar">
     <input [(ngModel)]="foto" placeholder="Cole o link da imagem aqui" /><button
@@ -9,7 +9,7 @@
     </button>
   </div>
   <section class="fotos">
-    @for (item of galeria.fotosDaFesta(festaId()); track $index) {
+    @for (item of galeria.fotosDaFesta(festaId); track $index) {
       <article>
         <img [src]="item.link" /><span>Enviado por {{ item.pessoa }}</span>
         @if (fotoEditando === $index) {

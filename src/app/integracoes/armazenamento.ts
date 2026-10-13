@@ -1,5 +1,3 @@
-// Exceção: acesso ao navegador e compatibilidade com os dados antigos.
-// As telas e os serviços trabalham com listas simples.
 import {
   AmigoNaFesta,
   Avaliacao,
@@ -21,7 +19,6 @@ export function salvarDados(chave: string, dados: unknown) {
   localStorage.setItem(chave, JSON.stringify(dados));
 }
 
-// O formato gravado continua sendo { "id da festa": [itens] }.
 function lerGrupos<T extends { festaId: number }>(
   chave: string,
   padrao: { [id: string]: object[] } = {},

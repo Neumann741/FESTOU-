@@ -77,7 +77,6 @@ export class Mapa {
       this.festaInicial = Number.isInteger(id) && id > 0 ? id : undefined;
       this.selecionarFestaDaUrl();
     });
-    // Exceção do mapa: atualiza os marcadores quando a lista de festas muda.
     effect(() => {
       const festas = this.service.festas();
       untracked(() => {
@@ -127,38 +126,41 @@ export class Mapa {
     inicio.setDate(hoje.getDate() + (hoje.getDay() === 0 ? -1 : (6 - hoje.getDay() + 7) % 7));
     const fim = new Date(inicio);
     fim.setDate(inicio.getDate() + 2);
-    const resultado = this.todos
-      .map((festa) => ({
-        ...festa,
-        distancia: this.usuario
-          ? calcularDistancia(
-              this.usuario.latitude,
-              this.usuario.longitude,
-              festa.latitude,
-              festa.longitude,
-            )
-          : undefined,
-      }))
-      .filter((festa) => {
-        const dia = new Date(`${festa.data}T00:00:00`).getTime();
-        return (
-          normalizar(`${festa.nome} ${festa.local} ${festa.cidade} ${festa.categoria}`).includes(
-            normalizar(this.busca().trim()),
-          ) &&
-          (!this.categoria() || festa.categoria === this.categoria()) &&
-          (!this.periodo() ||
-            (this.periodo() === 'hoje'
-              ? dia === +hoje
-              : this.periodo() === 'amanha'
-                ? dia === +amanha
-                : dia >= +inicio && dia < +fim)) &&
-          (!this.perto() ||
-            (festa.distancia !== undefined && festa.distancia <= this.config.raioKm))
+    const resultado: (Festa & { distancia?: number })[] = [];
+
+    for (const festa of this.todos) {
+      let distancia: number | undefined;
+      if (this.usuario) {
+        distancia = calcularDistancia(
+          this.usuario.latitude,
+          this.usuario.longitude,
+          festa.latitude,
+          festa.longitude,
         );
-      });
-    if (this.perto()) resultado.sort((a, b) => a.distancia! - b.distancia!);
+      }
+
+      const festaComDistancia = { ...festa, distancia };
+      const texto = festa.nome + ' ' + festa.local + ' ' + festa.cidade + ' ' + festa.categoria;
+      if (!normalizar(texto).includes(normalizar(this.busca().trim()))) continue;
+      if (this.categoria() && festa.categoria !== this.categoria()) continue;
+
+      const dia = new Date(festa.data + 'T00:00:00').getTime();
+      if (this.periodo() === 'hoje' && dia !== hoje.getTime()) continue;
+      if (this.periodo() === 'amanha' && dia !== amanha.getTime()) continue;
+      if (this.periodo() === 'fim' && (dia < inicio.getTime() || dia >= fim.getTime())) continue;
+
+      if (this.perto() && (distancia === undefined || distancia > this.config.raioKm)) continue;
+
+      resultado.push(festaComDistancia);
+    }
+
+    if (this.perto()) {
+      resultado.sort((primeira, segunda) => (primeira.distancia || 0) - (segunda.distancia || 0));
+    }
     this.festas.set(resultado);
-    if (!resultado.some((f) => f.id === this.selecionada())) this.selecionada.set(null);
+    if (!resultado.some((festa) => festa.id === this.selecionada())) {
+      this.selecionada.set(null);
+    }
     this.atualizarMarkers();
   }
 
@@ -199,11 +201,12 @@ export class Mapa {
     });
   }
   preco(festa: Festa): string {
-    return festa.preco === undefined
-      ? 'Preço a confirmar'
-      : festa.preco === 0
-        ? 'Grátis'
-        : festa.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (festa.preco === undefined) return 'Preço a confirmar';
+    if (festa.preco === 0) return 'Grátis';
+    return festa.preco.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
   }
 
   selecionar(festa: Festa) {
@@ -232,7 +235,10 @@ export class Mapa {
     this.mensagem.set('');
     this.carregandoLocal.set(true);
     try {
-      const usuario = this.usuario ?? (await this.location.getCurrentLocation());
+      let usuario = this.usuario;
+      if (!usuario) {
+        usuario = await this.location.getCurrentLocation();
+      }
       if (this.destroyRef.destroyed) return;
       this.usuario = usuario;
       this.perto.set(true);
@@ -353,8 +359,7 @@ export class Mapa {
     button.type = 'button';
     button.textContent = 'VER FESTA';
     button.addEventListener('click', () => {
-      if (this.config.detalhesDisponiveis) this.router.navigate(['/festa', festa.id]);
-      else this.mensagem.set('A página de detalhes da festa estará disponível em breve.');
+      this.router.navigate(['/festa', festa.id]);
     });
     content.append(button);
     return content;
