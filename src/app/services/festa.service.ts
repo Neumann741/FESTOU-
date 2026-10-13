@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { CadastroFesta } from '../models/cadastro-festa';
 import { Festa } from '../models/festa';
 import { criarFestasMock } from './festas.mock';
+import { lerDados, salvarDados } from '../integracoes/armazenamento';
 
 @Injectable({ providedIn: 'root' })
 export class FestaService {
@@ -27,21 +28,29 @@ export class FestaService {
   }
 
   atualizarFesta(festaAtualizada: Festa): void {
-    const lista = this.festas().map((festa) =>
-      festa.id === festaAtualizada.id ? festaAtualizada : festa,
-    );
+    const lista = this.festas().map((festa) => {
+      if (festa.id === festaAtualizada.id) {
+        return festaAtualizada;
+      }
+      return festa;
+    });
     this.salvarFestas(lista);
     this.festas.set(lista);
   }
 
   private buscarFestas(): Festa[] {
-    const dados = localStorage.getItem(this.chave);
     const padrao = criarFestasMock();
-    if (!dados) return padrao;
-    const salvas: Festa[] = JSON.parse(dados);
-    const normalizadas = salvas.map(
-      (festa) => ({ ...festa, tipo: festa.tipo || 'publica' }) as Festa,
-    );
+    const salvas = lerDados<Festa[] | null>(this.chave, null);
+    if (!salvas) {
+      return padrao;
+    }
+    const normalizadas: Festa[] = [];
+    for (const festa of salvas) {
+      if (!festa.tipo) {
+        festa.tipo = 'publica';
+      }
+      normalizadas.push(festa);
+    }
     for (const festa of padrao) {
       const existe = normalizadas.some((item) => item.id === festa.id);
       if (!existe) {
@@ -52,6 +61,6 @@ export class FestaService {
   }
 
   private salvarFestas(festas: Festa[]): void {
-    localStorage.setItem(this.chave, JSON.stringify(festas));
+    salvarDados(this.chave, festas);
   }
 }

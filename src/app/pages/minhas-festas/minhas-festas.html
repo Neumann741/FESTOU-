@@ -32,7 +32,7 @@
         @if (festa.tipo === 'privada') {
           <section class="pedidos">
             <h3>Pedidos de participação</h3>
-            @for (convite of interacao.convites()[festa.id] || []; track convite.pessoa) {
+            @for (convite of interacao.convitesDaFesta(festa.id); track convite.pessoa) {
               @if (convite.status === 'aguardando aprovação') {
                 <p>{{ convite.pessoa }} aceitou seu convite e aguarda aprovação.</p>
                 <button

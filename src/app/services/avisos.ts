@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { lerDados, salvarDados } from '../integracoes/armazenamento';
 
 export interface Aviso {
   id: number;
@@ -10,7 +11,7 @@ export interface Aviso {
 
 @Injectable({ providedIn: 'root' })
 export class Avisos {
-  lista = signal<Aviso[]>(JSON.parse(localStorage.getItem('festou-avisos') || '[]'));
+  lista = signal<Aviso[]>(lerDados('festou-avisos', []));
   naoLidos(): number {
     let quantidade = 0;
     for (const aviso of this.lista()) {
@@ -22,7 +23,12 @@ export class Avisos {
   }
 
   adicionar(texto: string, festaId: number): void {
-    const id = Math.max(Date.now(), ...this.lista().map((aviso) => aviso.id + 1));
+    let id = Date.now();
+    for (const aviso of this.lista()) {
+      if (aviso.id >= id) {
+        id = aviso.id + 1;
+      }
+    }
     this.lista.update((lista) => [
       { id, texto, festaId, lido: false, data: new Date().toLocaleString('pt-BR') },
       ...lista,
@@ -36,6 +42,6 @@ export class Avisos {
   }
 
   private salvar(): void {
-    localStorage.setItem('festou-avisos', JSON.stringify(this.lista()));
+    salvarDados('festou-avisos', this.lista());
   }
 }

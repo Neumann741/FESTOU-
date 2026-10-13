@@ -3,21 +3,18 @@ import { Festa } from '../models/festa';
 import { Interacao } from './interacao';
 import { Avisos } from './avisos';
 
-export interface Avaliacao {
-  pessoa: string;
-  nota: number;
-  comentario: string;
-}
-
-// Avaliações agrupadas como já estão gravadas no navegador.
-interface AvaliacoesPorFesta {
-  [festaId: number]: Avaliacao[];
-}
+import { Avaliacao } from '../models/interacoes';
+import {
+  lerDados,
+  salvarDados,
+  lerAvaliacoes,
+  salvarAvaliacoes,
+} from '../integracoes/armazenamento';
 
 @Injectable({ providedIn: 'root' })
 export class Experiencias {
   private readonly avisos = inject(Avisos);
-  checkins = signal<number[]>(JSON.parse(localStorage.getItem('festou-checkins') || '[]'));
+  checkins = signal<number[]>(lerDados('festou-checkins', []));
   readonly interacao = inject(Interacao);
 
   codigo(festa: Festa): string {
@@ -51,13 +48,15 @@ export class Experiencias {
     )
       return 'É necessário ter ingresso e presença confirmada em uma festa ativa.';
     this.checkins.update((lista) => [...lista, festa.id]);
-    localStorage.setItem('festou-checkins', JSON.stringify(this.checkins()));
+    salvarDados('festou-checkins', this.checkins());
     this.avisos.adicionar(`Check-in simulado em ${festa.nome}.`, festa.id);
     return 'Entrada confirmada na simulação!';
   }
-  avaliacoes = signal<AvaliacoesPorFesta>(
-    JSON.parse(localStorage.getItem('festou-avaliacoes') || '{}'),
-  );
+  avaliacoes = signal<Avaliacao[]>(lerAvaliacoes());
+
+  avaliacoesDaFesta(id: number): Avaliacao[] {
+    return this.avaliacoes().filter((avaliacao) => avaliacao.festaId === id);
+  }
 
   podeAvaliar(festa: Festa, pessoa: string): boolean {
     if (this.interacao.status(festa) !== 'encerrada') {
@@ -73,17 +72,22 @@ export class Experiencias {
     if (!this.podeAvaliar(festa, pessoa))
       return 'Somente participantes podem avaliar uma festa encerrada.';
     if (!Number.isInteger(nota) || nota < 1 || nota > 5) return 'Escolha uma nota de 1 a 5.';
-    const avaliacao = { pessoa, nota, comentario: comentario.trim().slice(0, 500) };
-    this.avaliacoes.update((lista) => ({
-      ...lista,
-      [festa.id]: [...(lista[festa.id] || []).filter((item) => item.pessoa !== pessoa), avaliacao],
-    }));
-    localStorage.setItem('festou-avaliacoes', JSON.stringify(this.avaliacoes()));
+    const avaliacao: Avaliacao = {
+      festaId: festa.id,
+      pessoa,
+      nota,
+      comentario: comentario.trim().slice(0, 500),
+    };
+    const anteriores = this.avaliacoes().filter((item) => {
+      return item.festaId !== festa.id || item.pessoa !== pessoa;
+    });
+    this.avaliacoes.set([...anteriores, avaliacao]);
+    salvarAvaliacoes(this.avaliacoes());
     return 'Avaliação salva! Uma nova avaliação substitui a anterior da mesma pessoa.';
   }
 
   media(id: number): string {
-    const lista = this.avaliacoes()[id] || [];
+    const lista = this.avaliacoesDaFesta(id);
     if (lista.length === 0) {
       return '—';
     }

@@ -51,7 +51,7 @@
 <section class="recurso">
   <h2>Avaliações · {{ experiencias.media(festa().id) }} ★</h2>
   <p>
-    {{ (experiencias.avaliacoes()[festa().id] || []).length }} avaliações. Disponíveis após o
+    {{ experiencias.avaliacoesDaFesta(festa().id).length }} avaliações. Disponíveis após o
     encerramento, apenas para quem participou.
   </p>
   <label
@@ -85,7 +85,7 @@
   @if (avisoAvaliacao) {
     <p class="aviso">{{ avisoAvaliacao }}</p>
   }
-  @for (avaliacao of experiencias.avaliacoes()[festa().id] || []; track avaliacao.pessoa) {
+  @for (avaliacao of experiencias.avaliacoesDaFesta(festa().id); track avaliacao.pessoa) {
     <article>
       <strong>{{ avaliacao.pessoa }} · {{ avaliacao.nota }} ★</strong>
       <p>{{ avaliacao.comentario }}</p>
@@ -119,7 +119,7 @@
   @if (avisoConvite) {
     <p class="aviso">{{ avisoConvite }}</p>
   }
-  @for (convite of interacao.convites()[festa().id] || []; track convite.pessoa) {
+  @for (convite of interacao.convitesDaFesta(festa().id); track convite.pessoa) {
     <article>
       <strong>{{ convite.pessoa }}</strong>
       <p>{{ convite.status }}</p>
