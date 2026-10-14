@@ -31,6 +31,8 @@ form {
 }
 input {
   width: 100%;
+  border-color: #ffffff;
+  padding: 15px;
 }
 .campo span {
   display: block;
