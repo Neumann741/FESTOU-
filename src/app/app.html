@@ -1,4 +1,6 @@
-
-
-<router-outlet />
-
+<div [class.area-interna]="!paginaSemMenu()">
+  @if (!paginaSemMenu()) {
+    <app-navegacao-interna />
+  }
+  <div [class.conteudo-interno]="!paginaSemMenu()"><router-outlet /></div>
+</div>

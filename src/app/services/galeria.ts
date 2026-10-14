@@ -1,22 +1,49 @@
 import { Injectable, signal } from '@angular/core';
+import { lerDados, salvarDados } from '../integracoes/armazenamento';
 
-export interface FotoGaleria { festaId: number; link: string; pessoa: string; }
+export interface FotoGaleria {
+  festaId: number;
+  link: string;
+  pessoa: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class Galeria {
-  fotos = signal<FotoGaleria[]>(this.ler());
+  fotos = signal<FotoGaleria[]>(lerDados('festou-galeria', []));
 
-  adicionar(festaId: number, link: string): void {
+  adicionar(festaId: number, link: string) {
     if (!link.trim()) return;
     const fotos = [...this.fotos(), { festaId, link, pessoa: 'Você' }];
     this.fotos.set(fotos);
-    localStorage.setItem('festou-galeria', JSON.stringify(fotos));
+    salvarDados('festou-galeria', fotos);
   }
 
-  fotosDaFesta(id: number): FotoGaleria[] { return this.fotos().filter((foto) => foto.festaId === id); }
+  editar(festaId: number, indice: number, link: string) {
+    if (!link.trim()) return;
 
-  private ler(): FotoGaleria[] {
-    const dados = localStorage.getItem('festou-galeria');
-    return dados ? JSON.parse(dados) : [];
+    const fotos = [...this.fotos()];
+    let posicaoNaFesta = 0;
+
+    for (let i = 0; i < fotos.length; i++) {
+      if (fotos[i].festaId === festaId) {
+        if (posicaoNaFesta === indice) {
+          fotos[i] = { ...fotos[i], link };
+          this.fotos.set(fotos);
+          salvarDados('festou-galeria', fotos);
+          return;
+        }
+        posicaoNaFesta++;
+      }
+    }
+  }
+
+  fotosDaFesta(id: number): FotoGaleria[] {
+    const resultado: FotoGaleria[] = [];
+    for (const foto of this.fotos()) {
+      if (foto.festaId === id) {
+        resultado.push(foto);
+      }
+    }
+    return resultado;
   }
 }

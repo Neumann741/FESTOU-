@@ -1,0 +1,87 @@
+.galeria-pagina {
+  min-height: 100vh;
+  padding: 36px 5% 72px;
+  color: #eee;
+  background: #171717;
+}
+.galeria-pagina > a {
+  color: #888;
+  font-size: 12px;
+  text-decoration: none;
+}
+h1 {
+  margin: 28px 0 10px;
+}
+p {
+  color: #999;
+  font-size: 13px;
+}
+.enviar {
+  display: flex;
+  gap: 12px;
+  max-width: 650px;
+  margin: 28px 0 38px;
+}
+.enviar input {
+  flex: 1;
+}
+button {
+  padding: 12px 18px;
+  background: #edca49;
+  color: #171717;
+  border: 0;
+  border-radius: 5px;
+}
+.fotos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 12px;
+}
+.fotos article {
+  min-width: 0;
+  background: none;
+}
+.fotos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 3px;
+}
+.fotos span {
+  display: block;
+  padding: 10px 0;
+  color: #888;
+  font-size: 11px;
+}
+.fotos input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.acoes-foto {
+  display: flex;
+  gap: 8px;
+}
+.acoes-foto button:last-child {
+  background: #2b2b2b;
+  color: #eee;
+}
+.vazio-interno {
+  grid-column: 1/-1;
+  border-top: 1px solid #333;
+  padding: 32px 0;
+}
+.vazio-interno h2 {
+  font-size: 18px;
+}
+@media (max-width: 550px) {
+  .galeria-pagina {
+    padding: 28px 20px;
+  }
+  .fotos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .enviar {
+    flex-direction: column;
+  }
+}

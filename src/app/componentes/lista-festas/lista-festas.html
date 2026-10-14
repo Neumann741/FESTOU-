@@ -1,0 +1,67 @@
+<main class="vitrine">
+  <section class="destaques">
+    <header class="titulo-container">
+      <h1>Em destaque</h1>
+      <button class="ver-todas" type="button" (click)="verTodasNoMapa()">Ver todas</button>
+    </header>
+
+    <section class="filtros-festas">
+      <label>
+        Buscar festa
+        <input [ngModel]="busca()" (ngModelChange)="busca.set($event)" placeholder="Nome, cidade ou estilo musical" />
+      </label>
+      <label>
+        Categoria
+        <select [ngModel]="categoria()" (ngModelChange)="categoria.set($event)">
+          <option value="">Todas</option>
+          @for (item of categorias(); track item) { <option [value]="item">{{ item }}</option> }
+        </select>
+      </label>
+      <label>
+        Preço
+        <select [ngModel]="limitePreco()" (ngModelChange)="limitePreco.set($event)">
+          <option value="">Todos</option>
+          <option value="0">Grátis</option>
+          <option value="30">Até R$ 30</option>
+          <option value="60">Até R$ 60</option>
+        </select>
+      </label>
+      <label class="filtro-amigos">
+        <input type="checkbox" [ngModel]="comAmigos()" (ngModelChange)="comAmigos.set($event)" />
+        Com amigos participando
+      </label>
+      <button type="button" (click)="limparFiltros()">Limpar filtros</button>
+    </section>
+
+    <p class="resultado-filtros">{{ filtradas().length }} festa(s) encontrada(s)</p>
+    <div class="festas-grid">
+      @for (festa of filtradas(); track festa.id) {
+        <article class="festa-card">
+          <div class="imagem-container" [style.background-image]="imagem(festa)">
+            <span class="data">{{ dataLabel(festa.data) }}</span>
+            @if (festa.tipo === 'privada') { <span class="tipo-festa">Privada</span> }
+            <button class="abrir-no-mapa" type="button" (click)="abrirNoMapa(festa)">Ver no mapa</button>
+          </div>
+          <div class="card-conteudo">
+            <h2>{{ festa.nome }}</h2>
+            <p class="situacao-festa">{{ interacao.status(festa) }}</p>
+            <p class="informacao">{{ festa.categoria }}</p>
+            <p class="informacao">{{ festa.local }} · {{ festa.cidade }}</p>
+            @if (interacao.amigosNaFesta(festa.id).length) {
+              <p class="amigos-festa">{{ amigos(festa) }}</p>
+            }
+            <p class="preco">Ingressos <strong>{{ preco(festa) }}</strong></p>
+            <button class="ver-festa" type="button" (click)="verDetalhes(festa)">Ver detalhes</button>
+            @if (festa.tipo === 'privada') {
+              <button class="ver-festa pedir-participacao" type="button" (click)="pedirParticipacao(festa)" [disabled]="participacaoDesabilitada(festa)">
+                {{ textoParticipacao(festa) }}
+              </button>
+            }
+          </div>
+        </article>
+      } @empty {
+        <p class="sem-resultados">Nenhuma festa combina com os filtros. Tente outra busca ou limpe os filtros.</p>
+      }
+    </div>
+  </section>
+</main>

@@ -1,0 +1,32 @@
+<main class="pagina-editar">
+  <a routerLink="/perfil">← Voltar ao perfil</a>
+  <section class="caixa-editar">
+    <h1>Editar perfil</h1>
+    <form (ngSubmit)="salvar()">
+      <label>Nome<input name="nome" [(ngModel)]="dados.nome" maxlength="60" required /></label>
+      <label
+        >Link da foto<input
+          name="foto"
+          [(ngModel)]="dados.foto"
+          placeholder="https://..."
+          type="url"
+      /></label>
+      <label
+        >Bio<textarea name="bio" [(ngModel)]="dados.bio" maxlength="180" rows="3"></textarea>
+      </label>
+      <label
+        >Estilos favoritos<input
+          name="estilos"
+          [(ngModel)]="dados.estilos"
+          maxlength="120"
+          placeholder="Pagode, Rock, Eletrônica"
+      /></label>
+      @if (mensagem) {
+        <p class="mensagem">{{ mensagem }}</p>
+      }
+      <div class="acoes">
+        <a routerLink="/perfil">Cancelar</a><button type="submit">Salvar perfil</button>
+      </div>
+    </form>
+  </section>
+</main>

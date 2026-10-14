@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { Header } from '../../componentes/header/header';
 import { HeaderMain } from '../../componentes/header-main/header-main';
 import { Footer } from '../../componentes/footer/footer';
-import { Vitrine } from '../vitrine/vitrine';
+import { ListaFestas } from '../../componentes/lista-festas/lista-festas';
+import { Mapa } from '../../componentes/mapa/mapa';
+import { GaleriaGeral } from '../../componentes/galeria-geral/galeria-geral';
+import { SobreNos } from '../../componentes/sobre-nos/sobre-nos';
 
 @Component({
-  imports: [Header, HeaderMain, Footer, Vitrine],
+  imports: [HeaderMain, Footer, ListaFestas, Mapa, GaleriaGeral, SobreNos],
   selector: 'app-main-page',
-  styleUrl: './main-page.css',
   templateUrl: './main-page.html',
 })
 export class MainPage {}

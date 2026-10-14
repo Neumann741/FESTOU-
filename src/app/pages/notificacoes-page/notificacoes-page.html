@@ -1,0 +1,22 @@
+<main class="pagina-avisos">
+  <a routerLink="/perfil">← Meu perfil</a>
+  <header>
+    <h1>Notificações</h1>
+  </header>
+  <button (click)="avisos.marcarLidos()" [disabled]="!avisos.naoLidos()">
+    Marcar todas como lidas ({{ avisos.naoLidos() }})
+  </button>
+  <section>
+    @for (aviso of avisos.lista(); track aviso.id) {
+      <article [class.novo]="!aviso.lido">
+        <small>{{ aviso.data }} · {{ situacao(aviso.lido) }}</small>
+        <p>{{ aviso.texto }}</p>
+        <a [routerLink]="['/festa', aviso.festaId]">Ver festa</a>
+      </article>
+    } @empty {
+      <article>
+        <h2>Nenhuma notificação</h2>
+      </article>
+    }
+  </section>
+</main>

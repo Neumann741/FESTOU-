@@ -1,0 +1,43 @@
+.galeria-geral {
+  padding: 40px 5%;
+  background: #171717;
+  color: #eee;
+  border-top: 1px solid #303030;
+}
+.titulo-galeria {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.titulo-galeria h2 {
+  margin: 0;
+  font-size: 22px;
+}
+a {
+  color: #aaa;
+  font-size: 12px;
+  text-decoration: none;
+}
+.mural-fotos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+img {
+  width: 100%;
+  aspect-ratio: 1.2;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+.sem-fotos {
+  grid-column: 1/-1;
+  color: #888;
+  padding: 24px 0;
+}
+@media (max-width: 550px) {
+  .mural-fotos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

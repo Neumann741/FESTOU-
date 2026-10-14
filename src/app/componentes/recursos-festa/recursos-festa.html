@@ -1,0 +1,141 @@
+<section class="recurso ingresso">
+  <h2>Ingresso</h2>
+
+  <div class="acoes">
+    <button (click)="emitirIngresso()" [disabled]="interacao.fechada(festa)">
+      {{ textoBotaoIngresso() }}
+    </button>
+  </div>
+
+  @if (interacao.ingressos().includes(festa.id)) {
+    <article>
+      <h3>{{ festa.nome }}</h3>
+      <p>{{ festa.data }} · {{ festa.horario }}</p>
+      <strong>{{ experiencias.codigo(festa) }}</strong>
+      <p>{{ situacaoIngresso() }}</p>
+
+      <div class="acoes">
+        <button (click)="fazerCheckin()" [disabled]="checkinDesabilitado()">
+          Fazer check-in
+        </button>
+      </div>
+    </article>
+  }
+
+  @if (avisoIngresso) {
+    <p class="aviso">{{ avisoIngresso }}</p>
+  }
+</section>
+
+<section class="recurso">
+  <h2>Avaliações · nota {{ experiencias.media(festa.id) }}</h2>
+
+  <label>
+    Avaliar como
+    <select [(ngModel)]="avaliador">
+      <option value="Você">Você</option>
+      @for (pessoa of interacao.amigosNaFesta(festa.id); track pessoa) {
+        <option [value]="pessoa">{{ pessoa }}</option>
+      }
+    </select>
+  </label>
+
+  @if (experiencias.podeAvaliar(festa, avaliador)) {
+    <label>
+      Nota
+      <select [(ngModel)]="nota">
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
+      </select>
+    </label>
+
+    <label>
+      Comentário
+      <textarea
+        [(ngModel)]="comentario"
+        maxlength="500"
+        rows="3"
+        placeholder="O que você achou da festa?"
+      ></textarea>
+    </label>
+
+    <div class="acoes">
+      <button (click)="avaliar()">Salvar avaliação</button>
+    </div>
+  }
+
+  @if (avisoAvaliacao) {
+    <p class="aviso">{{ avisoAvaliacao }}</p>
+  }
+
+  @for (avaliacao of experiencias.avaliacoesDaFesta(festa.id); track avaliacao.pessoa) {
+    <article>
+      <strong>{{ avaliacao.pessoa }} · nota {{ avaliacao.nota }}</strong>
+      <p>{{ avaliacao.comentario }}</p>
+    </article>
+  } @empty {
+    <p>Ainda não há avaliações.</p>
+  }
+</section>
+
+<section class="recurso">
+  <h2>Convidar amigos</h2>
+
+  <label>
+    Amigo
+    <select [(ngModel)]="amigo">
+      <option value="">Escolha um amigo</option>
+      @for (pessoa of interacao.pessoas; track pessoa) {
+        <option [value]="pessoa">{{ pessoa }}</option>
+      }
+    </select>
+  </label>
+
+  <div class="acoes">
+    <button (click)="convidar()" [disabled]="conviteDesabilitado()">Enviar convite</button>
+  </div>
+
+  @if (avisoConvite) {
+    <p class="aviso">{{ avisoConvite }}</p>
+  }
+
+  @for (convite of interacao.convitesDaFesta(festa.id); track convite.pessoa) {
+    <article>
+      <strong>{{ convite.pessoa }}</strong>
+      <p>{{ convite.status }}</p>
+
+      @if (convite.status === 'pendente') {
+        <div class="acoes">
+          <button
+            (click)="interacao.responderConvite(festa, convite.pessoa, true)"
+            [disabled]="interacao.fechada(festa) || interacao.lotada(festa)"
+          >
+            Aceitar
+          </button>
+          <button (click)="interacao.responderConvite(festa, convite.pessoa, false)">
+            Recusar
+          </button>
+        </div>
+      }
+    </article>
+  } @empty {
+    <p>Nenhum convite enviado para esta festa.</p>
+  }
+</section>
+
+<section class="recurso">
+  <h2>Compartilhar</h2>
+
+  <div class="acoes">
+    <button (click)="copiar()">Copiar link</button>
+    <a [href]="whatsapp()" target="_blank">Abrir no WhatsApp</a>
+  </div>
+
+  @if (mensagem()) {
+    <p class="aviso">{{ mensagem() }}</p>
+    <input [value]="link()" readonly />
+  }
+</section>

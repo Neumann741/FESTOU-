@@ -1,0 +1,15 @@
+<main class="minhas-festas">
+  <a class="voltar-interno" routerLink="/perfil">← Voltar ao perfil</a>
+  <header>
+    <h1>Minhas festas</h1>
+    <a routerLink="/criar-festa">+ Criar festa</a>
+  </header>
+
+  <section class="lista-festas">
+    @for (festa of festas(); track festa.id) {
+      <app-card-gerenciamento [festa]="festa" />
+    } @empty {
+      <p>Nenhuma festa criada ainda.</p>
+    }
+  </section>
+</main>

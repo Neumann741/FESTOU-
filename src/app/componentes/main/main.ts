@@ -5,7 +5,6 @@ import {
   ElementRef,
   inject,
   NgZone,
-  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -20,10 +19,7 @@ import { RouterLink } from '@angular/router';
 export class Main {
   readonly activeCard = signal(0);
   readonly staticMode = signal(false);
-  readonly reducedMotion = signal(false);
   readonly showRegistration = signal(false);
-  // Conecte este evento à futura tela de cadastro.
-  readonly registerRequested = output<void>();
   readonly cards = [
     { label: 'Encontre', title: 'ENCONTRA', accent: 'SUA FESTA.', image: 'assets/img.card1.jpg' },
     { label: 'Faca', title: 'FAZ NOVOS', accent: 'AMIGOS.', image: 'assets/img.card2.jpg' },
@@ -42,16 +38,13 @@ export class Main {
   private readonly destroyRef = inject(DestroyRef);
   private frame = 0;
   private motionQuery?: MediaQueryList;
-  private manualStatic = false;
-  // Cinco entradas, uma breve leitura do sexto card, transformação e pausa final.
   private readonly timeline = 6.6;
 
   constructor() {
     afterNextRender(() => {
       this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       const updatePreference = () => {
-        this.reducedMotion.set(!!this.motionQuery?.matches);
-        this.staticMode.set(this.manualStatic || !!this.motionQuery?.matches);
+        this.staticMode.set(!!this.motionQuery?.matches);
         this.scheduleUpdate();
       };
       updatePreference();
@@ -70,15 +63,7 @@ export class Main {
     });
   }
 
-
-  goToCard(index: number): void {
-    const section = this.story().nativeElement;
-    const top = section.getBoundingClientRect().top + window.scrollY;
-    const distance = section.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: top + (distance * index) / this.timeline, behavior: 'auto' });
-  }
-
-  private readonly scheduleUpdate = (): void => {
+  private readonly scheduleUpdate = () => {
     if (this.frame) return;
     this.frame = window.requestAnimationFrame(() => {
       this.frame = 0;
@@ -86,7 +71,7 @@ export class Main {
     });
   };
 
-  private updateCards(): void {
+  private updateCards() {
     const section = this.story().nativeElement;
     const cards = section.querySelectorAll<HTMLElement>('.story-card');
     if (this.staticMode()) {

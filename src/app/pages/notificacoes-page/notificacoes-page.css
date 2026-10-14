@@ -1,0 +1,56 @@
+.pagina-avisos {
+  min-height: 100vh;
+  max-width: 1160px;
+  margin: auto;
+  padding: 40px 5% 72px;
+  background: #171717;
+  color: #eee;
+}
+a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 12px;
+}
+header {
+  margin: 28px 0 32px;
+}
+h1 {
+  margin: 0 0 12px;
+}
+header span,
+p,
+small {
+  color: #999;
+}
+button {
+  background: #262626;
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  color: #ccc;
+  padding: 10px 15px;
+  font-size: 12px;
+}
+article {
+  padding: 22px 0;
+  border-bottom: 1px solid #303030;
+}
+article.novo {
+  border-left: 2px solid #b7a465;
+  padding-left: 18px;
+}
+article h2 {
+  font-size: 17px;
+  margin: 6px 0;
+}
+article p {
+  font-size: 13px;
+  margin: 8px 0;
+}
+article small {
+  font-size: 11px;
+}
+@media (max-width: 600px) {
+  .pagina-avisos {
+    padding: 28px 20px;
+  }
+}

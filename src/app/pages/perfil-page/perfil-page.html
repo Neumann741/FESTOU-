@@ -1,0 +1,112 @@
+<main class="pagina-social">
+  <div class="limite-social">
+    <section class="identidade-social">
+      <div class="avatar-social">
+        @if (usuario.perfil().foto && !fotoFalhou) {
+          <img [src]="usuario.perfil().foto" (error)="fotoFalhou = true" />
+        } @else {
+          {{ iniciais() }}
+        }
+      </div>
+
+      <div class="nome-social">
+        <h1>{{ usuario.perfil().nome }}</h1>
+        <p class="bio-social">{{ usuario.perfil().bio }}</p>
+
+        <div class="gostos-social">
+          @for (estilo of estilos(); track $index) {
+            <span>{{ estilo }}</span>
+          }
+        </div>
+      </div>
+
+      <a class="editar-social" routerLink="/editar-perfil">Editar perfil</a>
+    </section>
+
+    <div class="resumo-social">
+      <button (click)="mudarAba('confirmadas')">
+        <strong>{{ confirmadas().length }}</strong> confirmadas
+      </button>
+      <button (click)="mudarAba('salvas')">
+        <strong>{{ salvas().length }}</strong> salvas
+      </button>
+      <span
+        ><strong>{{ amigos.length }}</strong> amigos</span
+      >
+    </div>
+
+    <div class="corpo-social">
+      <section class="colecao-social">
+        <div class="abas-social">
+          <button [class.selecionada]="aba() === 'confirmadas'" (click)="mudarAba('confirmadas')">
+            Confirmadas <span>{{ confirmadas().length }}</span>
+          </button>
+          <button [class.selecionada]="aba() === 'salvas'" (click)="mudarAba('salvas')">
+            Salvas <span>{{ salvas().length }}</span>
+          </button>
+        </div>
+
+        <div class="grade-social">
+          @for (festa of exibidas(); track festa.id) {
+            <a class="evento-social" [routerLink]="['/festa', festa.id]">
+              <div class="imagem-social">
+                <img [src]="festa.imagem" />
+                <span>{{ festa.categoria }}</span>
+              </div>
+
+              <div class="info-social">
+                <p>{{ festa.data }} · {{ festa.horario }}</p>
+                <h2>{{ festa.nome }}</h2>
+                <span>{{ festa.local }} · {{ festa.cidade }}</span>
+
+                <div class="rodape-social">
+                  <span>{{ textoDaFesta() }}</span>
+                </div>
+              </div>
+            </a>
+          } @empty {
+            <div class="vazio-social">
+              <h2>Nenhuma festa nesta lista</h2>
+              <p>{{ textoVazio() }}</p>
+              <a routerLink="/vitrine">Ver festas</a>
+            </div>
+          }
+        </div>
+      </section>
+
+      <aside class="lateral-social">
+        <a class="mapa-social" routerLink="/agenda">Minha agenda e histórico</a>
+        <a class="mapa-social" routerLink="/notificacoes">
+          Notificações · {{ avisos.naoLidos() }} novas
+        </a>
+
+        <section class="amigos-social">
+          <div class="titulo-social">
+            <h2>Amigos</h2>
+            <span>{{ amigos.length }}</span>
+          </div>
+
+          @for (amigo of amigos; track amigo.nome; let i = $index) {
+            <div class="pessoa-social">
+              <span
+                class="inicial-social"
+                [class.tom-rosa]="i === 1"
+                [class.tom-verde]="i === 2"
+                [class.tom-azul]="i === 3"
+              >
+                {{ amigo.nome[0] }}
+              </span>
+              <div>
+                <strong>{{ amigo.nome }}</strong>
+                <p>{{ amigo.estilo }}</p>
+              </div>
+            </div>
+          }
+        </section>
+
+        <a class="gerenciar-social" routerLink="/minhas-festas">Gerenciar minhas festas</a>
+        <a class="mapa-social" routerLink="/mapa-page">Ver mapa</a>
+      </aside>
+    </div>
+  </div>
+</main>

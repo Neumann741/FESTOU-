@@ -1,0 +1,185 @@
+.vitrine {
+  padding: 36px 5% 56px;
+  background: #171717;
+  color: #eee;
+}
+.destaques {
+  max-width: 1220px;
+  margin: auto;
+}
+.titulo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.titulo-container h1 {
+  font-size: 24px;
+  margin: 0;
+}
+.ver-todas {
+  border: 0;
+  background: none;
+  color: #aaa;
+  font-size: 12px;
+  padding: 8px;
+}
+.filtros-festas {
+  display: grid;
+  grid-template-columns: minmax(160px, 2fr) 1fr 1fr;
+  gap: 14px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 22px;
+}
+.filtros-festas label {
+  display: grid;
+  gap: 7px;
+  color: #888;
+  font-size: 12px;
+}
+.filtros-festas input,
+.filtros-festas select {
+  width: 100%;
+}
+.filtros-festas .filtro-amigos {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.filtro-amigos input {
+  width: 16px;
+  accent-color: #edca49;
+}
+.filtros-festas button {
+  border: 0;
+  background: none;
+  color: #aaa;
+  justify-self: start;
+  font-size: 12px;
+}
+.resultado-filtros {
+  color: #777;
+  font-size: 12px;
+  margin: 20px 0;
+}
+.festas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 22px;
+}
+.festa-card {
+  min-width: 0;
+}
+.imagem-container {
+  height: 220px;
+  border-radius: 6px;
+  background: #252525 center/cover;
+  position: relative;
+}
+.data {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 5px 8px;
+  background: #171717e8;
+  color: #ddd;
+  border-radius: 3px;
+  font-size: 10px;
+}
+.tipo-festa {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 4px 8px;
+  color: #fff;
+  background: #171717c9;
+  font-size: 10px;
+}
+
+.abrir-no-mapa {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #171717d9;
+  color: #ddd;
+  border: 0;
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+.card-conteudo {
+  padding: 14px 0 0;
+}
+.card-conteudo h2 {
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+.informacao {
+  color: #999;
+  font-size: 12px;
+  margin: 4px 0;
+}
+.informacao > span {
+  display: none;
+}
+.situacao-festa {
+  font-size: 10px;
+  color: #b1a375;
+  text-transform: capitalize;
+  margin: 4px 0 8px;
+}
+.amigos-festa {
+  color: #bbb;
+  font-size: 11px;
+  margin: 10px 0;
+}
+.preco {
+  font-size: 11px;
+  color: #888;
+  margin: 14px 0;
+}
+.preco strong {
+  color: #ddd;
+  font-size: 13px;
+  margin-left: 5px;
+}
+.ver-festa {
+  padding: 8px 12px;
+  background: #262626;
+  border: 1px solid #383838;
+  border-radius: 5px;
+  color: #eee;
+  font-size: 12px;
+}
+.pedir-participacao {
+  border: 0;
+  background: transparent;
+  color: #aaa;
+}
+.sem-resultados {
+  grid-column: 1/-1;
+  padding: 40px 0;
+  color: #999;
+}
+@media (max-width: 1100px) {
+  .festas-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 550px) {
+  .vitrine {
+    padding: 28px 20px;
+  }
+  .festas-grid {
+    grid-template-columns: 1fr;
+  }
+  .filtros-festas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .filtros-festas label:first-child {
+    grid-column: 1/-1;
+  }
+  .imagem-container {
+    height: 260px;
+  }
+}

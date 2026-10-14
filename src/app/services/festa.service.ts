@@ -1,47 +1,81 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { CadastroFesta } from '../models/cadastro-festa';
 import { Festa } from '../models/festa';
 import { criarFestasMock } from './festas.mock';
+import { lerDados, salvarDados } from '../integracoes/armazenamento';
 
 @Injectable({ providedIn: 'root' })
 export class FestaService {
   private readonly chave = 'festou-festas';
-  private readonly festas = new BehaviorSubject<Festa[]>(this.buscarFestas());
+  readonly festas = signal<Festa[]>(this.buscarFestas());
 
-  getFestas(): Observable<Festa[]> {
-    return this.festas.asObservable();
-  }
-
-  criarFesta(dados: Omit<Festa, 'id'>): Festa {
+  criarFesta(dados: CadastroFesta): Festa {
     const festa: Festa = {
       ...dados,
       id: new Date().getTime(),
     };
 
-    const lista = [...this.festas.value, festa];
+    const lista = [...this.festas(), festa];
     this.salvarFestas(lista);
-    this.festas.next(lista);
+    this.festas.set(lista);
     return festa;
   }
 
-  removerFesta(id: number): void {
-    const lista = this.festas.value.filter((festa) => festa.id !== id);
+  removerFesta(id: number) {
+    const lista: Festa[] = [];
+    for (const festa of this.festas()) {
+      if (festa.id !== id) {
+        lista.push(festa);
+      }
+    }
     this.salvarFestas(lista);
-    this.festas.next(lista);
+    this.festas.set(lista);
   }
 
-  atualizarFesta(festaAtualizada: Festa): void {
-    const lista = this.festas.value.map((festa) => festa.id === festaAtualizada.id ? festaAtualizada : festa);
+  atualizarFesta(festaAtualizada: Festa) {
+    const lista: Festa[] = [];
+    for (const festa of this.festas()) {
+      if (festa.id === festaAtualizada.id) {
+        lista.push(festaAtualizada);
+      } else {
+        lista.push(festa);
+      }
+    }
     this.salvarFestas(lista);
-    this.festas.next(lista);
+    this.festas.set(lista);
   }
 
   private buscarFestas(): Festa[] {
-    const dados = localStorage.getItem(this.chave);
-    return dados ? JSON.parse(dados) : criarFestasMock();
+    const padrao = criarFestasMock();
+    const salvas = lerDados<Festa[] | null>(this.chave, null);
+    if (!salvas) {
+      return padrao;
+    }
+    const normalizadas: Festa[] = [];
+    for (const festa of salvas) {
+      if (!festa.tipo) {
+        festa.tipo = 'publica';
+      }
+      normalizadas.push(festa);
+    }
+    for (const festa of padrao) {
+      let existe = false;
+      for (const item of normalizadas) {
+        if (item.id === festa.id) {
+          existe = true;
+          if (!item.imagem || item.imagem.startsWith('assets/img')) {
+            item.imagem = festa.imagem;
+          }
+        }
+      }
+      if (!existe) {
+        normalizadas.push(festa);
+      }
+    }
+    return normalizadas;
   }
 
-  private salvarFestas(festas: Festa[]): void {
-    localStorage.setItem(this.chave, JSON.stringify(festas));
+  private salvarFestas(festas: Festa[]) {
+    salvarDados(this.chave, festas);
   }
 }

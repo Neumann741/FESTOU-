@@ -1,0 +1,85 @@
+/* A Home não recebe estas regras. */
+.area-interna {
+  min-height: 100vh;
+  color: #ededed;
+  background: #171717;
+  font-family: 'Graphik', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  --amarelo: #edca49;
+  --texto-secundario: #999;
+}
+.area-interna > .conteudo-interno {
+  margin-left: 224px;
+  min-width: 0;
+}
+.area-interna h1,
+.area-interna h2,
+.area-interna h3 {
+  font-family: 'Graphik', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.035em;
+  color: #f0f0f0;
+}
+.area-interna h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  font-weight: 650;
+}
+.area-interna h2 {
+  font-size: 21px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.area-interna h3 {
+  font-size: 16px;
+}
+.area-interna a {
+  text-underline-offset: 4px;
+}
+.area-interna button,
+.area-interna input,
+.area-interna select,
+.area-interna textarea {
+  font: inherit;
+}
+.area-interna button {
+  cursor: pointer;
+}
+.area-interna button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.area-interna input,
+.area-interna select,
+.area-interna textarea {
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #393939;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: #ededed;
+  color-scheme: dark;
+}
+.area-interna input:focus,
+.area-interna select:focus,
+.area-interna textarea:focus {
+  outline: 1px solid #aaa;
+  outline-offset: 1px;
+}
+.area-interna .festa,
+.area-interna .faixa,
+.area-interna .fotos article,
+.area-interna .caixa-formulario {
+  box-shadow: none;
+  transform: none;
+}
+.area-interna app-footer {
+  display: block;
+  border-top: 1px solid #303030;
+}
+@media (max-width: 850px) {
+  .area-interna > .conteudo-interno {
+    margin-left: 0;
+    padding-top: 69px;
+  }
+}

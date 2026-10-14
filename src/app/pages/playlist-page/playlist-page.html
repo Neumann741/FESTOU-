@@ -1,0 +1,68 @@
+<main class="pagina-playlist">
+  <nav class="navegacao">
+    <a [routerLink]="['/festa', festaId]">← Voltar à festa</a>
+  </nav>
+
+  <header class="cabecalho">
+    <div class="capa-musical">
+      <img [src]="imagemDaFesta()" />
+    </div>
+
+    <div class="apresentacao">
+      <h1>{{ nomeDaFesta() }}</h1>
+      <span class="contador">{{ playlist.daFesta(festaId).length }} músicas</span>
+    </div>
+  </header>
+
+  <div class="conteudo">
+    <section class="lista">
+      <div class="titulo-lista">
+        <h2>Músicas</h2>
+        <span>{{ playlist.daFesta(festaId).length }}</span>
+      </div>
+
+      @for (musica of playlist.daFesta(festaId); track $index) {
+        <article class="faixa">
+          <span class="numero">{{ $index + 1 }}</span>
+
+          <div class="dados-musica">
+            <strong>{{ musica.nome }}</strong>
+            <p>{{ artistaDaMusica(musica.artista) }}</p>
+          </div>
+
+          <div class="acoes">
+            <button
+              type="button"
+              class="votar"
+              [class.votada]="votou(musica.votos)"
+              (click)="playlist.votar(festaId, $index, 'Você')"
+            >
+              {{ textoVoto(musica.votos) }}
+            </button>
+
+            @if (musica.link) {
+              <a [href]="musica.link" target="_blank">Ouvir</a>
+            }
+
+            <button type="button" (click)="remover($index)">Remover</button>
+          </div>
+        </article>
+      } @empty {
+        <div class="vazio">
+          <h3>Nenhuma música adicionada</h3>
+        </div>
+      }
+    </section>
+
+    <aside class="painel">
+      <h2>Adicionar música</h2>
+
+      <form class="formulario" (ngSubmit)="adicionar()">
+        <label>Nome da música <input name="musica" [(ngModel)]="nome" /></label>
+        <label>Artista <input name="artista" [(ngModel)]="artista" /></label>
+        <label>Link para ouvir <input name="link" [(ngModel)]="link" /></label>
+        <button type="submit" [disabled]="!nome.trim()">Adicionar</button>
+      </form>
+    </aside>
+  </div>
+</main>

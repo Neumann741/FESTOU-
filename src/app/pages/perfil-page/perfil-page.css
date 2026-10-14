@@ -1,0 +1,239 @@
+.pagina-social {
+  min-height: 100vh;
+  padding: 48px 5%;
+  background: #171717;
+  color: #eee;
+}
+.limite-social {
+  max-width: 1080px;
+  margin: auto;
+}
+.identidade-social {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-bottom: 28px;
+}
+.avatar-social {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #39332a;
+  color: #dfd2b9;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  overflow: hidden;
+}
+.avatar-social img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nome-social {
+  flex: 1;
+  min-width: 0;
+}
+.nome-social h1 {
+  margin: 0 0 10px;
+  overflow-wrap: anywhere;
+}
+.bio-social {
+  color: #b4b4b4;
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.gostos-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #929292;
+}
+.editar-social {
+  padding: 9px 16px;
+  color: #ddd;
+  background: #252525;
+  border: 1px solid #393939;
+  border-radius: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.resumo-social {
+  display: flex;
+  gap: 32px;
+  padding: 8px 0 30px 128px;
+  color: #aaa;
+  font-size: 13px;
+}
+.resumo-social button {
+  background: none;
+  border: 0;
+  color: #aaa;
+  padding: 0;
+}
+.resumo-social strong {
+  color: #eee;
+  margin-right: 5px;
+  font-weight: 600;
+}
+.corpo-social {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 40px;
+  border-top: 1px solid #333;
+  padding-top: 24px;
+}
+.abas-social {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #303030;
+}
+.abas-social button {
+  padding: 0 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #929292;
+  background: none;
+}
+.abas-social .selecionada {
+  color: #eee;
+  border-color: #eee;
+}
+.abas-social span {
+  margin-left: 6px;
+  font-size: 12px;
+}
+.grade-social {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 18px;
+}
+.evento-social {
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+.imagem-social {
+  position: relative;
+}
+.imagem-social img {
+  width: 100%;
+  aspect-ratio: 1.2;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+.imagem-social span {
+  display: none;
+}
+.info-social {
+  padding-top: 12px;
+}
+.info-social h2 {
+  font-size: 16px;
+  margin: 4px 0 7px;
+}
+.info-social p {
+  color: #b0a784;
+  font-size: 11px;
+  margin: 0;
+}
+.info-social > span {
+  color: #888;
+  font-size: 12px;
+}
+.rodape-social {
+  display: none;
+}
+.lateral-social {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mapa-social,
+.gerenciar-social {
+  color: #bbb;
+  font-size: 13px;
+  text-decoration: none;
+}
+.amigos-social {
+  border-top: 1px solid #333;
+  padding-top: 16px;
+}
+.titulo-social {
+  display: flex;
+  justify-content: space-between;
+  color: #888;
+  align-items: center;
+}
+.titulo-social h2 {
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+.pessoa-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+.inicial-social {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #333;
+  display: grid;
+  place-items: center;
+  color: #bbb;
+}
+.pessoa-social strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.pessoa-social p {
+  font-size: 11px;
+  color: #888;
+  margin: 2px 0;
+}
+.vazio-social {
+  grid-column: 1/-1;
+  padding: 38px 0;
+  color: #999;
+}
+.vazio-social h2 {
+  font-size: 18px;
+}
+.vazio-social a {
+  color: #ddd;
+}
+@media (max-width: 1100px) {
+  .corpo-social {
+    grid-template-columns: 1fr;
+  }
+  .lateral-social {
+    border-top: 1px solid #333;
+    padding-top: 24px;
+  }
+}
+@media (max-width: 550px) {
+  .pagina-social {
+    padding: 28px 20px;
+  }
+  .identidade-social {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .avatar-social {
+    width: 70px;
+    height: 70px;
+  }
+  .nome-social {
+    flex-basis: calc(100% - 88px);
+  }
+  .resumo-social {
+    padding-left: 0;
+    gap: 22px;
+  }
+}
